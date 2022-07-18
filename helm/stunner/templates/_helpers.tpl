@@ -46,7 +46,7 @@ app.kubernetes.io/managed-by: {{ .Release.Service }}
 Selector labels for turn server
 */}}
 {{- define "stunner.stunner.selectorLabels" -}}
-app: {{ .Values.global.stunner.deployment.label }}
+app: {{ .Values.stunner.deployment.label }}
 app.kubernetes.io/name: {{ include "stunner.name" . }}
 app.kubernetes.io/instance: {{ .Release.Name }}
 {{- end }}
@@ -55,10 +55,10 @@ app.kubernetes.io/instance: {{ .Release.Name }}
 Create the name of the service account to use
 */}}
 {{- define "stunner.serviceAccountName" -}}
-{{- if .Values.global.serviceAccount.create }}
-{{- default (include "stunner.fullname" .) .Values.global.serviceAccount.name }}
+{{- if .Values.serviceAccount.create }}
+{{- default (include "stunner.fullname" .) .Values.serviceAccount.name }}
 {{- else }}
-{{- default "default" .Values.global.serviceAccount.name }}
+{{- default "default" .Values.serviceAccount.name }}
 {{- end }}
 {{- end }}
 
@@ -66,7 +66,7 @@ Create the name of the service account to use
 Generate the proper args for stunnerd
 */}}
 {{- define "stunner.stunnerGatewayOperator.args" -}}
-{{- if .Values.global.stunnerGatewayOperator.enabled }}
+{{- if eq .Values.stunner.withoutGatewayOperator false }}
 command: ["stunnerd"]
 args: ["-w", "-c", "/etc/stunnerd/stunnerd.conf"]
 env:
@@ -96,7 +96,7 @@ env:
 Generate the proper args for stunnerd
 */}}
 {{- define "stunner.stunnerGatewayOperator.volume" -}}
-{{- if .Values.global.stunnerGatewayOperator.enabled }}
+{{- if eq .Values.stunner.withoutGatewayOperator false }}
 volumes:
   - name: stunnerd-config-volume
     configMap:

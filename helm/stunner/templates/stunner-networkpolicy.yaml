@@ -1,12 +1,12 @@
 # Important! NetworkPolicy is installed in case the stunnerGatewayOperator.enabled is set to false.
 # lock down access from the TURN server to anywhere!
 ---
-{{- if eq .Values.global.stunnerGatewayOperator.enabled false }} 
+{{- if eq .Values.stunner.withoutGatewayOperator true}} 
 apiVersion: networking.k8s.io/v1
 kind: NetworkPolicy
 metadata:
   name: "{{- include "stunner.name" .}}-network-policy"
-  namespace: {{ .Values.global.stunner.namespace }}
+  namespace: {{ .Values.stunner.namespace }}
 spec:
   podSelector:
     matchLabels:

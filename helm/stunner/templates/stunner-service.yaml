@@ -1,17 +1,17 @@
 # Important! Service is installed in case the stunnerGatewayOperator.enabled is set to false.
 ---
-{{- if eq .Values.global.stunnerGatewayOperator.enabled false}} 
+{{- if eq .Values.stunner.withoutGatewayOperator true}} 
 apiVersion: v1
 kind: Service
 metadata:
   name: {{ include "stunner.name" . }}
-  namespace: {{ .Values.global.stunner.namespace }}
+  namespace: {{ .Values.stunner.namespace }}
   labels:
     {{- include "stunner.labels" . | nindent 4 }}
 spec:
   ports:
-    - port: {{ .Values.global.stunner.service.port }}
-      targetPort: {{ .Values.global.stunner.service.port }}
+    - port: {{ .Values.stunner.service.port }}
+      targetPort: {{ .Values.stunner.service.port }}
       protocol: UDP
       name: stunner-udp
   type: LoadBalancer
