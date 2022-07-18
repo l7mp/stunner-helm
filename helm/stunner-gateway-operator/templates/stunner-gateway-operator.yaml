@@ -3,13 +3,13 @@ apiVersion: v1
 kind: ServiceAccount
 metadata:
   name: stunner-gateway-operator-controller-manager
-  namespace: {{ .Values.global.stunnerGatewayOperator.namespace }}
+  namespace: {{ .Values.stunnerGatewayOperator.namespace }}
 ---
 apiVersion: rbac.authorization.k8s.io/v1
 kind: Role
 metadata:
   name: stunner-gateway-operator-leader-election-role
-  namespace: {{ .Values.global.stunnerGatewayOperator.namespace }}
+  namespace: {{ .Values.stunnerGatewayOperator.namespace }}
 rules:
 - apiGroups:
   - ""
@@ -235,7 +235,7 @@ apiVersion: rbac.authorization.k8s.io/v1
 kind: RoleBinding
 metadata:
   name: stunner-gateway-operator-leader-election-rolebinding
-  namespace: {{ .Values.global.stunnerGatewayOperator.namespace }}
+  namespace: {{ .Values.stunnerGatewayOperator.namespace }}
 roleRef:
   apiGroup: rbac.authorization.k8s.io
   kind: Role
@@ -243,7 +243,7 @@ roleRef:
 subjects:
 - kind: ServiceAccount
   name: stunner-gateway-operator-controller-manager
-  namespace: {{ .Values.global.stunnerGatewayOperator.namespace }}
+  namespace: {{ .Values.stunnerGatewayOperator.namespace }}
 ---
 apiVersion: rbac.authorization.k8s.io/v1
 kind: ClusterRoleBinding
@@ -256,7 +256,7 @@ roleRef:
 subjects:
 - kind: ServiceAccount
   name: stunner-gateway-operator-controller-manager
-  namespace: {{ .Values.global.stunnerGatewayOperator.namespace }}
+  namespace: {{ .Values.stunnerGatewayOperator.namespace }}
 ---
 apiVersion: rbac.authorization.k8s.io/v1
 kind: ClusterRoleBinding
@@ -269,13 +269,13 @@ roleRef:
 subjects:
 - kind: ServiceAccount
   name: stunner-gateway-operator-controller-manager
-  namespace: {{ .Values.global.stunnerGatewayOperator.namespace }}
+  namespace: {{ .Values.stunnerGatewayOperator.namespace }}
 ---
 apiVersion: v1
 kind: ConfigMap
 metadata:
   name: stunner-gateway-operator-manager-config
-  namespace: {{ .Values.global.stunnerGatewayOperator.namespace }}
+  namespace: {{ .Values.stunnerGatewayOperator.namespace }}
 data:
   controller_manager_config.yaml: |
     apiVersion: controller-runtime.sigs.k8s.io/v1alpha1
@@ -296,7 +296,7 @@ metadata:
   labels:
     control-plane: controller-manager
   name: stunner-gateway-operator-controller-manager-metrics-service
-  namespace: {{ .Values.global.stunnerGatewayOperator.namespace }}
+  namespace: {{ .Values.stunnerGatewayOperator.namespace }}
 spec:
   ports:
   - name: https
@@ -312,7 +312,7 @@ metadata:
   labels:
     control-plane: controller-manager
   name: stunner-gateway-operator-controller-manager
-  namespace: {{ .Values.global.stunnerGatewayOperator.namespace }}
+  namespace: {{ .Values.stunnerGatewayOperator.namespace }}
 spec:
   replicas: 1
   selector:
@@ -350,7 +350,7 @@ spec:
         - --leader-elect
         command:
         - /manager
-        image: "{{ .Values.global.stunnerGatewayOperator.deployment.container.image.repository }}{{ .Values.global.stunnerGatewayOperator.deployment.container.image.name }}:{{ .Values.global.stunnerGatewayOperator.deployment.container.image.tag }}"
+        image: "{{ .Values.stunnerGatewayOperator.deployment.container.image.repository }}{{ .Values.stunnerGatewayOperator.deployment.container.image.name }}:{{ .Values.stunnerGatewayOperator.deployment.container.image.tag }}"
         livenessProbe:
           httpGet:
             path: /healthz
@@ -364,7 +364,7 @@ spec:
             port: 8081
           initialDelaySeconds: 5
           periodSeconds: 10
-        resources: {{- toYaml .Values.global.stunnerGatewayOperator.deployment.container.image.resources | nindent 10 }}
+        resources: {{- toYaml .Values.stunnerGatewayOperator.deployment.container.image.resources | nindent 10 }}
         securityContext:
           allowPrivilegeEscalation: false
       securityContext:
