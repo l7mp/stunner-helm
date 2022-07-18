@@ -66,7 +66,7 @@ Create the name of the service account to use
 Generate the proper args for stunnerd
 */}}
 {{- define "stunner.stunnerGatewayOperator.args" -}}
-{{- if eq .Values.stunner.withoutGatewayOperator false }}
+{{- if eq .Values.stunner.operatorless.enabled false }}
 command: ["stunnerd"]
 args: ["-w", "-c", "/etc/stunnerd/stunnerd.conf"]
 env:
@@ -96,7 +96,7 @@ env:
 Generate the proper args for stunnerd
 */}}
 {{- define "stunner.stunnerGatewayOperator.volume" -}}
-{{- if eq .Values.stunner.withoutGatewayOperator false }}
+{{- if eq .Values.stunner.operatorless.enabled false }}
 volumes:
   - name: stunnerd-config-volume
     configMap:
