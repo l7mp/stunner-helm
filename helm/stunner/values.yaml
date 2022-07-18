@@ -37,8 +37,8 @@ stunner:
   
   networkPolicy: enable
   
-  withoutGatewayOperator: false
-  postInstall:
+  operatorless:
+    enabled: false
     serviceAccountName: post-install-sa
     image:
       repository: ""

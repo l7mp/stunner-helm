@@ -1,0 +1,121 @@
+# Important! Job is installed in case the .Values.stunner.operatorless.enabled is set to true.
+# Post install job running a script to gather the external IP of the LB SVC for stunner
+{{- if eq .Values.stunner.operatorless.enabled true}}
+---
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: "{{- include "stunner.name" .}}-post-install"
+  labels: 
+    job: "{{- include "stunner.name" .}}-post-install-job"
+  namespace: {{ .Values.stunner.namespace }}
+spec:
+  template:
+    spec:
+      serviceAccountName: {{ .Values.stunner.operatorless.serviceAccountName }}
+      containers:
+      - name: post-install
+        # image: l7mp/stunner-job:latest
+        image: "{{ .Values.stunner.operatorless.image.repository }}{{ .Values.stunner.operatorless.image.name }}:{{ .Values.stunner.operatorless.image.tag | default .Chart.AppVersion }}"
+        imagePullPolicy: {{ .Values.stunner.operatorless.image.pullPolicy }}
+        command: ["/bin/bash"]
+        args: ["./post-install.sh"]
+      restartPolicy: Never
+  backoffLimit: 4
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRole
+metadata:
+  name: post-install-cr
+  namespace: {{ .Values.stunner.namespace }}
+rules:
+- apiGroups: [""]
+  resources: ["services"]
+  verbs: ["get", "watch", "list"]
+- apiGroups: [""] 
+  resources: ["configmaps"]
+  verbs: ["get", "watch", "list", "patch"]
+- apiGroups: [""] 
+  resources: ["nodes"]
+  verbs: ["get", "list"]
+---
+apiVersion: v1
+kind: ServiceAccount
+metadata:
+  name: {{ .Values.stunner.operatorless.serviceAccountName }}
+  namespace: {{ .Values.stunner.namespace }}
+  labels:
+    job: "{{- include "stunner.name" .}}-post-install-job"
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRoleBinding
+metadata:
+  labels:
+    crb: stunner-job
+  name: stunner-job
+roleRef:
+  apiGroup: rbac.authorization.k8s.io
+  kind: ClusterRole
+  name: post-install-cr
+subjects:
+- kind: ServiceAccount
+  name: {{ .Values.stunner.operatorless.serviceAccountName }}
+  namespace: {{ .Values.stunner.namespace }}
+---
+# TURN server config: make sure to customize the below environment variables
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: {{ .Values.stunner.deployment.name}}-config
+  namespace: {{ .Values.stunner.namespace }}
+data:
+# The external IP configured by the load-balancer for the Stunner service
+# STUNNER_PUBLIC_ADDR: "A.B.C.D"
+# Credential realm, default "stunner.l7mp.io"
+  STUNNER_REALM: "{{ .Values.stunner.config.STUNNER_REALM }}"
+# Server port, default: 3478
+  STUNNER_PORT: "{{ .Values.stunner.config.STUNNER_PORT }}"
+# User name, default: "user". Make sure to customize!
+  STUNNER_USERNAME: "{{ .Values.stunner.config.STUNNER_USERNAME }}"
+# Password, default: "pass". Make sure to customize!
+  STUNNER_PASSWORD: "{{ .Values.stunner.config.STUNNER_PASSWORD }}"
+# Log level, default: "all:WARN"
+  STUNNER_LOGLEVEL: "{{ .Values.stunner.config.STUNNER_LOGLEVEL }}"
+# Lowest relay transport port, default: 10000
+  STUNNER_MIN_PORT: "{{ .Values.stunner.config.STUNNER_MIN_PORT }}"
+# Highest relay transport port, default: 20000
+  STUNNER_MAX_PORT: "{{ .Values.stunner.config.STUNNER_MAX_PORT }}"
+---
+# Important! NetworkPolicy is installed in case the .Values.stunner.operatorless.enabled is set to true.
+# lock down access from the TURN server to anywhere!
+apiVersion: networking.k8s.io/v1
+kind: NetworkPolicy
+metadata:
+  name: "{{- include "stunner.name" .}}-network-policy"
+  namespace: {{ .Values.stunner.namespace }}
+spec:
+  podSelector:
+    matchLabels:
+      {{- include "stunner.stunner.selectorLabels" . | nindent 6 }}
+  policyTypes:
+  - Egress
+---
+# Important! Service is installed in case the .Values.stunner.operatorless.enabled is set to true.
+apiVersion: v1
+kind: Service
+metadata:
+  name: {{ include "stunner.name" . }}
+  namespace: {{ .Values.stunner.namespace }}
+  labels:
+    {{- include "stunner.labels" . | nindent 4 }}
+spec:
+  ports:
+    - port: {{ .Values.stunner.service.port }}
+      targetPort: {{ .Values.stunner.service.port }}
+      protocol: UDP
+      name: stunner-udp
+  type: LoadBalancer
+  selector:
+    {{- include "stunner.stunner.selectorLabels" . | nindent 4 }}
+---
+{{- end -}}
