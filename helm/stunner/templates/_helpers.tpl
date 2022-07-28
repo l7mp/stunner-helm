@@ -101,6 +101,7 @@ volumes:
   - name: stunnerd-config-volume
     configMap:
       name: stunnerd-configmap
+      optional: true
 {{- end }}
 {{- end }}
 
