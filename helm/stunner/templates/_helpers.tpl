@@ -78,6 +78,7 @@ env:
 volumeMounts:
   - name: stunnerd-config-volume
     mountPath: /etc/stunnerd
+    readOnly: true
 {{- else }}
 command: ["stunnerd"]
 args: ["-c", "/stunnerd.conf"]
