@@ -46,7 +46,7 @@ app.kubernetes.io/managed-by: {{ .Release.Service }}
 Selector labels for turn server
 */}}
 {{- define "stunner.stunner.selectorLabels" -}}
-app: {{ .Values.stunner.deployment.label }}
+{{- toYaml .Values.stunner.deployment.label }}
 app.kubernetes.io/name: {{ include "stunner.name" . }}
 app.kubernetes.io/instance: {{ .Release.Name }}
 {{- end }}
