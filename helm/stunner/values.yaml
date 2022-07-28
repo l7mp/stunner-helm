@@ -1,7 +1,10 @@
 # Default values for stunner.
 
+#To set the namespace for the deployment use the --namespace=<your-namespace> --create-namespace
+#additional commands when installing your release
+#It will create the desired namespace if not present
+
 stunner:
-  namespace: default
   deployment:
     name: stunner
     label: stunner
@@ -23,22 +26,14 @@ stunner:
 
       netdebug: 
         enabled: false
-  config:
-  #PLEASE CUSTOMIZE THE VALUES BELOW 
-    STUNNER_REALM: stunner.l7mp.io
-    STUNNER_PORT: 3478
-    STUNNER_USERNAME: user
-    STUNNER_PASSWORD: pass
-    STUNNER_LOGLEVEL: all:WARN
-    STUNNER_MIN_PORT: 10000
-    STUNNER_MAX_PORT: 20000
+
 
   service:
     port: 3478
   
   networkPolicy: enable
   
-  operatorless:
+  standalone:
     enabled: false
     serviceAccountName: post-install-sa
     image:
@@ -46,3 +41,12 @@ stunner:
       name: l7mp/stunner-job
       pullPolicy: Always
       tag: latest
+    config:
+    #PLEASE CUSTOMIZE THE VALUES BELOW 
+      STUNNER_REALM: stunner.l7mp.io
+      STUNNER_PORT: 3478
+      STUNNER_USERNAME: user
+      STUNNER_PASSWORD: pass
+      STUNNER_LOGLEVEL: all:WARN
+      STUNNER_MIN_PORT: 10000
+      STUNNER_MAX_PORT: 20000

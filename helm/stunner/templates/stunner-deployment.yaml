@@ -3,7 +3,7 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: {{ include "stunner.name" . }}
-  namespace: {{ .Values.stunner.namespace }}
+  namespace: {{ .Release.Namespace }}
 spec:
   selector:
     matchLabels:

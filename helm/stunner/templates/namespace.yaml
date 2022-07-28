@@ -1,8 +1,0 @@
----
-{{- if ne .Values.stunner.namespace "default" }}
-apiVersion: v1
-kind: Namespace
-metadata:
-  name: {{ .Values.stunner.namespace }}
-{{- end }}
----
