@@ -101,7 +101,7 @@ Generate the proper args for stunnerd
 volumes:
   - name: stunnerd-config-volume
     configMap:
-      name: stunnerd-configmap
+      name: stunnerd-config
       optional: true
 {{- end }}
 {{- end }}
