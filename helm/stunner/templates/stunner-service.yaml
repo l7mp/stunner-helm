@@ -1,0 +1,13 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: {{ include "stunner.name" . }}-clusterip
+  namespace: {{ .Release.Namespace }}
+  labels: {{- toYaml .Values.stunner.deployment.label | nindent 4}}
+spec:
+  selector: {{- toYaml .Values.stunner.deployment.label | nindent 4}}
+  ports:
+    - port: 3478
+      protocol: UDP
+      name: stunner
+  type: ClusterIP
