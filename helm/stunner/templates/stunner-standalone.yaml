@@ -66,7 +66,7 @@ subjects:
 apiVersion: v1
 kind: ConfigMap
 metadata:
-  name: {{ .Values.stunner.deployment.name}}-config
+  name: stunnerd-config
   namespace: {{ .Release.Namespace }}
 data:
 # The external IP configured by the load-balancer for the Stunner service
@@ -104,7 +104,7 @@ spec:
 apiVersion: v1
 kind: Service
 metadata:
-  name: {{ include "stunner.name" . }}-lb
+  name: {{ include "stunner.name" . }}-standalone-lb
   namespace: {{ .Release.Namespace }}
   labels:
     {{- include "stunner.labels" . | nindent 4 }}

@@ -84,7 +84,7 @@ command: ["stunnerd"]
 args: ["-c", "/stunnerd.conf"]
 envFrom:
   - configMapRef:
-      name: stunner-config
+      name: stunnerd-config
 env:
 - name: STUNNER_ADDR  # we use the POD IP
   valueFrom:

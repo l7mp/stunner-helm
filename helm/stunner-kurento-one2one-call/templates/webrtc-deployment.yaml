@@ -26,7 +26,7 @@ spec:
         # TURN server config to return to the user
         envFrom:
           - configMapRef:
-              name: stunner-config
+              name: stunnerd-config
         volumeMounts:
           - name: webrtc-server-tls
             mountPath: "/app/keys"
