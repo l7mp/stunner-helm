@@ -48,7 +48,7 @@ spec:
         - containerPort: {{ .Values.mediaServer.deployment.containerPort }}
 {{- if eq .Values.netdebug "enable"}}
       - name: net-debug
-        image: retvari/net-debug:latest
+        image: l7mp/net-debug:latest
         command: ["/bin/sh"]
         args: ["-c", "while true; do echo hello; sleep 10;done"]
 {{- end}}
