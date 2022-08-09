@@ -23,7 +23,7 @@ spec:
         resources: {{- toYaml .Values.stunner.deployment.container.image.resources | nindent 10 }}
 {{- if eq .Values.stunner.deployment.container.netdebug.enabled true}}
       - name: net-debug
-        image: retvari/net-debug:latest
+        image: l7mp/net-debug:latest
         imagePullPolicy: IfNotPresent
         command: ["/bin/sh"]
         args: ["-c", "while true; do echo hello; sleep 10;done"]
