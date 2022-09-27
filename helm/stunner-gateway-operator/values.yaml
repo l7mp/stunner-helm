@@ -13,7 +13,7 @@ stunnerGatewayOperator:
         repository: ""
         name: l7mp/stunner-gateway-operator
         pullPolicy: Always
-        tag: 0.11.4
+        tag: 0.11.5
         resources:
           limits:
             cpu: 1000m
