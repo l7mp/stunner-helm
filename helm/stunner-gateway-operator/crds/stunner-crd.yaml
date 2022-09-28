@@ -35,10 +35,14 @@ spec:
         description: GatewayConfig is the Schema for the gatewayconfigs API
         properties:
           apiVersion:
-            description: 'APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources'
+            description: 'APIVersion defines the versioned schema of this representation
+              of an object. Servers should convert recognized schemas to the latest
+              internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources'
             type: string
           kind:
-            description: 'Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds'
+            description: 'Kind is a string value representing the REST resource this
+              object represents. Servers may infer this from the endpoint the client
+              submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds'
             type: string
           metadata:
             type: object
@@ -46,45 +50,73 @@ spec:
             description: GatewayConfigSpec defines the desired state of GatewayConfig
             properties:
               authLifetime:
-                description: AuthLifetime defines the lifetime of "longterm" authentication credentials in seconds.
+                description: AuthLifetime defines the lifetime of "longterm" authentication
+                  credentials in seconds.
                 format: int32
                 type: integer
               authType:
                 default: plaintext
-                description: AuthType is the type of the STUN/TURN authentication mechanism.
+                description: AuthType is the type of the STUN/TURN authentication
+                  mechanism.
                 pattern: ^plaintext|longterm$
                 type: string
-              loglevel:
-                description: LogLevel specifies the default loglevel for the STUNner daemon
+              loadBalancerServiceAnnotations:
+                additionalProperties:
+                  type: string
+                description: "LoadBalancerServiceAnnotations is a list of annotations
+                  that will go into the LoadBalancer services created automatically
+                  by the operator to wrap Gateways \n NOTE: removing annotations from
+                  a GatewayConfig will not result in the removal of the corresponding
+                  annotations from the LoadBalancer service, in order to prevent the
+                  accidental removal of an annotation installed there by Kubernetes
+                  or the cloud provider. If you really want to remove an annotation,
+                  do this manually or simply remove all Gateways (which will remove
+                  the corresponding LoadBalancer services), update the GatewayConfig
+                  and then recreate the Gateways, so that the newly created LoadBalancer
+                  services will contain the required annotations"
+                type: object
+              logLevel:
+                description: LogLevel specifies the default loglevel for the STUNner
+                  daemon
                 type: string
               maxPort:
-                description: MaxRelayPort is the smallest relay port assigned for STUNner relay connections.
+                description: MaxRelayPort is the smallest relay port assigned for
+                  STUNner relay connections.
                 format: int32
                 type: integer
               minPort:
-                description: MinRelayPort is the smallest relay port assigned for STUNner relay connections.
+                description: MinRelayPort is the smallest relay port assigned for
+                  STUNner relay connections.
                 format: int32
                 type: integer
               password:
-                description: Password defines the `password` credential for "plaintext" authentication.
+                description: Password defines the `password` credential for "plaintext"
+                  authentication.
                 pattern: ^[A-Za-z0-9!#$%&'*+\-.^_\x60|~]+$
                 type: string
               realm:
                 default: stunner.l7mp.io
-                description: "Realm defines the STUN/TURN authentication realm to be used for clients toauthenticate with STUNner. \n The realm must consist of lower case alphanumeric characters or '-', and must start and end with an alphanumeric character. No other punctuation is allowed."
+                description: "Realm defines the STUN/TURN authentication realm to
+                  be used for clients toauthenticate with STUNner. \n The realm must
+                  consist of lower case alphanumeric characters or '-', and must start
+                  and end with an alphanumeric character. No other punctuation is
+                  allowed."
                 pattern: ^[a-z0-9]([-a-z0-9]*[a-z0-9])?(\.[a-z0-9]([-a-z0-9]*[a-z0-9])?)*$
                 type: string
               sharedSecret:
-                description: SharedSecret defines the shared secret to be used for "longterm" authentication
+                description: SharedSecret defines the shared secret to be used for
+                  "longterm" authentication
                 type: string
               stunnerConfig:
                 default: stunnerd-config
-                description: StunnerConfig specifies the name of the ConfigMap into which the operator renders the stunnerd configfile.
+                description: StunnerConfig specifies the name of the ConfigMap into
+                  which the operator renders the stunnerd configfile.
                 maxLength: 64
                 pattern: ^[a-zA-Z]([-a-zA-Z0-9]*[a-zA-Z0-9])?$
                 type: string
               userName:
-                description: Username defines the `username` credential for "plaintext" authentication.
+                description: Username defines the `username` credential for "plaintext"
+                  authentication.
                 pattern: ^[A-Za-z0-9!#$%&'*+\-.^_\x60|~]+$
                 type: string
             type: object
@@ -98,4 +130,3 @@ status:
     plural: ""
   conditions: []
   storedVersions: []
----
