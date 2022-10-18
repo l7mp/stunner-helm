@@ -35,9 +35,9 @@ spec:
       name: Description
       priority: 1
       type: string
-    deprecated: false
-    deprecationWarning: The v1alpha2 version of GatewayClass has been deprecated and
-      will be removed in a future release of the API. Please upgrade to v1beta1.
+    # deprecated: true
+    # deprecationWarning: The v1alpha2 version of GatewayClass has been deprecated and
+    #   will be removed in a future release of the API. Please upgrade to v1beta1.
     name: v1alpha2
     schema:
       openAPIV3Schema:
@@ -468,9 +468,9 @@ spec:
     - jsonPath: .metadata.creationTimestamp
       name: Age
       type: date
-    deprecated: False
-    deprecationWarning: The v1alpha2 version of Gateway has been deprecated and will
-      be removed in a future release of the API. Please upgrade to v1beta1.
+    # deprecated: true
+    # deprecationWarning: The v1alpha2 version of Gateway has been deprecated and will
+    #   be removed in a future release of the API. Please upgrade to v1beta1.
     name: v1alpha2
     schema:
       openAPIV3Schema:
@@ -1880,9 +1880,9 @@ spec:
     - jsonPath: .metadata.creationTimestamp
       name: Age
       type: date
-    deprecated: false
-    deprecationWarning: The v1alpha2 version of HTTPRoute has been deprecated and
-      will be removed in a future release of the API. Please upgrade to v1beta1.
+    # deprecated: true
+    # deprecationWarning: The v1alpha2 version of HTTPRoute has been deprecated and
+    #   will be removed in a future release of the API. Please upgrade to v1beta1.
     name: v1alpha2
     schema:
       openAPIV3Schema:
