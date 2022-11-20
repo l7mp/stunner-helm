@@ -10,14 +10,12 @@ spec:
   podMetricsEndpoints:
   - honorLabels: True
     interval: 5s
-    #port:8080
     port: {{ .Values.endpointPorts.prometheus.name }}
-    targetPort: {{ .Values.endpointPorts.prometheus.name }}
   selector:
     matchExpressions:
     -  {key: app, operator: In, values: ['stunner']}
   namespaceSelector:
     matchNames:
-      # - stunner
+      - stunner
       - default
       - {{ .Values.namespace }}
