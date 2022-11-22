@@ -12,7 +12,7 @@ Using local files:
 helm install prometheus .
 ```
 
-The helm chart creates the namespace `monitoring` and install Prometheus along with the prometheus-operator, and Grafana.
+The helm chart creates the namespace `monitoring` and installs Prometheus along with the prometheus-operator, and Grafana.
 
 ## Acknowledgments
 
