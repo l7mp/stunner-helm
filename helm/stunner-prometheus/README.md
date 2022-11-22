@@ -1,5 +1,16 @@
 # Prometheus and Grafana for monitoring STUNner instances
 
+## Prerequisites
+
+Deploy STUNner with monitoring enabled:
+```console
+helm install stunner ./stunner --create-namespace --namespace=stunner --set stunner.deployment.monitoring.enabled=true
+```
+Enable the STUNner metrics endpoint:
+```console
+kubectl -n stunner patch gatewayconfigs.stunner.l7mp.io stunner-gatewayconfig --patch '{"spec": {"metricsEndpoint": "http://0.0.0.0:8080/metrics" }}' --type=merge
+```
+
 ## Installation
 
 From the helm repo:
