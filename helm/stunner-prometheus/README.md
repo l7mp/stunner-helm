@@ -4,7 +4,7 @@
 
 Deploy STUNner with monitoring enabled:
 ```console
-helm install stunner ./stunner --create-namespace --namespace=stunner --set stunner.deployment.monitoring.enabled=true
+helm install stunner stunner/stunner --create-namespace --namespace=stunner --set stunner.deployment.monitoring.enabled=true
 ```
 Enable the STUNner metrics endpoint:
 ```console
