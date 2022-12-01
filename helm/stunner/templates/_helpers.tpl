@@ -35,10 +35,6 @@ Common labels
 */}}
 {{- define "stunner.labels" -}}
 {{ include "stunner.stunner.selectorLabels" . }}
-helm.sh/chart: {{ include "stunner.chart" . }}
-{{- if .Chart.AppVersion }}
-app.kubernetes.io/version: {{ .Chart.AppVersion | quote }}
-{{- end }}
 app.kubernetes.io/managed-by: {{ .Release.Service }}
 {{- end }}
 
@@ -49,6 +45,17 @@ Selector labels for turn server
 {{- toYaml .Values.stunner.deployment.label }}
 app.kubernetes.io/name: {{ include "stunner.name" . }}
 app.kubernetes.io/instance: {{ .Release.Name }}
+{{- end }}
+
+{{/*
+Create metadata labels
+*/}}
+{{- define "stunner.metadata.annotations" -}}
+{{- toYaml .Values.stunner.deployment.label }}
+helm.sh/chart: {{ include "stunner.chart" . }}
+{{- if .Chart.AppVersion }}
+app.kubernetes.io/version: {{ .Chart.AppVersion | quote }}
+{{- end }}
 {{- end }}
 
 {{/*

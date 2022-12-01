@@ -4,6 +4,7 @@ kind: Deployment
 metadata:
   name: {{ include "stunner.name" . }}
   namespace: {{ .Release.Namespace }}
+  annotations: {{ include "stunner.metadata.annotations" . | nindent 4 }}  
 spec:
   selector:
     matchLabels:
