@@ -331,7 +331,7 @@ spec:
         - --upstream=http://127.0.0.1:8080/
         - --logtostderr=true
         - --v=0
-        image: gcr.io/kubebuilder/kube-rbac-proxy:v0.11.0
+        image: {{ .Values.stunnerGatewayOperator.deployment.container.kubeRbacProxy.image.name }}
         name: kube-rbac-proxy
         ports:
         - containerPort: 8443
@@ -350,7 +350,7 @@ spec:
         - --leader-elect
         command:
         - /manager
-        image: "{{ .Values.stunnerGatewayOperator.deployment.container.image.repository }}{{ .Values.stunnerGatewayOperator.deployment.container.image.name }}:{{ .Values.stunnerGatewayOperator.deployment.container.image.tag }}"
+        image: "{{ .Values.stunnerGatewayOperator.deployment.container.manager.image.repository }}{{ .Values.stunnerGatewayOperator.deployment.container.manager.image.name }}:{{ .Values.stunnerGatewayOperator.deployment.container.manager.image.tag }}"
         livenessProbe:
           httpGet:
             path: /healthz
@@ -364,7 +364,7 @@ spec:
             port: 8081
           initialDelaySeconds: 5
           periodSeconds: 10
-        resources: {{- toYaml .Values.stunnerGatewayOperator.deployment.container.image.resources | nindent 10 }}
+        resources: {{- toYaml .Values.stunnerGatewayOperator.deployment.container.manager.resources | nindent 10 }}
         securityContext:
           allowPrivilegeEscalation: false
       securityContext:

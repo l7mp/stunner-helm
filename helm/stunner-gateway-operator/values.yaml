@@ -9,11 +9,12 @@ stunnerGatewayOperator:
   deployment:
     name: stunner-gateway-operator
     container:
-      image:
-        repository: ""
-        name: l7mp/stunner-gateway-operator
-        pullPolicy: Always
-        tag: 0.12.0
+      manager:
+        image:
+          repository: ""
+          name: l7mp/stunner-gateway-operator
+          pullPolicy: Always
+          tag: 0.12.0
         resources:
           limits:
             cpu: 1000m
@@ -21,3 +22,6 @@ stunnerGatewayOperator:
           requests:
             cpu: 250m
             memory: 128Mi
+      kubeRbacProxy: 
+        image:
+          name: gcr.io/kubebuilder/kube-rbac-proxy:v0.11.0
