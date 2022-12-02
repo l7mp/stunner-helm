@@ -8,7 +8,7 @@ metadata:
 spec:
   selector:
     matchLabels:
-      {{- include "stunner.labels" . | nindent 6 }}
+      app: stunner
   replicas: {{ .Values.stunner.deployment.replica }}
   template:
     metadata:
