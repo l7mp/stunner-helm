@@ -39,4 +39,4 @@ endpointPorts:
 address: 172.17.0.3
 
 version:
-  kubestatemetrics: v2.5.0
+  kubestatemetrics: v2.7.0
