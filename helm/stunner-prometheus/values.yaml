@@ -39,4 +39,17 @@ endpointPorts:
 address: 172.17.0.3
 
 version:
+  grafana: latest
+  kuberbacproxy: v0.14.0
   kubestatemetrics: v2.7.0
+  nodeexporter: v1.5.0
+  prometheusconfigreloader: v0.61.1
+  prometheusoperator: v0.61.1
+
+image:
+  grafana: grafana/grafana
+  kuberbacproxy: quay.io/brancz/kube-rbac-proxy
+  kubestatemetrics: registry.k8s.io/kube-state-metrics/kube-state-metrics
+  nodeexporter: quay.io/prometheus/node-exporter
+  prometheusconfigreloader: quay.io/prometheus-operator/prometheus-config-reloader
+  prometheusoperator: quay.io/prometheus-operator/prometheus-operator

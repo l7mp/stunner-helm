@@ -24,8 +24,8 @@ spec:
       containers:
       - args:
         - --kubelet-service=kube-system/kubelet
-        - --prometheus-config-reloader=quay.io/prometheus-operator/prometheus-config-reloader:v0.61.1
-        image: quay.io/prometheus-operator/prometheus-operator:v0.61.1
+        - --prometheus-config-reloader={{ .Values.image.prometheusconfigreloader }}:{{ .Values.version.prometheusconfigreloader }}
+        image: {{ .Values.image.prometheusoperator }}:{{ .Values.version.prometheusoperator }}
         name: prometheus-operator
         ports:
         - containerPort: {{ .Values.endpointPorts.prometheus.prometheusScrape }}

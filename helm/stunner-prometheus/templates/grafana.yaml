@@ -38,7 +38,7 @@ spec:
     spec:
       containers:
       - name: grafana
-        image: grafana/grafana:latest
+        image: {{ .Values.image.grafana }}:{{ .Values.version.grafana }}
         ports:
         - name: grafana
           containerPort: 3000

@@ -34,7 +34,7 @@ kind: DaemonSet
 metadata:
   labels:
     app.kubernetes.io/name: node-exporter
-    app.kubernetes.io/version: v1.5.0
+    app.kubernetes.io/version: {{ .Values.version.nodeexporter }}
   name: node-exporter
   namespace: {{ .Values.namespace }}
 spec:
@@ -45,7 +45,7 @@ spec:
     metadata:
       labels:
         app.kubernetes.io/name: node-exporter
-        app.kubernetes.io/version: v1.5.0
+        app.kubernetes.io/version: {{ .Values.version.nodeexporter }}
         metrics: node-exporter
     spec:
       containers:
@@ -57,7 +57,7 @@ spec:
         - --no-collector.wifi
         - --no-collector.hwmon
         - --collector.filesystem.ignored-mount-points=^/(dev|proc|sys|var/lib/docker/.+|var/lib/kubelet/pods/.+)($|/)
-        image: quay.io/prometheus/node-exporter:v1.5.0
+        image: {{ .Values.image.nodeexporter }}:{{ .Values.version.nodeexporter }}
         name: node-exporter
         resources:
           limits:
@@ -89,7 +89,7 @@ spec:
           valueFrom:
             fieldRef:
               fieldPath: status.podIP
-        image: quay.io/brancz/kube-rbac-proxy:v0.14.0
+        image: {{ .Values.image.kuberbacproxy }}:{{ .Values.version.kuberbacproxy }}
         name: kube-rbac-proxy
         ports:
         - containerPort: 9100
@@ -137,7 +137,7 @@ kind: Service
 metadata:
   labels:
     app.kubernetes.io/name: node-exporter
-    app.kubernetes.io/version: v1.5.0
+    app.kubernetes.io/version: {{ .Values.version.nodeexporter }}
   name: node-exporter
   namespace: {{ .Values.namespace }}
 spec:
@@ -154,7 +154,7 @@ kind: ServiceMonitor
 metadata:
   labels:
     app.kubernetes.io/name: node-exporter
-    app.kubernetes.io/version: v1.5.0
+    app.kubernetes.io/version: {{ .Values.version.nodeexporter }}
     metrics: node-exporter
   name: node-exporter
   namespace: {{ .Values.namespace }}
