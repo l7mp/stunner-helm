@@ -34,4 +34,10 @@ spec:
         command: ["/bin/sh"]
         args: ["-c", "while true; do echo hello; sleep 10;done"]
 {{- end}}
+      {{- with .Values.stunner.nodeSelector }}
+      nodeSelector: {{- toYaml . | nindent 8 }}
+      {{- end }}
+      {{- with .Values.stunner.tolerations }}
+      tolerations: {{- toYaml . | nindent 8 }}
+      {{- end }}
 ---
