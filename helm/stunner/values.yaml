@@ -7,7 +7,7 @@
 stunner:
   deployment:
     name: stunner
-    label: 
+    label:
       app: stunner
     replica: 1
     container:
@@ -25,15 +25,19 @@ stunner:
             cpu: 250m
             memory: 128Mi
 
-      netdebug: 
+      netdebug:
         enabled: false
 
+    monitoring:
+      enabled: false
+      portName: web
+      containerPort: 8080
 
   service:
     port: 3478
-  
+
   networkPolicy: enable
-  
+
   standalone:
     enabled: false
     serviceAccountName: post-install-sa
@@ -43,7 +47,7 @@ stunner:
       pullPolicy: Always
       tag: latest
     config:
-    #PLEASE CUSTOMIZE THE VALUES BELOW 
+    #PLEASE CUSTOMIZE THE VALUES BELOW
       STUNNER_REALM: stunner.l7mp.io
       STUNNER_PORT: 3478
       STUNNER_USERNAME: user

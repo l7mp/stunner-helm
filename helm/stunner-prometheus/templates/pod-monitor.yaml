@@ -1,0 +1,21 @@
+---
+apiVersion: monitoring.coreos.com/v1
+kind: PodMonitor
+metadata:
+  name: prometheus-operator
+  labels:
+    metrics: stunner
+  namespace: {{ .Values.namespace }}
+spec:
+  podMetricsEndpoints:
+  - honorLabels: True
+    interval: 5s
+    port: {{ .Values.endpointPorts.prometheus.name }}
+  selector:
+    matchExpressions:
+    -  {key: app, operator: In, values: ['stunner']}
+  namespaceSelector:
+    matchNames:
+      - stunner
+      - default
+      - {{ .Values.namespace }}
