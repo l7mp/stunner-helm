@@ -23,4 +23,6 @@
 .vscode/
 # README
 *.md
+# Various scripts
+*.sh
 
