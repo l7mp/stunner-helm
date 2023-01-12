@@ -296,3 +296,9 @@ spec:
         runAsNonRoot: true
       serviceAccountName: stunner-gateway-operator-controller-manager
       terminationGracePeriodSeconds: 10
+      {{- with .Values.stunnerGatewayOperator.deployment.nodeSelector }}
+      nodeSelector: {{- toYaml . | nindent 8 }}
+      {{- end }}
+      {{- with .Values.stunnerGatewayOperator.deployment.tolerations }}
+      tolerations: {{- toYaml . | nindent 8 }}
+      {{- end }}

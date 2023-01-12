@@ -47,7 +47,7 @@ stunner:
       pullPolicy: Always
       tag: latest
     config:
-    #PLEASE CUSTOMIZE THE VALUES BELOW
+      #PLEASE CUSTOMIZE THE VALUES BELOW
       STUNNER_REALM: stunner.l7mp.io
       STUNNER_PORT: 3478
       STUNNER_USERNAME: user
@@ -55,3 +55,6 @@ stunner:
       STUNNER_LOGLEVEL: all:WARN
       STUNNER_MIN_PORT: 10000
       STUNNER_MAX_PORT: 20000
+
+  tolerations: []
+  nodeSelector: {}

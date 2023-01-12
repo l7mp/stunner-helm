@@ -8,6 +8,8 @@ stunnerGatewayOperator:
   enabled: true
   deployment:
     name: stunner-gateway-operator
+    tolerations: []
+    nodeSelector: {}
     container:
       manager:
         image:
@@ -22,6 +24,6 @@ stunnerGatewayOperator:
           requests:
             cpu: 250m
             memory: 128Mi
-      kubeRbacProxy: 
+      kubeRbacProxy:
         image:
           name: gcr.io/kubebuilder/kube-rbac-proxy:v0.11.0
