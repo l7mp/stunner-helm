@@ -127,7 +127,7 @@ rules:
   - patch
   - update
   - watch
-	- apiGroups:
+- apiGroups:
   - stunner.l7mp.io
   resources:
   - gatewayconfigs/finalizers
