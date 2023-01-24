@@ -1,8 +1,8 @@
 # Default values for stunner-gateway-operator.
 
-#To set the namespace for the deployment use the --namespace=<your-namespace> --create-namespace
-#additional commands when installing your release
-#It will create the desired namespace if not present
+# To set the namespace for the deployment use the --namespace=<your-namespace> --create-namespace
+# additional commands when installing your release
+# It will create the desired namespace if not present
 
 stunnerGatewayOperator:
   enabled: true

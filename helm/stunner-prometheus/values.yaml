@@ -35,7 +35,7 @@ endpointPorts:
     name: web
     prometheusScrape: 8080
 
-#address of the node
+# address of the node
 address: 172.17.0.3
 
 version:
