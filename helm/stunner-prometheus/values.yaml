@@ -9,7 +9,7 @@ namespace: monitoring
 selectorLabels:
   component: controller
   name: prometheus-operator
-  version: v0.58.0
+  version: v0.61.1
 
 serviceAccount:
   # Specifies whether a service account should be created
