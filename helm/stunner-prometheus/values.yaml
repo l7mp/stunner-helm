@@ -25,6 +25,12 @@ service:
 rbac:
   create: true
 
+nodeExporter:
+  # Specifies whether node-exporter should be instantiated
+  # Note: node-exporter is not required for monitoring STUNner instances
+  # Note: node-exporter is not compatible with GKE Autopilot clusters
+  create: false
+
 nodePorts:
   prometheus: 30900
   alertmanager: 30903
