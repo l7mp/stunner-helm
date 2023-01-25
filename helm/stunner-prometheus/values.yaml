@@ -9,7 +9,7 @@ namespace: monitoring
 selectorLabels:
   component: controller
   name: prometheus-operator
-  version: v0.58.0
+  version: v0.61.1
 
 serviceAccount:
   # Specifies whether a service account should be created
@@ -24,6 +24,12 @@ service:
 
 rbac:
   create: true
+
+nodeExporter:
+  # Specifies whether node-exporter should be instantiated
+  # Note: node-exporter is not required for monitoring STUNner instances
+  # Note: node-exporter is not compatible with GKE Autopilot clusters
+  create: false
 
 nodePorts:
   prometheus: 30900
