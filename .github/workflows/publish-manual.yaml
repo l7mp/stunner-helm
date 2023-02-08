@@ -1,0 +1,23 @@
+name: "verify and release"
+
+on: workflow_dispatch
+
+jobs:
+  lint-test:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+        with:
+          fetch-depth: 0
+
+      - name: Set up Helm
+        uses: azure/setup-helm@v3
+        with:
+          version: v3.10.0
+
+      - name: Set up chart-testing
+        uses: helm/chart-testing-action@v2.3.1
+
+      - name: Run chart-testing (lint)
+        run: ct lint --all --chart-dirs helm --excluded-charts stunner-kurento-one2one-call

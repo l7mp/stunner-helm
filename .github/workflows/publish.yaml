@@ -1,23 +1,69 @@
-name: "verify and release"
+name: Build and Release Helm charts
+on:
+  repository_dispatch:
+    types: [release]
 
-on: workflow_dispatch
+env:
+  TAG: ${{ github.event.client_payload.tag }}
+  TYPE: ${{ github.event.client_payload.type }}
 
 jobs:
-  lint-test:
+  push_chart:
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout
-        uses: actions/checkout@v2
+      - name: Log the received tag
+        run: |
+          echo "Version is $TAG"
+          echo "Triggered by $TYPE"
+
+      - name: stunner-helm checkout
+        uses: actions/checkout@v3
+
+      - name: l7mp.io checkout
+        uses: actions/checkout@v3
         with:
-          fetch-depth: 0
+          token: ${{ secrets.WEB_PAT_TOKEN }}
+          path: l7mp.io
+          ref: master
+          repository: l7mp/l7mp.io
 
-      - name: Set up Helm
-        uses: azure/setup-helm@v3
-        with:
-          version: v3.10.0
+      - name: Set git config
+        run: |
+          git config --global user.email "l7mp.info@gmail.com"
+          git config --global user.name "BotL7mp"
 
-      - name: Set up chart-testing
-        uses: helm/chart-testing-action@v2.3.1
+      - name: Build helm chart for stunner
+        if: ${{ env.TYPE == "stunner"}}
+        run: |
+          cd stunner-helm/helm
+          sed -ri 's/^(\s*)(version\s*:\s*.*\s*$)/\1version: ${{env.TAG}}/' stunner/Chart.yaml
+          sed -ri 's/^(\s*)(appVersion\s*:\s*.*\s*$)/\1appVersion: ${{env.TAG}}/' stunner/Chart.yaml
+          sed -ri 's/^(\s*)(        tag\s*:\s*.*\s*$)/\1        tag: ${{env.TAG}}/' stunner/values.yaml
+          helm package stunner
 
-      - name: Run chart-testing (lint)
-        run: ct lint --all --chart-dirs helm --excluded-charts stunner-kurento-one2one-call
+      - name: Build helm chart for stunner
+        if: ${{ env.TYPE == "stunner-gateway-operator" }}
+        run: |
+          cd stunner-helm/helm
+          sed -ri 's/^(\s*)(version\s*:\s*.*\s*$)/\1version: ${{env.TAG}}/' stunner-gateway-operator/Chart.yaml
+          sed -ri 's/^(\s*)(appVersion\s*:\s*.*\s*$)/\1appVersion: ${{env.TAG}}/' stunner-gateway-operator/Chart.yaml
+          sed -ri 's/^(\s*)(          tag\s*:\s*.*\s*$)/\1          tag: ${{env.TAG}}/' stunner-gateway-operator/values.yaml
+          helm package stunner-gateway-operator
+
+      - name: Update l7mp.io
+        run: |
+          cp stunner-helm/helm/*.tgz l7mp.io/stunner
+          helm repo index l7mp.io/stunner/ --url https://l7mp.io/stunner
+          cd l7mp.io
+          git add .
+          git commit -m "Update helm charts from l7mp/${{ env.TYPE }}" -m "(triggered by the 'Helm release' github action.)"
+          git push origin master
+
+      - name: Update stunner-helm repo
+        if: ${{ env.TYPE == "stunner"}}
+        run: |
+          cd stunner-helm
+          rm helm/*.tgz
+          git add .
+          git commit -m "Update helm charts from l7mp/${{ env.TYPE }}" -m "(triggered by the 'Helm release' github action.)"
+          git push origin main
