@@ -60,7 +60,6 @@ jobs:
           git push origin master
 
       - name: Update stunner-helm repo
-        if: ${{ env.TYPE == "stunner"}}
         run: |
           cd stunner-helm
           rm helm/*.tgz
