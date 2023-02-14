@@ -55,7 +55,7 @@ jobs:
         run: ct lint --all --chart-dirs helm --excluded-charts stunner-kurento-one2one-call
 
       - name: Build helm chart for stunner
-        if: ${{ env.TYPE == "stunner"}}
+        if: ${{ env.TYPE == 'stunner'}}
         run: |
           cd stunner-helm/helm
           sed -ri 's/^(\s*)(version\s*:\s*.*\s*$)/\1version: ${{ env.TAG }}/' stunner/Chart.yaml
@@ -64,7 +64,7 @@ jobs:
           helm package stunner
 
       - name: Build helm chart for stunner
-        if: ${{ env.TYPE == "stunner-gateway-operator" }}
+        if: ${{ env.TYPE == 'stunner-gateway-operator' }}
         run: |
           cd stunner-helm/helm
           sed -ri 's/^(\s*)(version\s*:\s*.*\s*$)/\1version: ${{ env.TAG }}/' stunner-gateway-operator/Chart.yaml
@@ -74,14 +74,14 @@ jobs:
 
       - name: Update l7mp/l7mp.io repository
         run: |
-          if ${{ env.TAG == "dev" }}; then
+          if ${{ env.TAG == 'dev' }}; then
             rm -rf l7mp.io/stunner/stunner-dev*.tgz
           fi
           cp stunner-helm/helm/*.tgz l7mp.io/stunner
           helm repo index l7mp.io/stunner/ --url https://l7mp.io/stunner
           cd l7mp.io
           git add .
-          if ${{ env.TAG == "dev" }}; then
+          if ${{ env.TAG == 'dev' }}; then
             git commit -m "Update dev helm chart from l7mp/${{ env.TYPE }}" -m "(triggered by the 'Helm release' github action.)"
           else
             git commit -m "Release helm chart from l7mp/${{ env.TYPE }}" -m "(triggered by the 'Helm release' github action.)"
@@ -100,7 +100,7 @@ jobs:
           npm run deploy
 
       - name: Update stunner-helm repo
-        if: ${{ env.TAG != "dev" }}
+        if: ${{ env.TAG != 'dev' }}
         run: |
           cd stunner-helm
           rm helm/*.tgz
