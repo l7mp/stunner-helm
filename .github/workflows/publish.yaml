@@ -35,7 +35,7 @@ jobs:
         with:
           token: ${{ secrets.WEB_PAT_TOKEN }}
           path: l7mp.io
-          ref: master
+          ref: gh-pages
           repository: l7mp/l7mp.io
 
       - name: Set git config
@@ -72,14 +72,25 @@ jobs:
           sed -ri 's/^(\s*)(          tag\s*:\s*.*\s*$)/\1          tag: ${{ env.TAG }}/' stunner-gateway-operator/values.yaml
           helm package stunner-gateway-operator
 
-      - name: Update l7mp.io
+      - name: Update l7mp/l7mp.io repository
         run: |
           cp stunner-helm/helm/*.tgz l7mp.io/stunner
           helm repo index l7mp.io/stunner/ --url https://l7mp.io/stunner
           cd l7mp.io
           git add .
           git commit -m "Update helm charts from l7mp/${{ env.TYPE }}" -m "(triggered by the 'Helm release' github action.)"
-          git push origin master
+          git push origin gh-pages
+
+      - name: Setup node
+        uses: actions/setup-node@v3
+        with:
+          node-version: 19.0.1
+          check-latest: false
+        
+      - name: Deploy l7mp.io with the latest changes
+        run: |
+          cd l7mp.io
+          npm run deploy
 
       - name: Update stunner-helm repo
         run: |
