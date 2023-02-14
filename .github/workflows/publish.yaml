@@ -112,7 +112,7 @@ jobs:
       - name: Deploy l7mp.io with the latest changes
         run: |
           cd l7mp.io
-          git checkout origin/new 
+          git checkout new 
           npm run deploy
 
       - name: Update stunner-helm repo
