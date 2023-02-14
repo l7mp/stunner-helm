@@ -41,6 +41,7 @@ jobs:
           path: l7mp.io
           ref: gh-pages
           repository: l7mp/l7mp.io
+          fetch-depth: 0
 
       - name: Set git config
         run: |
