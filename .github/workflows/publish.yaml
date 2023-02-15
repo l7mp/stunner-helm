@@ -107,7 +107,13 @@ jobs:
           else
             git commit -m "Release helm chart from l7mp/${{ env.TYPE }}" -m "(triggered by the 'Helm release' github action.)"
           fi
+          git remote -v
+          git config --global user.email
+          git config --global user.name
           git push origin new
+          git remote -v
+          git config --global user.email
+          git config --global user.name
           npm i
           CI='' npm run deploy
 
