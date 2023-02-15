@@ -115,7 +115,7 @@ jobs:
           cd l7mp.io
           git checkout new 
           npm i
-          npm run deploy
+          CI='' npm run deploy
 
       - name: Update stunner-helm repo
         if: ${{ env.TAG != 'dev' }}
