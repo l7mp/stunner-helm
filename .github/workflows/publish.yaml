@@ -39,7 +39,7 @@ jobs:
         with:
           token: ${{ secrets.WEB_PAT_TOKEN }}
           path: l7mp.io
-          ref: gh-pages
+          ref: new
           repository: l7mp/l7mp.io
           fetch-depth: 0
 
@@ -91,10 +91,10 @@ jobs:
       - name: Update l7mp/l7mp.io repository
         run: |
           if ${{ env.TAG == 'dev' }}; then
-            rm -rf l7mp.io/stunner/stunner-dev*.tgz
+            rm -rf l7mp.io/public/stunner/stunner-dev*.tgz
           fi
-          cp stunner-helm/helm/*.tgz l7mp.io/stunner
-          helm repo index l7mp.io/stunner/ --url https://l7mp.io/stunner
+          cp stunner-helm/helm/*.tgz l7mp.io/public/stunner
+          helm repo index l7mp.io/public/stunner/ --url https://l7mp.io/stunner
           cd l7mp.io
           git add .
           if ${{ env.TAG == 'dev' }}; then
@@ -102,7 +102,7 @@ jobs:
           else
             git commit -m "Release helm chart from l7mp/${{ env.TYPE }}" -m "(triggered by the 'Helm release' github action.)"
           fi
-          git push origin gh-pages
+          git push origin new
 
       - name: Setup node
         uses: actions/setup-node@v3
@@ -113,7 +113,6 @@ jobs:
       - name: Deploy l7mp.io with the latest changes
         run: |
           cd l7mp.io
-          git checkout new 
           npm i
           CI='' npm run deploy
 
