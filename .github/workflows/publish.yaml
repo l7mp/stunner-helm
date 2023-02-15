@@ -114,6 +114,7 @@ jobs:
         run: |
           cd l7mp.io
           git checkout new 
+          npm i
           npm run deploy
 
       - name: Update stunner-helm repo
