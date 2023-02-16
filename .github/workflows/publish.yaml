@@ -39,7 +39,7 @@ jobs:
         with:
           token: ${{ secrets.WEB_PAT_TOKEN }}
           path: l7mp.io
-          ref: new
+          ref: master
           repository: l7mp/l7mp.io
 
       - name: Set git config
@@ -106,7 +106,7 @@ jobs:
           else
             git commit -m "Release helm chart from l7mp/${{ env.TYPE }}" -m "(triggered by the 'Helm release' github action.)"
           fi
-          git push origin new
+          git push origin master
           npm i
           git remote set-url origin https://BotL7mp:${{ secrets.WEB_PAT_TOKEN }}@github.com/l7mp/l7mp.io.git
           CI='' npm run deploy
