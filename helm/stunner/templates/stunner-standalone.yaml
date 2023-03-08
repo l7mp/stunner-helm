@@ -18,8 +18,8 @@ spec:
         # image: l7mp/stunner-job:latest
         image: "{{ .Values.stunner.standalone.image.repository }}{{ .Values.stunner.standalone.image.name }}:{{ .Values.stunner.standalone.image.tag | default .Chart.AppVersion }}"
         imagePullPolicy: {{ .Values.stunner.standalone.image.pullPolicy }}
-        command: ["/bin/bash"]
-        args: ["./post-install.sh"]
+        command: ["./post-install.sh"]
+        args: ["3000"]
       restartPolicy: Never
       {{- with .Values.stunner.nodeSelector }}
       nodeSelector: {{- toYaml . | nindent 8 }}
