@@ -95,7 +95,7 @@ jobs:
       - name: Update and deploy l7mp/l7mp.io repository
         run: |
           if ${{ env.TAG == 'dev' }}; then
-            rm -rf l7mp.io/public/stunner/stunner-dev*.tgz
+            rm -rf l7mp.io/public/stunner/${{ env.TYPE }}-dev*.tgz
           fi
           cp stunner-helm/helm/*.tgz l7mp.io/public/stunner
           helm repo index l7mp.io/public/stunner/ --url https://l7mp.io/stunner
