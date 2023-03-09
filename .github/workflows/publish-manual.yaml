@@ -57,7 +57,9 @@ jobs:
         uses: helm/chart-testing-action@v2.3.1
 
       - name: Run chart-testing (lint)
-        run: ct lint --all --chart-dirs helm --excluded-charts stunner-kurento-one2one-call
+        run: |
+          cd stunner-helm
+          ct lint --all --chart-dirs helm --excluded-charts stunner-kurento-one2one-call
 
       - name: Build helm chart for stunner
         if: ${{ env.TYPE == 'stunner'}}
