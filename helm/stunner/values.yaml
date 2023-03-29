@@ -17,6 +17,9 @@ stunner:
         name: l7mp/stunnerd
         pullPolicy: Always
         tag: 0.14.0
+      udpMultithreading:
+        enabled: true
+        readLoopsPerUDPListener: 16
       resources:
         limits:
           cpu: 1000m

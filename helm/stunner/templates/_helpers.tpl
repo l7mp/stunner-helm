@@ -73,9 +73,14 @@ Create the name of the service account to use
 Generate the proper args for stunnerd
 */}}
 {{- define "stunner.stunnerGatewayOperator.args" -}}
-{{- if eq .Values.stunner.standalone.enabled false }}
+{{- if not .Values.stunner.standalone.enabled }}
 command: ["stunnerd"]
+{{- with .Values.stunner.deployment.container.udpMultithreading}}
+{{- if .enabled }}
+args: ["-w", "-c", "/etc/stunnerd/stunnerd.conf", "--udp-thread-num={{ .readLoopsPerUDPListener}}"]
+{{- else }}
 args: ["-w", "-c", "/etc/stunnerd/stunnerd.conf"]
+{{- end }}
 env:
   - name: STUNNER_ADDR
     valueFrom:
@@ -86,9 +91,15 @@ volumeMounts:
   - name: stunnerd-config-volume
     mountPath: /etc/stunnerd
     readOnly: true
+{{- end }}
 {{- else }}
+{{- with .Values.stunner.deployment.container.udpMultithreading}}
 command: ["stunnerd"]
-args: ["-c", "/stunnerd.conf"]
+{{- if .enabled }}
+args: ["-c", "/stunnerd.conf", "--udp-thread-num={{ .readLoopsPerUDPListener}}"]
+{{- else }}
+args: ["-c", "/stunnerd.conf",]
+{{- end }}
 envFrom:
   - configMapRef:
       name: stunnerd-config
@@ -97,6 +108,7 @@ env:
   valueFrom:
     fieldRef:
       fieldPath: status.podIP
+{{- end }}      
 {{- end }}
 {{- end }}
 
