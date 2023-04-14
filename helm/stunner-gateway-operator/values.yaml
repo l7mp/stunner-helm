@@ -15,7 +15,7 @@ stunnerGatewayOperator:
         image:
           repository: ""
           name: l7mp/stunner-gateway-operator
-          pullPolicy: Always
+          pullPolicy: IfNotPresent
           tag: 0.13.0
         resources:
           limits:

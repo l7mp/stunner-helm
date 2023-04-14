@@ -10,36 +10,65 @@ stunner:
     label:
       app: stunner
     replica: 1
+    tolerations: []
+    nodeSelector: {}
     container:
-      name: stunnerd
-      image:
-        repository: ""
-        name: l7mp/stunnerd
-        pullPolicy: Always
-        tag: 0.14.0
-      udpMultithreading:
+      stunnerd:
+        name: stunnerd
+        image:
+          repository: ""
+          name: l7mp/stunnerd
+          pullPolicy: IfNotPresent
+          tag: 0.14.0
+        udpMultithreading:
+          enabled: true
+          readLoopsPerUDPListener: 16
+        resources:
+          limits:
+            cpu: 2
+            memory: 512Mi
+          requests:
+            cpu: 500m
+            memory: 128Mi
+        startupProbe:
+          httpGet:
+            path: /live
+            port: 8086
+          failureThreshold: 60
+          periodSeconds: 5
+        livenessProbe:
+          httpGet:
+            path: /live
+            port: 8086
+          initialDelaySeconds: 0
+          periodSeconds: 5
+        readinessProbe:
+          httpGet:
+            path: /ready
+            port: 8086
+          initialDelaySeconds: 0
+          periodSeconds: 5
+        terminationGracePeriodSeconds: 3600
+
+      configWatcher:
         enabled: true
-        readLoopsPerUDPListener: 16
-      resources:
-        limits:
-          cpu: 1000m
-          memory: 512Mi
-        requests:
-          cpu: 500m
-          memory: 128Mi
-      livenessProbe:
-        httpGet:
-          path: /live
-          port: 8086
-        initialDelaySeconds: 0
-        periodSeconds: 5
-      readinessProbe:
-        httpGet:
-          path: /ready
-          port: 8086
-        initialDelaySeconds: 0
-        periodSeconds: 5
-      terminationGracePeriodSeconds: 3600
+        serviceAccountName: stunner-config-watcher-serviceaccount
+        env:
+        - name: LABEL
+          value: "stunner.l7mp.io/owned-by"
+        - name: LABEL_VALUE
+          value: "stunner"
+        - name: FOLDER
+          value: /etc/stunnerd
+        - name: RESOURCE
+          value: configmap
+        resources:
+          limits:
+            cpu: 500m
+            memory: 500Mi
+          requests:
+            cpu: 100m
+            memory: 128Mi
 
       netdebug:
         enabled: false
@@ -71,6 +100,3 @@ stunner:
       STUNNER_LOGLEVEL: all:WARN
       STUNNER_MIN_PORT: 10000
       STUNNER_MAX_PORT: 20000
-
-  tolerations: []
-  nodeSelector: {}
