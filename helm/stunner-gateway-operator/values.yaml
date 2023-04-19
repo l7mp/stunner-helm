@@ -9,7 +9,8 @@ stunnerGatewayOperator:
   deployment:
     name: stunner-gateway-operator
     tolerations: []
-    nodeSelector: {}
+    nodeSelector:
+      kubernetes.io/os: linux
     container:
       manager:
         image:

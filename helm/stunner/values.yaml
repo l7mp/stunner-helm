@@ -11,7 +11,8 @@ stunner:
       app: stunner
     replica: 1
     tolerations: []
-    nodeSelector: {}
+    nodeSelector:
+      kubernetes.io/os: linux
     hostNetwork: false
     container:
       stunnerd:
