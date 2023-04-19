@@ -12,7 +12,7 @@ stunner:
     replica: 1
     tolerations: []
     nodeSelector: {}
-    hostNetwork: true
+    hostNetwork: false
     container:
       stunnerd:
         name: stunnerd
