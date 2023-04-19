@@ -12,6 +12,7 @@ stunner:
     replica: 1
     tolerations: []
     nodeSelector: {}
+    hostNetwork: true
     container:
       stunnerd:
         name: stunnerd
@@ -68,7 +69,7 @@ stunner:
         enabled: false
 
     monitoring:
-      enabled: false
+      enabled: true
       portName: web
       containerPort: 8080
 

@@ -20,6 +20,7 @@ spec:
 {{- end }}
       {{- include "stunner.stunnerGatewayOperator.volume" . | indent 6 }}
       terminationGracePeriodSeconds: {{ .Values.stunner.deployment.container.stunnerd.terminationGracePeriodSeconds }}
+      hostNetwork: {{ .Values.stunner.deployment.hostNetwork }}
       containers:
       - name: {{ .Values.stunner.deployment.container.stunnerd.name }}
         image: "{{ .Values.stunner.deployment.container.stunnerd.image.repository }}{{ .Values.stunner.deployment.container.stunnerd.image.name }}:{{ .Values.stunner.deployment.container.stunnerd.image.tag | default .Chart.AppVersion }}"
