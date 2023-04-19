@@ -28,7 +28,6 @@ spec:
         resources: {{- toYaml .Values.stunner.deployment.container.stunnerd.resources | nindent 10 }}
         livenessProbe: {{- toYaml .Values.stunner.deployment.container.stunnerd.livenessProbe | nindent 10 }}
         readinessProbe: {{- toYaml .Values.stunner.deployment.container.stunnerd.readinessProbe | nindent 10 }}
-        startupProbe: {{- toYaml .Values.stunner.deployment.container.stunnerd.startupProbe | nindent 10 }}
 {{- if eq .Values.stunner.deployment.monitoring.enabled true}}
         ports:
           - name: {{ .Values.stunner.deployment.monitoring.portName }}

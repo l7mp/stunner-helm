@@ -30,12 +30,6 @@ stunner:
           requests:
             cpu: 500m
             memory: 128Mi
-        startupProbe:
-          httpGet:
-            path: /live
-            port: 8086
-          failureThreshold: 60
-          periodSeconds: 5
         livenessProbe:
           httpGet:
             path: /live
