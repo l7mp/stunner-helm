@@ -21,6 +21,10 @@ There are two ways to install and use STUNner. It is advised to use STUNner with
 
 ### With the STUNner Gateway Operator
 
+#### Stable release
+
+The following commands will install the *latest stable* release of the stunner-gateway-operator and stunner helm charts.
+
 ```console
 helm repo add stunner https://l7mp.io/stunner
 helm repo update
@@ -29,6 +33,20 @@ helm install stunner-gateway-operator stunner/stunner-gateway-operator --create-
 
 helm install stunner stunner/stunner --create-namespace --namespace=<your-namespace>
 ```
+
+#### Development version
+
+To install the development versions of the charts follow the instructions below. The charts are using the docker images built with the latest commits. Note that the development versions are not considered stable and might contain bugs and issues.
+
+```console
+helm repo add stunner https://l7mp.io/stunner
+helm repo update
+
+helm install stunner-gateway-operator stunner/stunner-gateway-operator-dev --create-namespace --namespace=<your-namespace>
+
+helm install stunner stunner/stunner-dev --create-namespace --namespace=<your-namespace>
+```
+
 
 ### Without the Operator in Standalone Mode 
 
@@ -64,7 +82,7 @@ resources:
 ```
 Meaning every started `stunner` pod will request `0.5 CPU` core and `128 mebibytes` of memory. These pods will only start in case the cluster can successfully allocate the given amount of resources. If the cluster lacks of resources it is advised to lower the requested value. This is not the only reason why the user should carefully configure the resources.
 
-About the resource limits, in order to not stress the Kubernetes scheduler it is advised to keep the limits down and scale out (increase) the number of running pods if needed. Actually, it is the way, do not be afraid to scale in Kubernetes. To learn more about the scaling process take a look at our full [scaling guide](/README_SCALING.md).
+About the resource limits, in order to not stress the Kubernetes scheduler it is advised to keep the limits down and scale out (increase) the number of running pods if needed. Actually, it is the way, do not be afraid to scale in Kubernetes. To learn more about the scaling process take a look at our full [scaling guide](https://github.com/l7mp/stunner/blob/main/docs/SCALING.md).
 
 ### UDP multithreading
 
@@ -105,9 +123,9 @@ The monitoring guide assumes an up-and-running `Stunner-Gateway-Operator` in the
 #### Configuration
 
 Metrics collection is *not* enabled in the default installation. In order to open the
-metrics-collection endpoint for a [gateway hierarchy](https://github.com/l7mp/stunner/blob/main/doc/GATEWAY.md), configure an
+metrics-collection endpoint for a [gateway hierarchy](https://github.com/l7mp/stunner/blob/main/docs/GATEWAY.md), configure an
 appropriate HTTP URL in the `metricsEndpoint` field of corresponding the
-[GatewayConfig](https://github.com/l7mp/stunner/blob/main/doc/GATEWAY.md#gatewayconfig) resource.
+[GatewayConfig](https://github.com/l7mp/stunner/blob/main/docs/GATEWAY.md#gatewayconfig) resource.
 
 For instance, the below GatewayConfig will expose the metrics-collection server on the URL
 `http://:8080/metrics` in all the STUNner media gateway instances of the current gateway hierarchy.
@@ -126,16 +144,10 @@ spec:
 
 #### Installation
 
-A full-fledged Prometheus+Grafana helm chart is available in the repo [here](/helm/stunner-prometheus/). To use this chart, the installation steps involve enabling monitoring in STUNner, and installing the Prometheus+Grafana stack with helm.
+A full-fledged Prometheus+Grafana helm chart is available in the repo [here](/helm/stunner-prometheus/). To use this chart, install the Prometheus+Grafana stack with helm.
 
-1. **Configure STUNner to expose the metrics**
+1. **[Expose the STUNner metrics-collection server in the GatewayConfig](#configuration)**
 
-- Deploy STUNner with monitoring enabled to enable the monitoring port of STUNner pods
-```console
-helm install stunner stunner/stunner --create-namespace --namespace=stunner --set stunner.deployment.monitoring.enabled=true
-```
-
-- [Expose the STUNner metrics-collection server in the GatewayConfig](#configuration)
 
 2. **Install the Prometheus+Grafana stack with a helm chart**
 
@@ -150,6 +162,15 @@ helm install prometheus stunner/stunner-prometheus
 
 Learn more about how to enable, configure and use monitoring [here](https://github.com/l7mp/stunner/blob/main/doc/MONITORING.md#installation).
 
+#### Disabling monitoring
+
+The default is to deploy STUNner with the monitoring port exposed in the STUNner pods to enable metric collection on K8s networking level.
+
+In order to disable monitoring install the STUNner chart with the following command.
+
+```console
+helm install stunner stunner/stunner --create-namespace --namespace=stunner --set stunner.deployment.monitoring.enabled=false
+```
 
 ## Help
 
