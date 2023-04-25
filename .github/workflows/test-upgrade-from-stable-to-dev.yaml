@@ -4,7 +4,7 @@ on:
 
 
 jobs:
-  test_charts:
+  test_upgrade:
     runs-on: ubuntu-latest
     steps:
       - name: Set up Helm

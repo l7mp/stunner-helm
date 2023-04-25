@@ -1,4 +1,5 @@
-name: Test Helm charts
+name: Lint Helm charts
+
 on:
   workflow_dispatch:
   push:
@@ -11,7 +12,7 @@ on:
 
 
 jobs:
-  test_charts:
+  linter:
     runs-on: ubuntu-latest
     steps:
       - name: stunner-helm checkout
@@ -21,11 +22,6 @@ jobs:
           ref: main
           repository: l7mp/stunner-helm
 
-      - name: Set up Helm
-        uses: azure/setup-helm@v3
-        with:
-          version: v3.11.2
-
       - name: Set up chart-testing
         uses: helm/chart-testing-action@v2.3.1
 
@@ -33,11 +29,3 @@ jobs:
         run: |
           cd stunner-helm
           ct lint --all --chart-dirs helm --excluded-charts stunner-kurento-one2one-call
-
-      - name: Create kind cluster
-        uses: helm/kind-action@v1.4.0
-
-      - name: Run chart-testing (install)
-        run: |
-          cd stunner-helm
-          ct install --all --chart-dirs helm --excluded-charts stunner-kurento-one2one-call
