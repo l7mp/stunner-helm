@@ -1,7 +1,8 @@
 name: Test Helm chart upgrade
 on:
   workflow_dispatch:
-
+  schedule:
+  - cron: '0 11 * * 1'
 
 jobs:
   test_upgrade:
