@@ -16,11 +16,14 @@ jobs:
       - name: Create kind cluster
         uses: helm/kind-action@v1.5.0
 
-      - name: Run helm upgrade test
+      - name: Install charts
         run: |
           helm repo add stunner https://l7mp.io/stunner
           helm repo update
           helm install stunner-gateway-operator stunner/stunner-gateway-operator --create-namespace --namespace=stunner
           helm install stunner stunner/stunner --create-namespace --namespace=stunner
+
+      - name: Upgrade charts
+        run: |
           helm upgrade stunner-gateway-operator stunner/stunner-gateway-operator-dev --create-namespace --namespace=stunner
           helm upgrade stunner stunner/stunner-dev --create-namespace --namespace=stunner
