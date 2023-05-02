@@ -97,6 +97,7 @@ jobs:
 
       - name: Build helm chart for ${{ env.TYPE }}
         run: |
+          cd stunner-helm/helm
           helm package ${{ env.TYPE }}
 
       - name: Setup node
