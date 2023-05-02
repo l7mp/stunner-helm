@@ -47,6 +47,32 @@ jobs:
           git config --global user.email "l7mp.info@gmail.com"
           git config --global user.name "BotL7mp"
 
+      - name: Edit helm chart for stunner
+        if: ${{ env.TYPE == 'stunner'}}
+        run: |
+          cd stunner-helm/helm
+          if ${{ env.TAG == 'dev' }}; then
+            sed -ri 's/^(\s*)(name\s*:\s*.*\s*$)/\1name: stunner-dev/' stunner/Chart.yaml
+            sed -ri 's/^(\s*)(          pullPolicy\s*:\s*.*\s*$)/\1          pullPolicy: Always/' stunner/values.yaml
+          else
+            sed -ri 's/^(\s*)(version\s*:\s*.*\s*$)/\1version: ${{ env.TAG }}/' stunner/Chart.yaml
+          fi
+          sed -ri 's/^(\s*)(appVersion\s*:\s*.*\s*$)/\1appVersion: ${{ env.TAG }}/' stunner/Chart.yaml
+          sed -ri 's/^(\s*)(          tag\s*:\s*.*\s*$)/\1          tag: ${{ env.TAG }}/' stunner/values.yaml
+
+      - name: Edit helm chart for stunner-gateway-operator
+        if: ${{ env.TYPE == 'stunner-gateway-operator' }}
+        run: |
+          cd stunner-helm/helm
+          if ${{ env.TAG == 'dev' }}; then
+            sed -ri 's/^(\s*)(name\s*:\s*.*\s*$)/\1name: stunner-gateway-operator-dev/' stunner-gateway-operator/Chart.yaml
+            sed -ri 's/^(\s*)(          pullPolicy\s*:\s*.*\s*$)/\1          pullPolicy: Always/' stunner-gateway-operator/values.yaml
+          else
+            sed -ri 's/^(\s*)(version\s*:\s*.*\s*$)/\1version: ${{ env.TAG }}/' stunner-gateway-operator/Chart.yaml
+          fi
+          sed -ri 's/^(\s*)(appVersion\s*:\s*.*\s*$)/\1appVersion: ${{ env.TAG }}/' stunner-gateway-operator/Chart.yaml
+          sed -ri 's/^(\s*)(          tag\s*:\s*.*\s*$)/\1          tag: ${{ env.TAG }}/' stunner-gateway-operator/values.yaml
+
       - name: Set up Helm
         uses: azure/setup-helm@v3
         with:
@@ -68,33 +94,9 @@ jobs:
           cd stunner-helm
           ct install --all --chart-dirs helm --excluded-charts stunner-kurento-one2one-call
 
-      - name: Build helm chart for stunner
-        if: ${{ env.TYPE == 'stunner'}}
+      - name: Build helm chart for ${{ env.TYPE }}
         run: |
-          cd stunner-helm/helm
-          if ${{ env.TAG == 'dev' }}; then
-            sed -ri 's/^(\s*)(name\s*:\s*.*\s*$)/\1name: stunner-dev/' stunner/Chart.yaml
-            sed -ri 's/^(\s*)(          pullPolicy\s*:\s*.*\s*$)/\1          pullPolicy: Always/' stunner/values.yaml
-          else
-            sed -ri 's/^(\s*)(version\s*:\s*.*\s*$)/\1version: ${{ env.TAG }}/' stunner/Chart.yaml
-          fi
-          sed -ri 's/^(\s*)(appVersion\s*:\s*.*\s*$)/\1appVersion: ${{ env.TAG }}/' stunner/Chart.yaml
-          sed -ri 's/^(\s*)(          tag\s*:\s*.*\s*$)/\1          tag: ${{ env.TAG }}/' stunner/values.yaml
-          helm package stunner
-
-      - name: Build helm chart for stunner-gateway-operator
-        if: ${{ env.TYPE == 'stunner-gateway-operator' }}
-        run: |
-          cd stunner-helm/helm
-          if ${{ env.TAG == 'dev' }}; then
-            sed -ri 's/^(\s*)(name\s*:\s*.*\s*$)/\1name: stunner-gateway-operator-dev/' stunner-gateway-operator/Chart.yaml
-            sed -ri 's/^(\s*)(          pullPolicy\s*:\s*.*\s*$)/\1          pullPolicy: Always/' stunner-gateway-operator/values.yaml
-          else
-            sed -ri 's/^(\s*)(version\s*:\s*.*\s*$)/\1version: ${{ env.TAG }}/' stunner-gateway-operator/Chart.yaml
-          fi
-          sed -ri 's/^(\s*)(appVersion\s*:\s*.*\s*$)/\1appVersion: ${{ env.TAG }}/' stunner-gateway-operator/Chart.yaml
-          sed -ri 's/^(\s*)(          tag\s*:\s*.*\s*$)/\1          tag: ${{ env.TAG }}/' stunner-gateway-operator/values.yaml
-          helm package stunner-gateway-operator
+          helm package ${{ env.TYPE }}
 
       - name: Setup node
         uses: actions/setup-node@v3
