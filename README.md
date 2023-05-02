@@ -3,8 +3,11 @@
 ## Table of Contents
 
 - [Important](#important)
-- [Deploying](#deploying)
-    - [With the Gateway Operator](#with-the-stunner-gateway-operator)
+- [Deploy STUNner with Helm](#deploy-stunner-with-helm)
+    - [With the STUNner Gateway Operator](#with-the-stunner-gateway-operator)
+        - [Release channels](#release-channels)
+        - [Stable release](#stable-release)
+        - [Development version](#development-version)
     - [Standalone mode](#without-the-operator-in-standalone-mode)
 - [Features](#features)
     - [Resources](#resources)
@@ -13,17 +16,22 @@
     - [Monitoring](#monitoring)
 
 ## Important
-There are a few things to know before jumping right into using STUNner
-- STUNner must installed into the same namespace as the `gatewayclass` and config was in case you are using STUNner with the gateway-operator
+> **Warning**
+> There are a few things to know before jumping right into using STUNner
+> - STUNner must installed into the same namespace as the `gatewayclass` and config was in case you are using STUNner with the gateway-operator
 
-## Deploying
-There are two ways to install and use STUNner. It is advised to use STUNner with the STUNner Gateway Operator.
+## Deploy STUNner with Helm
+There are two ways to install and use STUNner. It is advised to use [STUNner with the STUNner Gateway Operator](#with-the-stunner-gateway-operator).
 
 ### With the STUNner Gateway Operator
 
+#### Release channels
+
+We use two different strategies to release the charts. There are stable releases and dev releases. Stable releases are numbered and considered safe to use. While the development charts are using docker images built with the latest commits. Note that the development versions are not considered stable and might contain bugs and issues.
+
 #### Stable release
 
-The following commands will install the *latest stable* release of the stunner-gateway-operator and stunner helm charts.
+Use these commands to install the *latest stable* release of the stunner-gateway-operator and stunner helm charts.
 
 ```console
 helm repo add stunner https://l7mp.io/stunner
@@ -36,7 +44,7 @@ helm install stunner stunner/stunner --create-namespace --namespace=<your-namesp
 
 #### Development version
 
-To install the development versions of the charts follow the instructions below. The charts are using the docker images built with the latest commits. Note that the development versions are not considered stable and might contain bugs and issues.
+To install the development versions of the charts follow the instructions below.
 
 ```console
 helm repo add stunner https://l7mp.io/stunner
@@ -49,6 +57,8 @@ helm install stunner stunner/stunner-dev --create-namespace --namespace=<your-na
 
 
 ### Without the Operator in Standalone Mode 
+> **Warning**
+> Standalone Mode is a legacy option that might not be supported in the future.
 
 ```console
 helm repo add stunner https://l7mp.io/stunner
@@ -59,9 +69,9 @@ helm install stunner stunner/stunner --set stunner.standalone.enabled=true --cre
 
 ## Features
 
-In the following part the currently available features will be introduced. How to activate, access, configure and use them.
+The Helm charts enable fine-tuning STUNner features. These features can ease management, improve performance, etc. The following part presents the available features and how to use them.
 
-Currently, the list is:
+Current features:
 - [Resources](#resources)
 - [UDP multithreading](#udp-multithreading)
 - [Graceful shutdown](#graceful-shutdown)
@@ -80,7 +90,7 @@ resources:
     cpu: 500m
     memory: 128Mi
 ```
-Meaning every started `stunner` pod will request `0.5 CPU` core and `128 mebibytes` of memory. These pods will only start in case the cluster can successfully allocate the given amount of resources. If the cluster lacks of resources it is advised to lower the requested value. This is not the only reason why the user should carefully configure the resources.
+This means that every started `stunner` pod will request `0.5 CPU` core and `128 mebibytes` of memory. Note that pods will only start in case the cluster can successfully allocate the given amount of resources. If the cluster lacks of resources it is advised to lower the requested value. 
 
 About the resource limits, in order to not stress the Kubernetes scheduler it is advised to keep the limits down and scale out (increase) the number of running pods if needed. Actually, it is the way, do not be afraid to scale in Kubernetes. To learn more about the scaling process take a look at our full [scaling guide](https://github.com/l7mp/stunner/blob/main/docs/SCALING.md).
 
@@ -90,7 +100,7 @@ Multi-threaded UDP listeners adds the ability for STUNner to run UDP listeners o
 idea is to create a configurable number of UDP server sockets using `SO_REUSEPORT` and spawn a
 separate goroutine to run a parallel readloop for each. The kernel will load-balance allocations
 across the sockets/readloops per the IP 5-tuple, so the same allocation will always stay at the
-same CPU. This allows UDP listeners to scale to multiple CPUs.
+same CPU. This allows UDP listeners to scale to multiple CPUs, thus improve the performance.
 
 Note that this is enabled only for UDP at the moment: TCP, TLS and DTLS listeners spawn a
 per-client readloop anyway. Also note that `SO_REUSEPORT` is not portable, so currently we enable
@@ -108,10 +118,10 @@ udpMultithreading:
 
 STUNner has full support for graceful shutdown in Kubernetes. This means that `stunner` pods will remain alive as long as there are active allocations via the embedded TURN server, and a pod will automatically remove itself once all allocations through it are deleted or timed out. 
 
-Note that the default TURN refresh lifetime is 10 minutes so STUNner may remain alive well after the last client goes away. This occurs when an UDP allocation is left open by a client (spontaneous UDP client-side connection closure cannot be reliably detected by the server). In such cases, after 10 mins the allocation will timeout and get deleted, which will then let `stunnerd` to terminate. 
+Note that the default TURN refresh lifetime is 10 minutes so STUNner may remain alive well after the last client goes away. This occurs when an UDP allocation is left open by a client (spontaneous UDP client-side connection closure cannot be reliably detected by the server). In such cases, after 10 mins the allocation will timeout and gets deleted, which will then let `stunnerd` to terminate. 
 This feature enables the full support for graceful scale-down: the user can scale the number of `stunner` instances up and down as they wish and no harm should be made to active client connections meanwhile. 
 Caveats: 
-- currently the max lifetime for `stunner` to remain alive after deleted in 1 hour: this means that `stunner` will remain active only for 1 hour after it has been deleted/scaled-down. You can always set this in by adjusting the `terminationGracePeriod` on your `stunnerd` pods.
+- currently the max lifetime for `stunner` to remain alive after being deleted in 1 hour: this means that `stunner` will remain active only for 1 hour after it has been deleted/scaled-down. You can always set this in by adjusting the `terminationGracePeriod` on your `stunnerd` pods.
 - if there are active (or very recent) TURN allocations then the `stunner` pod may refuse to be removed after a kubectl delete. Use `kubectl delete pod --grace-period=0 --force -n stunner stunner-XXX` to force removal.
 
 The default termination period is set to 3600 seconds (1 hour). To modify it use the `--set stunner.deployment.container.terminationGracePeriodSeconds=<NEW_PERIOD_IN_SECONDS>` flag.
@@ -162,11 +172,11 @@ helm install prometheus stunner/stunner-prometheus
 
 Learn more about how to enable, configure and use monitoring [here](https://github.com/l7mp/stunner/blob/main/doc/MONITORING.md#installation).
 
-#### Disabling monitoring
+#### Disable monitoring
 
-The default is to deploy STUNner with the monitoring port exposed in the STUNner pods to enable metric collection on K8s networking level.
+By default STUNner is deployed with the monitoring port exposed in the STUNner pods.
 
-In order to disable monitoring install the STUNner chart with the following command.
+If you wish to avoid the port exposition, you can install STUNner with monitoring disabled:
 
 ```console
 helm install stunner stunner/stunner --create-namespace --namespace=stunner --set stunner.deployment.monitoring.enabled=false

@@ -58,17 +58,6 @@ app.kubernetes.io/version: {{ .Chart.AppVersion | quote }}
 {{- end }}
 {{- end }}
 
-# {{/*
-# Create the name of the service account to use
-# */}}
-# {{- define "stunner.serviceAccountName" -}}
-# {{- if .Values.serviceAccount.create }}
-# {{- default (include "stunner.fullname" .) .Values.serviceAccount.name }}
-# {{- else }}
-# {{- default "default" .Values.serviceAccount.name }}
-# {{- end }}
-# {{- end }}
-
 {{/*
 Generate the proper args for stunnerd
 */}}
