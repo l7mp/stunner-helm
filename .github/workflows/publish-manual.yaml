@@ -93,7 +93,7 @@ jobs:
       - name: Run chart-testing (install)
         run: |
           cd stunner-helm
-          ct install --all --chart-dirs helm --excluded-charts stunner-kurento-one2one-call
+          ct install --chart-dirs helm --charts helm/${{ env.TYPE }}
 
       - name: Build helm chart for ${{ env.TYPE }}
         run: |
