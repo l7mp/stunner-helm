@@ -59,23 +59,12 @@ app.kubernetes.io/version: {{ .Chart.AppVersion | quote }}
 {{- end }}
 
 {{/*
-Create the name of the service account to use
-*/}}
-{{- define "stunner.serviceAccountName" -}}
-{{- if .Values.serviceAccount.create }}
-{{- default (include "stunner.fullname" .) .Values.serviceAccount.name }}
-{{- else }}
-{{- default "default" .Values.serviceAccount.name }}
-{{- end }}
-{{- end }}
-
-{{/*
 Generate the proper args for stunnerd
 */}}
 {{- define "stunner.stunnerGatewayOperator.args" -}}
 {{- if not .Values.stunner.standalone.enabled }}
 command: ["stunnerd"]
-{{- with .Values.stunner.deployment.container.udpMultithreading}}
+{{- with .Values.stunner.deployment.container.stunnerd.udpMultithreading}}
 {{- if .enabled }}
 args: ["-w", "-c", "/etc/stunnerd/stunnerd.conf", "--udp-thread-num={{ .readLoopsPerUDPListener}}"]
 {{- else }}
@@ -93,7 +82,7 @@ volumeMounts:
     readOnly: true
 {{- end }}
 {{- else }}
-{{- with .Values.stunner.deployment.container.udpMultithreading}}
+{{- with .Values.stunner.deployment.container.stunnerd.udpMultithreading}}
 command: ["stunnerd"]
 {{- if .enabled }}
 args: ["-c", "/stunnerd.conf", "--udp-thread-num={{ .readLoopsPerUDPListener}}"]
@@ -119,9 +108,11 @@ Generate the proper args for stunnerd
 {{- if eq .Values.stunner.standalone.enabled false }}
 volumes:
   - name: stunnerd-config-volume
+{{- if eq .Values.stunner.deployment.container.configWatcher.enabled false}}
     configMap:
       name: stunnerd-config
       optional: true
+{{- end }}     
 {{- end }}
 {{- end }}
 

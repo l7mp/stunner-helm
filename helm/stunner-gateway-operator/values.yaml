@@ -9,13 +9,14 @@ stunnerGatewayOperator:
   deployment:
     name: stunner-gateway-operator
     tolerations: []
-    nodeSelector: {}
+    nodeSelector:
+      kubernetes.io/os: linux
     container:
       manager:
         image:
           repository: ""
           name: l7mp/stunner-gateway-operator
-          pullPolicy: Always
+          pullPolicy: IfNotPresent
           tag: 0.13.0
         resources:
           limits:
@@ -27,3 +28,6 @@ stunnerGatewayOperator:
       kubeRbacProxy:
         image:
           name: gcr.io/kubebuilder/kube-rbac-proxy:v0.11.0
+
+stunnerAuthService:
+  enabled: true
