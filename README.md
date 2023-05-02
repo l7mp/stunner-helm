@@ -16,7 +16,7 @@
     - [Monitoring](#monitoring)
 
 ## Important
-> **Warning**
+> **Warning**  
 > There are a few things to know before jumping right into using STUNner
 > - STUNner must installed into the same namespace as the `gatewayclass` and config was in case you are using STUNner with the gateway-operator
 
@@ -57,7 +57,7 @@ helm install stunner stunner/stunner-dev --create-namespace --namespace=<your-na
 
 
 ### Without the Operator in Standalone Mode 
-> **Warning**
+> **Warning**  
 > Standalone Mode is a legacy option that might not be supported in the future.
 
 ```console
