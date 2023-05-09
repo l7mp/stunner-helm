@@ -21,7 +21,7 @@ stunner:
           repository: ""
           name: l7mp/stunnerd
           pullPolicy: IfNotPresent
-          tag: 0.14.0
+          tag: 0.15.0
         udpMultithreading:
           enabled: true
           readLoopsPerUDPListener: 16
