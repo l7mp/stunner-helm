@@ -17,7 +17,7 @@ stunnerGatewayOperator:
           repository: ""
           name: l7mp/stunner-gateway-operator
           pullPolicy: IfNotPresent
-          tag: 0.13.0
+          tag: 0.15.0
         resources:
           limits:
             cpu: 1000m
