@@ -82,6 +82,12 @@ spec:
             requests:
               cpu: 10m
               memory: 64Mi
+      {{- with .Values.stunnerAuthService.deployment.nodeSelector }}
+      nodeSelector: {{- toYaml . | nindent 8 }}
+      {{- end }}
+      {{- with .Values.stunnerAuthService.deployment.tolerations }}
+      tolerations: {{- toYaml . | nindent 8 }}
+      {{- end }}
 ---
 apiVersion: v1
 kind: Service
