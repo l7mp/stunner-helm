@@ -31,3 +31,7 @@ stunnerGatewayOperator:
 
 stunnerAuthService:
   enabled: true
+  deployment:
+    tolerations: []
+    nodeSelector:
+      kubernetes.io/os: linux
