@@ -71,6 +71,7 @@ rules:
   resources:
   - endpoints
   - nodes
+  - namespaces
   - secrets
   verbs:
   - get
