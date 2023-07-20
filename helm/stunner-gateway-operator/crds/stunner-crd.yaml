@@ -67,7 +67,7 @@ spec:
                       "gateway.networking.k8s.io". When unspecified or empty string,
                       core API group is inferred.
                     maxLength: 253
-                    pattern: "^$|^[a-z0-9]([-a-z0-9]*[a-z0-9])?(\.[a-z0-9]([-a-z0-9]*[a-z0-9])?)*$"
+                    pattern: ^$|^[a-z0-9]([-a-z0-9]*[a-z0-9])?(\.[a-z0-9]([-a-z0-9]*[a-z0-9])?)*$
                     type: string
                   kind:
                     default: Secret
@@ -75,7 +75,7 @@ spec:
                       or "Service".
                     maxLength: 63
                     minLength: 1
-                    pattern: "^[a-zA-Z]([-a-zA-Z0-9]*[a-zA-Z0-9])?$"
+                    pattern: ^[a-zA-Z]([-a-zA-Z0-9]*[a-zA-Z0-9])?$
                     type: string
                   name:
                     description: Name is the name of the referent.
@@ -91,7 +91,7 @@ spec:
                       details. \n Support: Core"
                     maxLength: 63
                     minLength: 1
-                    pattern: "^[a-z0-9]([-a-z0-9]*[a-z0-9])?$"
+                    pattern: ^[a-z0-9]([-a-z0-9]*[a-z0-9])?$
                     type: string
                 required:
                 - name
@@ -100,7 +100,7 @@ spec:
                 default: plaintext
                 description: AuthType is the type of the STUN/TURN authentication
                   mechanism.
-                pattern: "^plaintext|static|longterm|ephemeral|timewindowed$"
+                pattern: ^plaintext|static|longterm|ephemeral|timewindowed$
                 type: string
               healthCheckEndpoint:
                 description: HealthCheckEndpoint is the URI of the form `http://address:port`
@@ -146,7 +146,7 @@ spec:
               password:
                 description: Password defines the `password` credential for "plaintext"
                   authentication.
-                pattern: "^[A-Za-z0-9!#$%&'*+\-.^_\x60|~]+$"
+                pattern: ^[A-Za-z0-9!#$%&'*+\-.^_\x60|~]+$
                 type: string
               realm:
                 default: stunner.l7mp.io
@@ -155,7 +155,7 @@ spec:
                   consist of lower case alphanumeric characters or '-', and must start
                   and end with an alphanumeric character. No other punctuation is
                   allowed."
-                pattern: "^[a-z0-9]([-a-z0-9]*[a-z0-9])?(\.[a-z0-9]([-a-z0-9]*[a-z0-9])?)*$"
+                pattern: ^[a-z0-9]([-a-z0-9]*[a-z0-9])?(\.[a-z0-9]([-a-z0-9]*[a-z0-9])?)*$
                 type: string
               sharedSecret:
                 description: SharedSecret defines the shared secret to be used for
@@ -166,12 +166,12 @@ spec:
                 description: StunnerConfig specifies the name of the ConfigMap into
                   which the operator renders the stunnerd configfile.
                 maxLength: 64
-                pattern: "^[a-zA-Z]([-a-zA-Z0-9]*[a-zA-Z0-9])?$"
+                pattern: ^[a-zA-Z]([-a-zA-Z0-9]*[a-zA-Z0-9])?$
                 type: string
               userName:
                 description: Username defines the `username` credential for "plaintext"
                   authentication.
-                pattern: "^[A-Za-z0-9!#$%&'*+\-.^_\x60|~]+$"
+                pattern: ^[A-Za-z0-9!#$%&'*+\-.^_\x60|~]+$
                 type: string
             type: object
         type: object
