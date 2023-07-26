@@ -49,6 +49,8 @@ stunner:
       configWatcher:
         enabled: true
         serviceAccountName: stunner-config-watcher-serviceaccount
+        roleName: stunner-config-watcher-role
+        roleBindName: stunner-config-watcher-rolebind
         env:
         - name: LABEL
           value: "stunner.l7mp.io/owned-by"
