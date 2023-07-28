@@ -279,9 +279,9 @@ spec:
             cpu: 5m
             memory: 64Mi
       - args:
-        - --health-probe-bind-address=:8081
-        - --metrics-bind-address=127.0.0.1:8080
-        - --leader-elect
+        {{- range $.Values.stunnerGatewayOperator.deployment.container.manager.args }}
+        -  {{ . }}
+        {{- end }}
         command:
         - /manager
         image: "{{ .Values.stunnerGatewayOperator.deployment.container.manager.image.repository }}{{ .Values.stunnerGatewayOperator.deployment.container.manager.image.name }}:{{ .Values.stunnerGatewayOperator.deployment.container.manager.image.tag }}"
