@@ -59,10 +59,10 @@ stunnerGatewayOperator:
         - --udp-thread-num=16
       resources:
         limits:
-          cpu: 500m
-          memory: 500Mi
+          cpu: 2
+          memory: 512Mi
         requests:
-          cpu: 100m
+          cpu: 500m
           memory: 128Mi
       terminationGracePeriodSeconds: 3600
       hostNetwork: false
