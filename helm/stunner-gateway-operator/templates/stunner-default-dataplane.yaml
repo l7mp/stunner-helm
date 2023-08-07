@@ -1,0 +1,36 @@
+{{- if eq .Values.stunnerGatewayOperator.dataplane.mode "managed"}}
+{{- with .Values.stunnerGatewayOperator.dataplane.spec }}
+apiVersion: stunner.l7mp.io/v1alpha1
+kind: Dataplane
+metadata:
+  name: default
+spec:
+  template: {{ .template }}
+  replicas: {{ .replicas }}
+  image: {{ .image }}
+  imagePullPolicy: {{ .imagePullPolicy }}
+  command:
+    {{- range .command }}
+    -  {{ . }}
+    {{- end }}
+  args:
+    {{- range .args }}
+    -  {{ . }}
+    {{- end }}
+  {{- with .env }}
+  env: {{- toYaml . | nindent 2 }}
+  {{- end }}
+  resources: {{- toYaml .resources | nindent 4 }}
+  terminationGracePeriodSeconds: {{ .terminationGracePeriodSeconds }}
+  hostNetwork: {{ .hostNetwork }}
+  {{- with .affinity }}
+  affinity: {{- toYaml . | nindent 4 }}
+  {{- end }}
+  {{- with .securityContext }}
+  securityContext: {{- toYaml . | nindent 4 }}
+  {{- end }}
+  {{- with .tolerations }}
+  tolerations: {{- toYaml . | nindent 2 }}
+  {{- end }}
+{{- end -}}
+{{- end -}}

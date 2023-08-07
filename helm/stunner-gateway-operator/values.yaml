@@ -33,6 +33,42 @@ stunnerGatewayOperator:
       kubeRbacProxy:
         image:
           name: gcr.io/kubebuilder/kube-rbac-proxy:v0.11.0
+  dataplane:
+    # Can be 'legacy' or 'managed'
+    # for now default is legacy
+    # but will be changed in the future
+    mode: legacy
+    spec:
+      # The `default` template spawns a single stunnerd container with the
+      # running config mapped into the pod from the ConfigMap. The `config-watcher` template
+      # uses a separate sidecar container to watch the ConfigMap, which can be faster than the
+      # default but requires additional RBAC permissions.
+      template: default
+      replicas: 1
+      # latest equals the last stable release
+      # for dev version set it to l7mp/stunnerd:dev
+      image: l7mp/stunnerd:latest
+      imagePullPolicy: Always
+      command:
+        - stunnerd
+      env: []
+      args:
+        - -w
+        - -c
+        - /etc/stunnerd/stunnerd.conf
+        - --udp-thread-num=16
+      resources:
+        limits:
+          cpu: 500m
+          memory: 500Mi
+        requests:
+          cpu: 100m
+          memory: 128Mi
+      terminationGracePeriodSeconds: 3600
+      hostNetwork: false
+      affinity: {}
+      securityContext: {}
+      tolerations: []
 
 stunnerAuthService:
   enabled: true
