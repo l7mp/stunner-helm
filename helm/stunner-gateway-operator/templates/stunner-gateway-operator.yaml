@@ -289,6 +289,9 @@ spec:
         - containerPort: 8443
           name: https
           protocol: TCP
+        - containerPort: 13478
+          name: cds
+          protocol: TCP
         resources:
           limits:
             cpu: 500m
@@ -303,27 +306,42 @@ spec:
         -  --dataplane-mode={{.Values.stunnerGatewayOperator.dataplane.mode }}
         command:
         - /manager
+        env:
+        - name: STUNNER_GATEWAY_OPERATOR_ADDRESS
+          valueFrom:
+            fieldRef:
+              apiVersion: v1
+              fieldPath: status.podIP
         image: "{{ .Values.stunnerGatewayOperator.deployment.container.manager.image.repository }}{{ .Values.stunnerGatewayOperator.deployment.container.manager.image.name }}:{{ .Values.stunnerGatewayOperator.deployment.container.manager.image.tag }}"
         imagePullPolicy: {{ .Values.stunnerGatewayOperator.deployment.container.manager.image.pullPolicy }}
         livenessProbe:
+          failureThreshold: 3
           httpGet:
             path: /healthz
             port: 8081
+            scheme: HTTP
           initialDelaySeconds: 15
           periodSeconds: 20
+          successThreshold: 1
+          timeoutSeconds: 1
         name: manager
         readinessProbe:
+          failureThreshold: 3
           httpGet:
             path: /readyz
             port: 8081
+            scheme: HTTP
           initialDelaySeconds: 5
           periodSeconds: 10
+          successThreshold: 1
+          timeoutSeconds: 1
         resources: {{- toYaml .Values.stunnerGatewayOperator.deployment.container.manager.resources | nindent 10 }}
         securityContext:
           allowPrivilegeEscalation: false
       securityContext:
         runAsNonRoot: true
       serviceAccountName: stunner-gateway-operator-controller-manager
+      serviceAccount: stunner-gateway-operator-controller-manager
       terminationGracePeriodSeconds: 10
       {{- with .Values.stunnerGatewayOperator.deployment.nodeSelector }}
       nodeSelector: {{- toYaml . | nindent 8 }}
