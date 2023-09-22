@@ -5,7 +5,6 @@ kind: Dataplane
 metadata:
   name: default
 spec:
-  template: {{ .template }}
   replicas: {{ .replicas }}
   image: {{ .image }}
   imagePullPolicy: {{ .imagePullPolicy }}

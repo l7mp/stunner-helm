@@ -39,11 +39,6 @@ stunnerGatewayOperator:
     # but will be changed in the future
     mode: legacy
     spec:
-      # The `default` template spawns a single stunnerd container with the
-      # running config mapped into the pod from the ConfigMap. The `config-watcher` template
-      # uses a separate sidecar container to watch the ConfigMap, which can be faster than the
-      # default but requires additional RBAC permissions.
-      template: default
       replicas: 1
       # latest equals the last stable release
       # for dev version set it to l7mp/stunnerd:dev
