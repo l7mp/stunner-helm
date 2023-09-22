@@ -1,4 +1,5 @@
 {{- if eq .Values.stunnerAuthService.enabled true}}
+{{- with .Values.stunnerAuthService }}
 ---
 apiVersion: rbac.authorization.k8s.io/v1
 kind: ClusterRole
@@ -18,7 +19,7 @@ apiVersion: v1
 kind: ServiceAccount
 metadata:
   name: stunner-auth
-  namespace: {{ .Release.Namespace }}
+  namespace: {{ $.Release.Namespace }}
 ---
 apiVersion: rbac.authorization.k8s.io/v1
 kind: ClusterRoleBinding
@@ -31,13 +32,13 @@ roleRef:
 subjects:
   - kind: ServiceAccount
     name: stunner-auth
-    namespace: {{ .Release.Namespace }}
+    namespace: {{ $.Release.Namespace }}
 ---
 apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: stunner-auth
-  namespace: {{ .Release.Namespace }}
+  namespace: {{ $.Release.Namespace }}
   labels:
     app: stunner-auth
 spec:
@@ -54,10 +55,13 @@ spec:
       terminationGracePeriodSeconds: 10
       containers:
         - name: stunner-auth-server
-          image: l7mp/stunner-auth-server:dev
+          image: "{{ .deployment.container.authService.image.repository }}{{ .deployment.container.authService.image.name }}:{{ .deployment.container.authService.image.tag }}"
           imagePullPolicy: Always
           command: [ "./manager" ]
-          args: ["-zap-log-level","10", "-port", "8088"]
+          args:
+          {{- range $.Values.stunnerAuthService.deployment.container.authService.args }}
+          -  {{ . }}
+          {{- end }}
           securityContext:
             allowPrivilegeEscalation: false
             capabilities:
@@ -82,18 +86,14 @@ spec:
             requests:
               cpu: 10m
               memory: 64Mi
-      {{- with .Values.stunnerAuthService.deployment.nodeSelector }}
-      nodeSelector: {{- toYaml . | nindent 8 }}
-      {{- end }}
-      {{- with .Values.stunnerAuthService.deployment.tolerations }}
-      tolerations: {{- toYaml . | nindent 8 }}
-      {{- end }}
+      nodeSelector: {{- toYaml .deployment.nodeSelector | nindent 8 }}
+      tolerations: {{- toYaml .deployment.tolerations | nindent 8 }}
 ---
 apiVersion: v1
 kind: Service
 metadata:
   name: stunner-auth
-  namespace: {{ .Release.Namespace }}
+  namespace: {{ $.Release.Namespace }}
   labels:
     app: stunner-auth
 spec:
@@ -103,4 +103,5 @@ spec:
     - name: stunner-auth-server
       port: 8088
   type: ClusterIP
+{{- end }}
 {{- end -}}

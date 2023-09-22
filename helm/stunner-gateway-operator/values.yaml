@@ -76,3 +76,13 @@ stunnerAuthService:
     tolerations: []
     nodeSelector:
       kubernetes.io/os: linux
+    container:
+      authService:
+        image:
+          repository: ""
+          name: l7mp/stunner-auth-server
+          pullPolicy: IfNotPresent
+          tag: 0.15.0
+        args:
+          - --zap-log-level=10
+          - --port=8088
