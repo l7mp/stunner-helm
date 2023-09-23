@@ -5,17 +5,15 @@ kind: Dataplane
 metadata:
   name: default
 spec:
-  replicas: {{ .replicas }}
   image: {{ .image }}
   imagePullPolicy: {{ .imagePullPolicy }}
   command:
     {{- range .command }}
-    -  {{ . }}
+    - {{ . }}
     {{- end }}
   args:
-    {{- range .args }}
-    -  {{ . }}
-    {{- end }}
+    - -w
+    - --udp-thread-num=16
   {{- with .env }}
   env: {{- toYaml . | nindent 2 }}
   {{- end }}
