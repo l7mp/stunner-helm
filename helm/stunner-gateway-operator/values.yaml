@@ -49,8 +49,6 @@ stunnerGatewayOperator:
       env: []
       args:
         - -w
-        - -c
-        - /etc/stunnerd/stunnerd.conf
         - --udp-thread-num=16
       resources:
         limits:
