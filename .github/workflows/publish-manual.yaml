@@ -103,7 +103,7 @@ jobs:
       - name: Setup node
         uses: actions/setup-node@v3
         with:
-          node-version: 19.0.1
+          node-version: latest
           check-latest: false
 
       - name: Update and deploy l7mp/l7mp.io repository
