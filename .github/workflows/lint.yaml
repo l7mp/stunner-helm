@@ -16,7 +16,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: stunner-helm checkout
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
         with:
           path: stunner-helm
           ref: main
