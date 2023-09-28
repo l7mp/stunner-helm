@@ -81,11 +81,11 @@ spec:
             periodSeconds: 10
           resources:
             limits:
-              cpu: 500m
-              memory: 128Mi
+              cpu: 1000m
+              memory: 256Mi
             requests:
-              cpu: 10m
-              memory: 64Mi
+              cpu: 250m
+              memory: 128Mi
       nodeSelector: {{- toYaml .deployment.nodeSelector | nindent 8 }}
       tolerations: {{- toYaml .deployment.tolerations | nindent 8 }}
 ---
