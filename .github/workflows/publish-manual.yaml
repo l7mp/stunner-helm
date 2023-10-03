@@ -68,6 +68,8 @@ jobs:
           if ${{ env.TAG == 'dev' }}; then
             sed -ri 's/^(\s*)(name\s*:\s*.*\s*$)/\1name: stunner-gateway-operator-dev/' stunner-gateway-operator/Chart.yaml
             sed -ri 's/^(\s*)(          pullPolicy\s*:\s*.*\s*$)/\1          pullPolicy: Always/' stunner-gateway-operator/values.yaml
+            sed -ri 's|^(\s*)(      image: l7mp/stunnerd:latest$)|      image: l7mp/stunnerd:dev|' stunner-gateway-operator/values.yaml
+            sed -ri 's|^(\s*)(          tag\s*:\s*.*\s*$)|          tag: dev|' stunner-gateway-operator/values.yaml
           else
             sed -ri 's/^(\s*)(version\s*:\s*.*\s*$)/\1version: ${{ env.TAG }}/' stunner-gateway-operator/Chart.yaml
           fi

@@ -294,11 +294,11 @@ spec:
           protocol: TCP
         resources:
           limits:
-            cpu: 1000m
-            memory: 256Mi
-          requests:
-            cpu: 250m
+            cpu: 500m
             memory: 128Mi
+          requests:
+            cpu: 5m
+            memory: 64Mi
       - args:
         {{- range $.Values.stunnerGatewayOperator.deployment.container.manager.args }}
         -  {{ . }}
