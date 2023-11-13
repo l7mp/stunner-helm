@@ -75,7 +75,6 @@ jobs:
           fi
           sed -ri 's/^(\s*)(appVersion\s*:\s*.*\s*$)/\1appVersion: ${{ env.TAG }}/' stunner-gateway-operator/Chart.yaml
           sed -ri 's/^(\s*)(          tag\s*:\s*.*\s*$)/\1          tag: ${{ env.TAG }}/' stunner-gateway-operator/values.yaml
-          sed -ri 's|^(\s*)(      image: l7mp/stunnerd:latest$)|      image: l7mp/stunnerd:dev|' stunner-gateway-operator/values.yaml
 
       - name: Set up Helm
         uses: azure/setup-helm@v3
