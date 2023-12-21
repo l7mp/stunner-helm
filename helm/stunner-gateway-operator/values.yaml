@@ -35,9 +35,8 @@ stunnerGatewayOperator:
           name: gcr.io/kubebuilder/kube-rbac-proxy:v0.11.0
   dataplane:
     # Can be 'legacy' or 'managed'
-    # for now default is legacy
-    # but will be changed in the future
-    mode: legacy
+    # default is managed
+    mode: managed
     spec:
       replicas: 1
       # latest equals the last stable release
@@ -46,10 +45,10 @@ stunnerGatewayOperator:
       imagePullPolicy: Always
       command:
         - stunnerd
-      env: []
       args:
         - -w
         - --udp-thread-num=16
+      env: []
       resources:
         limits:
           cpu: 2
