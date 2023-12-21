@@ -140,6 +140,7 @@ rules:
   - dataplanes
   - gatewayconfigs
   - staticservices
+  - udproutes
   verbs:
   - get
   - list
@@ -152,6 +153,8 @@ rules:
   - dataplanes/finalizers
   - gatewayconfigs/finalizers
   - staticservices/finalizers
+  - udproutes/finalizers
+  - udproutes/status
   verbs:
   - update
 ---
@@ -255,6 +258,21 @@ spec:
     port: 8443
     protocol: TCP
     targetPort: https
+  selector:
+    control-plane: controller-manager
+---
+apiVersion: v1
+kind: Service
+metadata:
+  labels:
+    control-plane: controller-manager
+  name: stunner-gateway-operator
+  namespace: {{ .Release.Namespace }}
+spec:
+  ports:
+  - name: cds
+    port: 13478
+    protocol: TCP
   selector:
     control-plane: controller-manager
 ---
