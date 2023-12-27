@@ -266,7 +266,7 @@ kind: Service
 metadata:
   labels:
     control-plane: controller-manager
-  name: stunner-gateway-operator
+  name: stunner-config-discovery
   namespace: {{ .Release.Namespace }}
 spec:
   ports:
