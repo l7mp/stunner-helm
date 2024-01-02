@@ -37,13 +37,13 @@ stunner:
             path: /live
             port: 8086
           initialDelaySeconds: 0
-          periodSeconds: 5
+          periodSeconds: 15
         readinessProbe:
           httpGet:
             path: /ready
             port: 8086
           initialDelaySeconds: 0
-          periodSeconds: 5
+          periodSeconds: 15
         terminationGracePeriodSeconds: 3600
 
       configWatcher:
