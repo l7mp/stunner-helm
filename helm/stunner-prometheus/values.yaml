@@ -9,7 +9,7 @@ namespace: monitoring
 selectorLabels:
   component: controller
   name: prometheus-operator
-  version: v0.61.1
+  version: v0.70.0
 
 serviceAccount:
   # Specifies whether a service account should be created
@@ -46,11 +46,11 @@ address: 172.17.0.3
 
 version:
   grafana: latest
-  kuberbacproxy: v0.14.0
-  kubestatemetrics: v2.7.0
-  nodeexporter: v1.5.0
-  prometheusconfigreloader: v0.61.1
-  prometheusoperator: v0.61.1
+  kuberbacproxy: v0.15.0
+  kubestatemetrics: v2.10.1
+  nodeexporter: v1.7.0
+  prometheusconfigreloader: v0.70.0
+  prometheusoperator: v0.70.0
 
 image:
   grafana: grafana/grafana

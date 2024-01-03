@@ -17,6 +17,7 @@ FILES=(
     "crd-probes.yaml"
     "crd-prometheusrules.yaml"
     "crd-prometheus.yaml"
+    "crd-scrapeconfigs.yaml"
     "crd-servicemonitor.yaml"
     "crd-thanosrulers.yaml"
 )
@@ -29,6 +30,7 @@ URL_POSTFIXS=(
     "monitoring.coreos.com_probes.yaml"
     "monitoring.coreos.com_prometheusrules.yaml"
     "monitoring.coreos.com_prometheuses.yaml"
+    "monitoring.coreos.com_scrapeconfigs.yaml"
     "monitoring.coreos.com_servicemonitors.yaml"
     "monitoring.coreos.com_thanosrulers.yaml"
 )
