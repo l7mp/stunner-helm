@@ -57,6 +57,7 @@ stunnerGatewayOperator:
           cpu: 500m
           memory: 128Mi
       terminationGracePeriodSeconds: 3600
+      enableMetricsEndpoint: false
       hostNetwork: false
       affinity: {}
       securityContext: {}

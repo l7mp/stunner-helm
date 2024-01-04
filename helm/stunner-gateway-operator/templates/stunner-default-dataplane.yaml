@@ -21,6 +21,7 @@ spec:
   {{- end }}
   resources: {{- toYaml .resources | nindent 4 }}
   terminationGracePeriodSeconds: {{ .terminationGracePeriodSeconds }}
+  enableMetricsEndpoint: {{ .enableMetricsEndpoint }}
   hostNetwork: {{ .hostNetwork }}
   {{- with .affinity }}
   affinity: {{- toYaml . | nindent 4 }}
