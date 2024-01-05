@@ -8,7 +8,7 @@ Install stunner-gateway-operator with Prometheus support:
 helm install stunner-gateway-operator stunner/stunner-gateway-operator --create-namespace --namespace=stunner-system --set stunnerGatewayOperator.dataplane.spec.enableMetricsEndpoint=true
 ```
 
-Alternatively, you can enable it on existing installations by setting `enableMetricsEndpoint: true` in your [Dataplane](GATEWAY.md#dataplane) objects.
+Alternatively, you can enable it on existing installations by setting `enableMetricsEndpoint: true` in your [Dataplane](https://github.com/l7mp/stunner/blob/main/docs/GATEWAY.md#dataplane) objects.
 
 > [!NOTE]
 > Metrics are exposed at `http://:8080/metrics` on each STUNner pod
@@ -25,10 +25,10 @@ Using local files:
 helm install prometheus .
 ```
 
-The helm chart creates the namespace `monitoring` and installs Prometheus along with the prometheus-operator, and Grafana.
+The helm chart creates the namespace `monitoring` and installs Prometheus along with prometheus-operator, and Grafana.
 
 > [!NOTE]
-> You can also install node-exporter by adding `--set nodeExporter.create=true` to the install command.
+> You can also install [node-exporter](https://github.com/prometheus/node_exporter) by adding `--set nodeExporter.create=true` to the install command.
 
 ## Help
 
