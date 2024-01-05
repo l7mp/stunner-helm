@@ -17,7 +17,7 @@ stunnerGatewayOperator:
           repository: ""
           name: l7mp/stunner-gateway-operator
           pullPolicy: IfNotPresent
-          tag: 0.16.0
+          tag: 0.17.0
         resources:
           limits:
             cpu: 1000m
@@ -75,7 +75,7 @@ stunnerAuthService:
           repository: ""
           name: l7mp/stunner-auth-server
           pullPolicy: IfNotPresent
-          tag: 0.16.0
+          tag: 0.17.0
         args:
           - --zap-log-level=10
           - --port=8088
