@@ -28,8 +28,8 @@ spec:
         image: {{ .Values.image.prometheusoperator }}:{{ .Values.version.prometheusoperator }}
         name: prometheus-operator
         ports:
-        - containerPort: {{ .Values.endpointPorts.prometheus.prometheusScrape }}
-          name: {{ .Values.endpointPorts.prometheus.name }}
+        - containerPort: 8080
+          name: "metrics-port"
         resources:
           limits:
             cpu: 200m

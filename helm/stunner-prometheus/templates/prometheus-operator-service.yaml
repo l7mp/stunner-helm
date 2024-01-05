@@ -11,9 +11,8 @@ metadata:
 spec:
   clusterIP: None
   ports:
-  - name: {{ .Values.endpointPorts.prometheus.name }}
-    port: {{ .Values.endpointPorts.prometheus.prometheusScrape }}
-    targetPort: {{ .Values.endpointPorts.prometheus.name }}
+  - name: "metrics-port"
+    port:  8080
   selector:
     app.kubernetes.io/component: {{ .Values.selectorLabels.component }}
     app.kubernetes.io/name: {{ .Values.selectorLabels.name }}

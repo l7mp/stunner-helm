@@ -36,14 +36,6 @@ nodePorts:
   alertmanager: 30903
   grafana: 30901
 
-endpointPorts:
-  prometheus:
-    name: web
-    prometheusScrape: 8080
-
-# address of the node
-address: 172.17.0.3
-
 version:
   grafana: latest
   kuberbacproxy: v0.15.0

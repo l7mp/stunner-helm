@@ -10,12 +10,15 @@ spec:
   podMetricsEndpoints:
   - honorLabels: True
     interval: 5s
-    port: {{ .Values.endpointPorts.prometheus.name }}
+    port: "metrics-port"
+    path: "/metrics"
   selector:
-    matchExpressions:
-    -  {key: app, operator: In, values: ['stunner']}
-  namespaceSelector:
+    matchLabels:
+      app: stunner
+  namespaceSelector: 
+    #any: true
     matchNames:
       - stunner
       - default
       - {{ .Values.namespace }}
+    
