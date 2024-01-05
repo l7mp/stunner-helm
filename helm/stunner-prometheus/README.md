@@ -2,14 +2,16 @@
 
 ## Prerequisites
 
-Deploy STUNner with monitoring enabled:
+Install stunner-gateway-operator with Prometheus support:
+
 ```console
-helm install stunner stunner/stunner --create-namespace --namespace=stunner --set stunner.deployment.monitoring.enabled=true
+helm install stunner-gateway-operator stunner/stunner-gateway-operator --create-namespace --namespace=stunner-system --set stunnerGatewayOperator.dataplane.spec.enableMetricsEndpoint=true
 ```
-Enable the STUNner metrics endpoint:
-```console
-kubectl -n stunner patch gatewayconfigs.stunner.l7mp.io stunner-gatewayconfig --patch '{"spec": {"metricsEndpoint": "http://0.0.0.0:8080/metrics" }}' --type=merge
-```
+
+Alternatively, you can enable it on existing installations by setting `enableMetricsEndpoint: true` in your [Dataplane](GATEWAY.md#dataplane) objects.
+
+> [!NOTE]
+> Metrics are exposed at `http://:8080/metrics` on each STUNner pod
 
 ## Installation
 
@@ -24,6 +26,13 @@ helm install prometheus .
 ```
 
 The helm chart creates the namespace `monitoring` and installs Prometheus along with the prometheus-operator, and Grafana.
+
+> [!NOTE]
+> You can also install node-exporter by adding `--set nodeExporter.create=true` to the install command.
+
+## Help
+
+STUNner development is coordinated in Discord, feel free to [join](https://discord.gg/DyPgEsbwzc).
 
 ## Acknowledgments
 
