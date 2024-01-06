@@ -5,4 +5,3 @@ https://github.com/l7mp/stunner/blob/main/docs/MONITORING.md
 
 To cleanup:
 helm uninstall {{ .Release.Name }} -n {{ .Release.Namespace }}
-kubectl delete namespace {{ .Release.Namespace }}

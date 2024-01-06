@@ -14,3 +14,4 @@ to your own specification!
 
 To cleanup:
 helm uninstall {{ .Release.Name }} -n {{ .Release.Namespace }}
+kubectl delete namespace {{ .Release.Namespace }}
