@@ -12,6 +12,5 @@ Customize the default values below stunner.config
 to your own specification!
 {{- end}}
 
-To cleanup: 
+To cleanup:
 helm uninstall {{ .Release.Name }} -n {{ .Release.Namespace }}
-kubectl delete namespace {{ .Release.Namespace }}
