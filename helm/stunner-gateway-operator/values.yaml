@@ -39,9 +39,8 @@ stunnerGatewayOperator:
     mode: managed
     spec:
       replicas: 1
-      # latest equals the last stable release
       # for dev version set it to l7mp/stunnerd:dev
-      image: l7mp/stunnerd:latest
+      image: l7mp/stunnerd:0.17.0
       imagePullPolicy: Always
       command:
         - stunnerd
