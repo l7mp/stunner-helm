@@ -41,11 +41,11 @@ version:
   kuberbacproxy: v0.15.0
   kubestatemetrics: v2.10.1
   nodeexporter: v1.7.0
-  prometheusconfigreloader: v0.70.0
-  prometheusoperator: v0.70.0
+  prometheusconfigreloader: v0.71.0
+  prometheusoperator: v0.71.0
 
 image:
-  grafana: grafana/grafana
+  grafana: docker.io/grafana/grafana
   kuberbacproxy: quay.io/brancz/kube-rbac-proxy
   kubestatemetrics: registry.k8s.io/kube-state-metrics/kube-state-metrics
   nodeexporter: quay.io/prometheus/node-exporter
