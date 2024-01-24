@@ -265,7 +265,7 @@ apiVersion: v1
 kind: Service
 metadata:
   labels:
-    control-plane: controller-manager
+    stunner.l7mp.io/config-discovery-service: "true"
   name: stunner-config-discovery
   namespace: {{ .Release.Namespace }}
 spec:
@@ -306,9 +306,6 @@ spec:
         ports:
         - containerPort: 8443
           name: https
-          protocol: TCP
-        - containerPort: 13478
-          name: cds
           protocol: TCP
         resources:
           limits:
@@ -354,6 +351,10 @@ spec:
           successThreshold: 1
           timeoutSeconds: 1
         resources: {{- toYaml .Values.stunnerGatewayOperator.deployment.container.manager.resources | nindent 10 }}
+        ports:
+        - containerPort: 13478
+          name: cds
+          protocol: TCP
         securityContext:
           allowPrivilegeEscalation: false
       securityContext:
