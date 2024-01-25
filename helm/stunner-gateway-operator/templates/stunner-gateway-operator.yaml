@@ -249,7 +249,7 @@ apiVersion: v1
 kind: Service
 metadata:
   labels:
-    control-plane: controller-manager
+    control-plane: stunner-gateway-operator-controller-manager
   name: stunner-gateway-operator-controller-manager-metrics-service
   namespace: {{ .Release.Namespace }}
 spec:
@@ -259,7 +259,7 @@ spec:
     protocol: TCP
     targetPort: https
   selector:
-    control-plane: controller-manager
+    control-plane: stunner-gateway-operator-controller-manager
 ---
 apiVersion: v1
 kind: Service
@@ -274,26 +274,27 @@ spec:
     port: 13478
     protocol: TCP
   selector:
-    control-plane: controller-manager
+    control-plane: stunner-gateway-operator-controller-manager
 ---
 apiVersion: apps/v1
 kind: Deployment
 metadata:
   labels:
-    control-plane: controller-manager
+    control-plane: stunner-gateway-operator-controller-manager
   name: stunner-gateway-operator-controller-manager
   namespace: {{ .Release.Namespace }}
 spec:
   replicas: 1
   selector:
     matchLabels:
-      control-plane: controller-manager
+      control-plane: stunner-gateway-operator-controller-manager
   template:
     metadata:
       annotations:
         kubectl.kubernetes.io/default-container: manager
+        stunner.l7mp.io/config-discovery-service: "true"
       labels:
-        control-plane: controller-manager
+        control-plane: stunner-gateway-operator-controller-manager
     spec:
       containers:
       - args:
