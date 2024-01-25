@@ -292,9 +292,9 @@ spec:
     metadata:
       annotations:
         kubectl.kubernetes.io/default-container: manager
-        stunner.l7mp.io/config-discovery-service: "true"
       labels:
         control-plane: stunner-gateway-operator-controller-manager
+        stunner.l7mp.io/config-discovery-service: enabled
     spec:
       containers:
       - args:
