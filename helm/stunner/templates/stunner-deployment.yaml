@@ -23,7 +23,7 @@ spec:
       hostNetwork: {{ .Values.stunner.deployment.hostNetwork }}
       containers:
       - name: {{ .Values.stunner.deployment.container.stunnerd.name }}
-        image: "{{ .Values.stunner.deployment.container.stunnerd.image.repository }}{{ .Values.stunner.deployment.container.stunnerd.image.name }}:{{ .Values.stunner.deployment.container.stunnerd.image.tag | default .Chart.AppVersion }}"
+        image: "{{ .Values.stunner.deployment.container.stunnerd.image.name }}:{{ .Values.stunner.deployment.container.stunnerd.image.tag | default .Chart.AppVersion }}"
         imagePullPolicy: {{ .Values.stunner.deployment.container.stunnerd.image.pullPolicy }}
         {{- include "stunner.stunnerGatewayOperator.args" . | indent 8 }}
         resources: {{- toYaml .Values.stunner.deployment.container.stunnerd.resources | nindent 10 }}

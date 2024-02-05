@@ -55,7 +55,7 @@ spec:
       terminationGracePeriodSeconds: 10
       containers:
         - name: stunner-auth-server
-          image: "{{ .deployment.container.authService.image.repository }}{{ .deployment.container.authService.image.name }}:{{ .deployment.container.authService.image.tag }}"
+          image: "{{ .deployment.container.authService.image.name }}:{{ .deployment.container.authService.image.tag }}"
           imagePullPolicy: Always
           command: [ "./manager" ]
           args:

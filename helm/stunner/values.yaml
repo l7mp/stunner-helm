@@ -18,8 +18,7 @@ stunner:
       stunnerd:
         name: stunnerd
         image:
-          repository: ""
-          name: l7mp/stunnerd
+          name: docker.io/l7mp/stunnerd
           pullPolicy: IfNotPresent
           tag: 0.17.0
         udpMultithreading:
