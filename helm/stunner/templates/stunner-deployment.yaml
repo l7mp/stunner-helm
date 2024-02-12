@@ -4,7 +4,7 @@ kind: Deployment
 metadata:
   name: {{ include "stunner.name" . }}
   namespace: {{ .Release.Namespace }}
-  annotations: {{ include "stunner.metadata.annotations" . | nindent 4 }}  
+  annotations: {{ include "stunner.metadata.annotations" . | nindent 4 }}
 spec:
   selector:
     matchLabels:
@@ -36,7 +36,7 @@ spec:
 {{- end }}
 {{- if eq .Values.stunner.deployment.container.configWatcher.enabled true}}
       - name: config-watcher
-        image: kiwigrid/k8s-sidecar:latest
+        image: ghcr.io/kiwigrid/k8s-sidecar:latest
         imagePullPolicy: IfNotPresent
         volumeMounts:
           - name: stunnerd-config-volume
