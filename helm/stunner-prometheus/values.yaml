@@ -38,11 +38,11 @@ nodePorts:
 
 version:
   grafana: latest
-  kuberbacproxy: v0.15.0
+  kuberbacproxy: v0.16.0
   kubestatemetrics: v2.10.1
   nodeexporter: v1.7.0
-  prometheusconfigreloader: v0.71.0
-  prometheusoperator: v0.71.0
+  prometheusconfigreloader: v0.71.2
+  prometheusoperator: v0.71.2
 
 image:
   grafana: docker.io/grafana/grafana
