@@ -25,6 +25,7 @@ spec:
           imagePullPolicy: Always
           command: [ "./authd" ]
           args:
+          -  --cds-server-address=stunner-config-discovery.{{ $.Release.Namespace }}.svc:13478
           {{- range $.Values.stunnerAuthService.deployment.container.authService.args }}
           -  {{ . }}
           {{- end }}

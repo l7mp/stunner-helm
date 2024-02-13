@@ -74,6 +74,5 @@ stunnerAuthService:
           pullPolicy: IfNotPresent
           tag: 0.17.0
         args:
-          - --cds-server-address=stunner-config-discovery.stunner-system.svc:13478
           - --port=8088
           - -v
