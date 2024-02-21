@@ -90,7 +90,7 @@ jobs:
           ct lint --all --chart-dirs helm --excluded-charts stunner-kurento-one2one-call
 
       - name: Create kind cluster
-        uses: helm/kind-action@v1.8.0
+        uses: helm/kind-action@v1.9.0
 
       - name: Run chart-testing (install)
         run: |
@@ -103,7 +103,7 @@ jobs:
           helm package ${{ env.TYPE }}
 
       - name: Setup node
-        uses: actions/setup-node@v3
+        uses: actions/setup-node@v4
         with:
           node-version: latest
           check-latest: false
