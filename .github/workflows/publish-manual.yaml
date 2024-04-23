@@ -29,14 +29,14 @@ jobs:
           echo "Triggered by $TYPE"
 
       - name: stunner-helm checkout
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
         with:
           path: stunner-helm
           ref: main
           repository: l7mp/stunner-helm
 
       - name: l7mp.io checkout
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
         with:
           token: ${{ secrets.WEB_PAT_TOKEN }}
           path: l7mp.io
