@@ -66,9 +66,9 @@ Generate the proper args for stunnerd
 command: ["stunnerd"]
 {{- with .Values.stunner.deployment.container.stunnerd.udpMultithreading}}
 {{- if .enabled }}
-args: ["-w", "-c", "/etc/stunnerd/stunnerd.conf", "--udp-thread-num={{ .readLoopsPerUDPListener}}"]
+args: ["-w", "-c", "file://etc/stunnerd/stunnerd.conf", "--udp-thread-num={{ .readLoopsPerUDPListener}}"]
 {{- else }}
-args: ["-w", "-c", "/etc/stunnerd/stunnerd.conf"]
+args: ["-w", "-c", "file://etc/stunnerd/stunnerd.conf"]
 {{- end }}
 env:
   - name: STUNNER_ADDR
@@ -85,9 +85,9 @@ volumeMounts:
 {{- with .Values.stunner.deployment.container.stunnerd.udpMultithreading}}
 command: ["stunnerd"]
 {{- if .enabled }}
-args: ["-c", "/stunnerd.conf", "--udp-thread-num={{ .readLoopsPerUDPListener}}"]
+args: ["-c", "file://stunnerd.conf", "--udp-thread-num={{ .readLoopsPerUDPListener}}"]
 {{- else }}
-args: ["-c", "/stunnerd.conf",]
+args: ["-c", "file://stunnerd.conf",]
 {{- end }}
 envFrom:
   - configMapRef:
