@@ -3,13 +3,13 @@ apiVersion: v1
 kind: ServiceAccount
 metadata:
   name: stunner-gateway-operator-controller-manager
-  namespace: {{ .Release.Namespace }}
+  namespace: {{ $.Values.namespace | default $.Release.Namespace }}
 ---
 apiVersion: rbac.authorization.k8s.io/v1
 kind: Role
 metadata:
   name: stunner-gateway-operator-leader-election-role
-  namespace: {{ .Release.Namespace }}
+  namespace: {{ $.Values.namespace | default $.Release.Namespace }}
 rules:
 - apiGroups:
   - ""
@@ -190,7 +190,7 @@ apiVersion: rbac.authorization.k8s.io/v1
 kind: RoleBinding
 metadata:
   name: stunner-gateway-operator-leader-election-rolebinding
-  namespace: {{ .Release.Namespace }}
+  namespace: {{ $.Values.namespace | default $.Release.Namespace }}
 roleRef:
   apiGroup: rbac.authorization.k8s.io
   kind: Role
@@ -198,7 +198,7 @@ roleRef:
 subjects:
 - kind: ServiceAccount
   name: stunner-gateway-operator-controller-manager
-  namespace: {{ .Release.Namespace }}
+  namespace: {{ $.Values.namespace | default $.Release.Namespace }}
 ---
 apiVersion: rbac.authorization.k8s.io/v1
 kind: ClusterRoleBinding
@@ -211,7 +211,7 @@ roleRef:
 subjects:
 - kind: ServiceAccount
   name: stunner-gateway-operator-controller-manager
-  namespace: {{ .Release.Namespace }}
+  namespace: {{ $.Values.namespace | default $.Release.Namespace }}
 ---
 apiVersion: rbac.authorization.k8s.io/v1
 kind: ClusterRoleBinding
@@ -224,13 +224,13 @@ roleRef:
 subjects:
 - kind: ServiceAccount
   name: stunner-gateway-operator-controller-manager
-  namespace: {{ .Release.Namespace }}
+  namespace: {{ $.Values.namespace | default $.Release.Namespace }}
 ---
 apiVersion: v1
 kind: ConfigMap
 metadata:
   name: stunner-gateway-operator-manager-config
-  namespace: {{ .Release.Namespace }}
+  namespace: {{ $.Values.namespace | default $.Release.Namespace }}
 data:
   controller_manager_config.yaml: |
     apiVersion: controller-runtime.sigs.k8s.io/v1alpha1
@@ -251,7 +251,7 @@ metadata:
   labels:
     control-plane: stunner-gateway-operator-controller-manager
   name: stunner-gateway-operator-controller-manager-metrics-service
-  namespace: {{ .Release.Namespace }}
+  namespace: {{ $.Values.namespace | default $.Release.Namespace }}
 spec:
   ports:
   - name: https
@@ -267,7 +267,7 @@ metadata:
   labels:
     stunner.l7mp.io/config-discovery-service: "true"
   name: stunner-config-discovery
-  namespace: {{ .Release.Namespace }}
+  namespace: {{ $.Values.namespace | default $.Release.Namespace }}
 spec:
   ports:
   - name: cds
@@ -282,7 +282,7 @@ metadata:
   labels:
     control-plane: stunner-gateway-operator-controller-manager
   name: stunner-gateway-operator-controller-manager
-  namespace: {{ .Release.Namespace }}
+  namespace: {{ $.Values.namespace | default $.Release.Namespace }}
 spec:
   replicas: 1
   selector:
