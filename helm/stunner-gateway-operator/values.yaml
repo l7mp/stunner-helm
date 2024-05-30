@@ -59,6 +59,7 @@ stunnerGatewayOperator:
       hostNetwork: false
       affinity: {}
       securityContext: {}
+      containerSecurityContext: {}
       tolerations: []
 
 stunnerAuthService:

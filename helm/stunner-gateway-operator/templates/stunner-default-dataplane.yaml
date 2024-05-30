@@ -29,6 +29,9 @@ spec:
   {{- with .securityContext }}
   securityContext: {{- toYaml . | nindent 4 }}
   {{- end }}
+  {{- with .containerSecurityContext }}
+  containerSecurityContext: {{- toYaml . | nindent 4 }}
+  {{- end }}
   {{- with .tolerations }}
   tolerations: {{- toYaml . | nindent 2 }}
   {{- end }}
