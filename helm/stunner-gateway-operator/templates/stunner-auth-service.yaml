@@ -17,6 +17,9 @@ spec:
     metadata:
       labels:
         app: stunner-auth
+        {{- with $.Values.stunnerAuthService.deployment.podLabels }}
+        {{- toYaml . | nindent 8 }}
+        {{- end }}
     spec:
       terminationGracePeriodSeconds: 10
       containers:

@@ -317,6 +317,9 @@ spec:
       labels:
         control-plane: stunner-gateway-operator-controller-manager
         stunner.l7mp.io/config-discovery-service: enabled
+        {{- with .Values.stunnerGatewayOperator.deployment.podLabels }}
+        {{- toYaml . | nindent 8 }}
+        {{- end }}
     spec:
       containers:
       - args:
