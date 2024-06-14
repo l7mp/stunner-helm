@@ -6,8 +6,8 @@ metadata:
   name: default
 spec:
   replicas: {{ .replicas }}
-  image: {{ .image }}
-  imagePullPolicy: {{ .imagePullPolicy }}
+  image: "{{ .image.name }}:{{ .image.tag }}"
+  imagePullPolicy: {{ .image.pullPolicy }}
   command:
     {{- range .command }}
     - {{ . }}
