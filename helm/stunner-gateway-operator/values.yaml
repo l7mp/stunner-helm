@@ -8,6 +8,7 @@ stunnerGatewayOperator:
   enabled: true
   deployment:
     name: stunner-gateway-operator
+    podLabels: {}
     tolerations: []
     nodeSelector:
       kubernetes.io/os: linux
@@ -64,6 +65,7 @@ stunnerGatewayOperator:
 stunnerAuthService:
   enabled: true
   deployment:
+    podLabels: {}
     tolerations: []
     nodeSelector:
       kubernetes.io/os: linux
