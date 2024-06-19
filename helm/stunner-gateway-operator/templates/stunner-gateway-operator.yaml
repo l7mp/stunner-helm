@@ -394,3 +394,7 @@ spec:
       {{- with .Values.stunnerGatewayOperator.deployment.tolerations }}
       tolerations: {{- toYaml . | nindent 8 }}
       {{- end }}
+      {{- with .Values.stunnerGatewayOperator.deployment.imagePullSecrets }}
+      imagePullSecrets:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}

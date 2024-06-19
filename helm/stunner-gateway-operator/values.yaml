@@ -12,6 +12,8 @@ stunnerGatewayOperator:
     tolerations: []
     nodeSelector:
       kubernetes.io/os: linux
+    imagePullSecrets:
+#      - name: docker-registry-secret
     container:
       manager:
         image:
@@ -69,6 +71,8 @@ stunnerAuthService:
     tolerations: []
     nodeSelector:
       kubernetes.io/os: linux
+    imagePullSecrets:
+#      - name: docker-registry-secret
     container:
       authService:
         image:
