@@ -23,6 +23,12 @@ spec:
   terminationGracePeriodSeconds: {{ .terminationGracePeriodSeconds }}
   enableMetricsEndpoint: {{ .enableMetricsEndpoint }}
   hostNetwork: {{ .hostNetwork }}
+  {{- with .labels }}
+  labels: {{- toYaml . | nindent 4 }}
+  {{- end }}
+  {{- with .annotations }}
+  annotations: {{- toYaml . | nindent 4 }}
+  {{- end }}
   {{- with .affinity }}
   affinity: {{- toYaml . | nindent 4 }}
   {{- end }}

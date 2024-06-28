@@ -60,6 +60,8 @@ stunnerGatewayOperator:
       terminationGracePeriodSeconds: 3600
       enableMetricsEndpoint: false
       hostNetwork: false
+      labels: {}
+      annotations: {}
       affinity: {}
       securityContext: {}
       tolerations: []
