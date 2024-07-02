@@ -1,6 +1,11 @@
 apiVersion: v2
 name: stunner-prometheus
 description: A Helm chart for monitoring STUNner, the Kubernetes media gateway for WebRTC
+maintainers:
+  - name: l7mp
+    email: info@l7mp.io
+    url: https://l7mp.io
+icon: https://raw.githubusercontent.com/l7mp/stunner/main/docs/img/stunner.svg
 
 # A chart can be either an 'application' or a 'library' chart.
 #
@@ -21,6 +26,3 @@ version: 0.2.1
 # incremented each time you make changes to the application. Versions are not expected to
 # follow Semantic Versioning. They should reflect the version the application is using.
 appVersion: 0.17.0
-
-maintainers:
-  - name: l7mp

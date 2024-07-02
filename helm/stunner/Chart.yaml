@@ -1,6 +1,11 @@
 apiVersion: v2
 name: stunner
-description: A Helm chart for Kubernetes
+description: STUNner - A Kubernetes media gateway for WebRTC
+icon: https://raw.githubusercontent.com/l7mp/stunner/main/docs/img/stunner.svg
+maintainers:
+  - name: l7mp
+    email: info@l7mp.io
+    url: https://l7mp.io
 
 # A chart can be either an 'application' or a 'library' chart.
 #
@@ -22,6 +27,3 @@ version: 0.19.0
 # follow Semantic Versioning. They should reflect the version the application is using.
 # It is recommended to use it with quotes.
 appVersion: 0.19.0
-
-maintainers:
-  - name: l7mp

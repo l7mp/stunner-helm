@@ -1,6 +1,10 @@
 apiVersion: v2
 name: stunner-kurento-one2one-call
-description: A Helm chart for Kubernetes
+description: One to one video call with Kurento via STUNner
+maintainers:
+  - name: l7mp
+    email: info@l7mp.io
+    url: https://l7mp.io
 
 # A chart can be either an 'application' or a 'library' chart.
 #
