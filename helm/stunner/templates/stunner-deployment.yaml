@@ -48,7 +48,7 @@ spec:
 {{- end}}
 {{- if eq .Values.stunner.deployment.container.netdebug.enabled true}}
       - name: net-debug
-        image: l7mp/net-debug:latest
+        image: docker.io/l7mp/net-debug:latest
         imagePullPolicy: IfNotPresent
         command: ["/bin/sh"]
         args: ["-c", "while true; do echo hello; sleep 10;done"]
