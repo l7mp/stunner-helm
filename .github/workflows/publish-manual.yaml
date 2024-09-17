@@ -43,11 +43,6 @@ jobs:
           ref: master
           repository: l7mp/l7mp.io
 
-      - name: Set git config
-        run: |
-          git config --global user.email "l7mp.info@gmail.com"
-          git config --global user.name "BotL7mp"
-
       - name: Edit helm chart for stunner
         if: ${{ env.TYPE == 'stunner'}}
         run: |
@@ -103,11 +98,10 @@ jobs:
           cd stunner-helm/helm
           helm package ${{ env.TYPE }}
 
-      - name: Setup node
-        uses: actions/setup-node@v4
-        with:
-          node-version: latest
-          check-latest: false
+      - name: Set git config
+        run: |
+          git config --global user.email "l7mp.info@gmail.com"
+          git config --global user.name "BotL7mp"
 
       - name: Update and deploy l7mp/l7mp.io repository
         run: |
@@ -126,6 +120,3 @@ jobs:
             git commit -m "Manual publish: Release helm chart from l7mp/${{ env.TYPE }}" -m "(triggered by the 'Helm release' github action.)"
           fi
           git push origin master
-          npm i
-          git remote set-url origin https://BotL7mp:${{ secrets.WEB_PAT_TOKEN }}@github.com/l7mp/l7mp.io.git
-          CI='' npm run deploy
