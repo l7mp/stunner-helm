@@ -19,7 +19,7 @@ stunnerGatewayOperator:
         image:
           name: docker.io/l7mp/stunner-gateway-operator
           pullPolicy: IfNotPresent
-          tag: 0.20.0
+          tag: 0.21.0
         resources:
           limits:
             cpu: 1000m
@@ -42,7 +42,7 @@ stunnerGatewayOperator:
     spec:
       replicas: 1
       # for dev version set it to docker.io/l7mp/stunnerd:dev
-      image: docker.io/l7mp/stunnerd:0.20.0
+      image: docker.io/l7mp/stunnerd:0.21.0
       imagePullPolicy: Always
       command:
         - stunnerd
@@ -80,7 +80,7 @@ stunnerAuthService:
         image:
           name: docker.io/l7mp/stunner-auth-server
           pullPolicy: IfNotPresent
-          tag: 0.20.0
+          tag: 0.21.0
         args:
           - --port=8088
           - -v
