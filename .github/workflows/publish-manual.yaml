@@ -35,14 +35,6 @@ jobs:
           ref: main
           repository: l7mp/stunner-helm
 
-      - name: l7mp.io checkout
-        uses: actions/checkout@v4
-        with:
-          token: ${{ secrets.WEB_PAT_TOKEN }}
-          path: l7mp.io
-          ref: master
-          repository: l7mp/l7mp.io
-
       - name: Edit helm chart for stunner
         if: ${{ env.TYPE == 'stunner'}}
         run: |
@@ -102,6 +94,14 @@ jobs:
         run: |
           git config --global user.email "l7mp.info@gmail.com"
           git config --global user.name "BotL7mp"
+
+      - name: l7mp.io checkout
+        uses: actions/checkout@v4
+        with:
+          token: ${{ secrets.WEB_PAT_TOKEN }}
+          path: l7mp.io
+          ref: master
+          repository: l7mp/l7mp.io
 
       - name: Update and deploy l7mp/l7mp.io repository
         run: |
