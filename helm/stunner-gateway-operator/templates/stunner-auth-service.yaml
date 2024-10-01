@@ -25,7 +25,7 @@ spec:
       containers:
         - name: stunner-auth-server
           image: "{{ .deployment.container.authService.image.name }}:{{ .deployment.container.authService.image.tag }}"
-          imagePullPolicy: Always
+          imagePullPolicy: {{ .deployment.container.authService.image.pullPolicy }}
           command: [ "./authd" ]
           args:
           - --cds-server-address=stunner-config-discovery.{{ $.Values.namespace | default $.Release.Namespace }}.svc

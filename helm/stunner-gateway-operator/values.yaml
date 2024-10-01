@@ -43,7 +43,7 @@ stunnerGatewayOperator:
       replicas: 1
       # for dev version set it to docker.io/l7mp/stunnerd:dev
       image: docker.io/l7mp/stunnerd:0.21.0
-      imagePullPolicy: Always
+      imagePullPolicy: IfNotPresent
       command:
         - stunnerd
       args:
