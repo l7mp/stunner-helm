@@ -34,7 +34,9 @@ stunnerGatewayOperator:
           - --zap-log-level=info
       kubeRbacProxy:
         image:
-          name: gcr.io/kubebuilder/kube-rbac-proxy:v0.11.0
+          name: gcr.io/kubebuilder/kube-rbac-proxy
+          pullPolicy: IfNotPresent
+          tag: v0.16.0
   dataplane:
     # Can be 'legacy' or 'managed'
     # default is managed
@@ -42,8 +44,10 @@ stunnerGatewayOperator:
     spec:
       replicas: 1
       # for dev version set it to docker.io/l7mp/stunnerd:dev
-      image: docker.io/l7mp/stunnerd:0.21.0
-      imagePullPolicy: IfNotPresent
+      image:
+        name: docker.io/l7mp/stunnerd
+        pullPolicy: IfNotPresent
+        tag: 0.21.0
       command:
         - stunnerd
       args:
