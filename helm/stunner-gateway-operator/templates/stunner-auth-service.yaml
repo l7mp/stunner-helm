@@ -37,13 +37,7 @@ spec:
             capabilities:
               drop:
                 - "ALL"
-          resources:
-            limits:
-              cpu: 200m
-              memory: 128Mi
-            requests:
-              cpu: 10m
-              memory: 64Mi
+          resources: {{- toYaml .deployment.container.authService.resources | nindent 12 }}
       nodeSelector: {{- toYaml .deployment.nodeSelector | nindent 8 }}
       tolerations: {{- toYaml .deployment.tolerations | nindent 8 }}
       {{- with .deployment.imagePullSecrets }}
