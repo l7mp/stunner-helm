@@ -85,6 +85,13 @@ stunnerAuthService:
           name: docker.io/l7mp/stunner-auth-server
           pullPolicy: IfNotPresent
           tag: 0.21.0
+        resources:
+          limits:
+            cpu: 200m
+            memory: 128Mi
+          requests:
+            cpu: 10m
+            memory: 64Mi
         args:
           - --port=8088
           - -v
