@@ -27,11 +27,18 @@ jobs:
         run: |
           cd stunner-helm/helm
           sed -ri 's/^(\s*)(name\s*:\s*.*\s*$)/\1name: stunner-dev/' stunner/Chart.yaml
+          sed -ri 's/^(\s*)(          pullPolicy\s*:\s*.*\s*$)/\1          pullPolicy: Always/' stunner/values.yaml
           sed -ri 's/^(\s*)(appVersion\s*:\s*.*\s*$)/\1appVersion: dev/' stunner/Chart.yaml
           sed -ri 's/^(\s*)(          tag\s*:\s*.*\s*$)/\1          tag: dev/' stunner/values.yaml
+
           sed -ri 's/^(\s*)(name\s*:\s*.*\s*$)/\1name: stunner-gateway-operator-dev/' stunner-gateway-operator/Chart.yaml
+          sed -i '/stunnerGatewayOperator:/,/pullPolicy:/ s/\(pullPolicy:\s*\).*/\1Always/' stunner-gateway-operator/values.yaml
+          sed -i '/dataplane:/,/pullPolicy:/ s/\(pullPolicy:\s*\).*/\1Always/' stunner-gateway-operator/values.yaml
+          sed -i '/dataplane:/,/tag:/ s/\(tag:\s*\).*/\1'"dev"'/' stunner-gateway-operator/values.yaml
+          sed -i '/authService:/,/pullPolicy:/ s/\(pullPolicy:\s*\).*/\1Always/' stunner-gateway-operator/values.yaml
+          sed -i '/authService:/,/tag:/ s/\(tag:\s*\).*/\1'"dev"'/' stunner-gateway-operator/values.yaml
+          sed -i '/stunnerGatewayOperator:/,/tag:/ s/\(tag:\s*\).*/\1'"dev"'/' stunner-gateway-operator/values.yaml
           sed -ri 's/^(\s*)(appVersion\s*:\s*.*\s*$)/\1appVersion: dev/' stunner-gateway-operator/Chart.yaml
-          sed -ri 's/^(\s*)(          tag\s*:\s*.*\s*$)/\1          tag: dev/' stunner-gateway-operator/values.yaml
 
       - name: Test chart installability
         run: |
