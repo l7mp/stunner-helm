@@ -50,16 +50,8 @@ spec:
         metrics: node-exporter
     spec:
       containers:
-      - args:
-        - --web.listen-address=0.0.0.0:9100
-        - --path.procfs=/host/proc
-        - --path.sysfs=/host/sys
-        - --path.rootfs=/host/root
-        - --no-collector.wifi
-        - --no-collector.hwmon
-        - --collector.filesystem.ignored-mount-points=^/(dev|proc|sys|var/lib/docker/.+|var/lib/kubelet/pods/.+)($|/)
+      - name: node-exporter
         image: {{ .Values.image.nodeexporter }}:{{ .Values.version.nodeexporter }}
-        name: node-exporter
         resources:
           limits:
             cpu: 250m
@@ -68,21 +60,22 @@ spec:
             cpu: 102m
             memory: 180Mi
         volumeMounts:
-        - mountPath: /host/proc
-          mountPropagation: HostToContainer
-          name: proc
-          readOnly: true
-        - mountPath: /host/sys
-          mountPropagation: HostToContainer
-          name: sys
-          readOnly: true
-        - mountPath: /host/root
-          mountPropagation: HostToContainer
-          name: root
-          readOnly: true
-      - args:
-        - --logtostderr
-        - --secure-listen-address=[$(IP)]:9100
+          - mountPath: /host/proc
+            mountPropagation: HostToContainer
+            name: proc
+            readOnly: true
+          - mountPath: /host/sys
+            mountPropagation: HostToContainer
+            name: sys
+            readOnly: true
+          - mountPath: /host/root
+            mountPropagation: HostToContainer
+            name: root
+            readOnly: true
+      - name: kube-rbac-proxy
+        image: {{ .Values.image.kuberbacproxy }}:{{ .Values.version.kuberbacproxy }}
+        args:
+        - --secure-listen-address=[$(IP)]:9101
         - --tls-cipher-suites=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256,TLS_ECDHE_ECDSA_WITH_AES_128_GCM_SHA256,TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384,TLS_ECDHE_ECDSA_WITH_AES_256_GCM_SHA384,TLS_ECDHE_RSA_WITH_CHACHA20_POLY1305,TLS_ECDHE_ECDSA_WITH_CHACHA20_POLY1305
         - --upstream=http://127.0.0.1:9100/
         env:
@@ -90,11 +83,9 @@ spec:
           valueFrom:
             fieldRef:
               fieldPath: status.podIP
-        image: {{ .Values.image.kuberbacproxy }}:{{ .Values.version.kuberbacproxy }}
-        name: kube-rbac-proxy
         ports:
-        - containerPort: 9100
-          hostPort: 9100
+        - containerPort: 9101
+          hostPort: 9101
           name: https
         resources:
           limits:

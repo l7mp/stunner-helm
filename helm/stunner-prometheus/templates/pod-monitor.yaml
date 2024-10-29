@@ -15,10 +15,10 @@ spec:
   selector:
     matchLabels:
       app: stunner
-  namespaceSelector: 
+  namespaceSelector:
     #any: true
     matchNames:
       - stunner
+      - stunner-system
       - default
       - {{ .Values.namespace }}
-    
