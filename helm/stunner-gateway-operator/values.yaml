@@ -19,7 +19,7 @@ stunnerGatewayOperator:
         image:
           name: docker.io/l7mp/stunner-gateway-operator
           pullPolicy: IfNotPresent
-          tag: 0.21.0
+          tag: 1.0.0
         resources:
           limits:
             cpu: 1000m
