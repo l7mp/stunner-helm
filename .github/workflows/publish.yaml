@@ -55,13 +55,13 @@ jobs:
             sed -ri 's/^(\s*)(name\s*:\s*.*\s*$)/\1name: stunner-gateway-operator-dev/' stunner-gateway-operator/Chart.yaml
             sed -i '/stunnerGatewayOperator:/,/pullPolicy:/ s/\(pullPolicy:\s*\).*/\1Always/' stunner-gateway-operator/values.yaml
             sed -i '/dataplane:/,/pullPolicy:/ s/\(pullPolicy:\s*\).*/\1Always/' stunner-gateway-operator/values.yaml
-            sed -i '/dataplane:/,/tag:/ s/\(tag:\s*\).*/\1'"dev"'/' stunner-gateway-operator/values.yaml
             sed -i '/authService:/,/pullPolicy:/ s/\(pullPolicy:\s*\).*/\1Always/' stunner-gateway-operator/values.yaml
-            sed -i '/authService:/,/tag:/ s/\(tag:\s*\).*/\1'"dev"'/' stunner-gateway-operator/values.yaml
           else
             sed -ri 's/^(\s*)(version\s*:\s*.*\s*$)/\1version: ${{ env.TAG }}/' stunner-gateway-operator/Chart.yaml
           fi
           sed -i '/stunnerGatewayOperator:/,/tag:/ s/\(tag:\s*\).*/\1'"${{ env.TAG }}"'/' stunner-gateway-operator/values.yaml
+          sed -i '/dataplane:/,/tag:/ s/\(tag:\s*\).*/\1'"${{ env.TAG }}"'/' stunner-gateway-operator/values.yaml
+          sed -i '/authService:/,/tag:/ s/\(tag:\s*\).*/\1'"${{ env.TAG }}"'/' stunner-gateway-operator/values.yaml
           sed -ri 's/^(\s*)(appVersion\s*:\s*.*\s*$)/\1appVersion: ${{ env.TAG }}/' stunner-gateway-operator/Chart.yaml
 
       - name: Set up Helm
