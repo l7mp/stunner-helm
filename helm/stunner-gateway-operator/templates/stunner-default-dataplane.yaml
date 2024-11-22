@@ -8,6 +8,9 @@ spec:
   replicas: {{ .replicas }}
   image: "{{ .image.name }}:{{ .image.tag }}"
   imagePullPolicy: {{ .image.pullPolicy }}
+  {{- if .imagePullSecrets }}
+  imagePullSecrets: {{- toYaml .imagePullSecrets | nindent 4 }}
+  {{- end }}
   command:
     {{- range .command }}
     - {{ . }}
