@@ -8,6 +8,9 @@ spec:
   replicas: {{ .replicas }}
   image: "{{ .image.name }}:{{ .image.tag }}"
   imagePullPolicy: {{ .image.pullPolicy }}
+  {{- if .imagePullSecrets }}
+  imagePullSecrets: {{- toYaml .imagePullSecrets | nindent 4 }}
+  {{- end }}
   command:
     {{- range .command }}
     - {{ . }}
@@ -31,6 +34,9 @@ spec:
   {{- end }}
   {{- with .affinity }}
   affinity: {{- toYaml . | nindent 4 }}
+  {{- end }}
+  {{- with .containerSecurityContext }}
+  containerSecurityContext: {{- toYaml . | nindent 4 }}
   {{- end }}
   {{- with .securityContext }}
   securityContext: {{- toYaml . | nindent 4 }}

@@ -12,7 +12,7 @@ spec:
   selector:
     matchLabels:
       app: stunner-auth
-  replicas: 1
+  replicas: {{ .deployment.replicas }}
   template:
     metadata:
       labels:
@@ -30,13 +30,11 @@ spec:
           args:
           - --cds-server-address=stunner-config-discovery.{{ $.Values.namespace | default $.Release.Namespace }}.svc
           {{- range $.Values.stunnerAuthService.deployment.container.authService.args }}
-          -  {{ . }}
+          - {{ . }}
           {{- end }}
-          securityContext:
-            allowPrivilegeEscalation: false
-            capabilities:
-              drop:
-                - "ALL"
+          {{- with .deployment.container.authService.securityContext }}
+          securityContext: {{- toYaml . | nindent 12 }}
+          {{- end }}
           resources: {{- toYaml .deployment.container.authService.resources | nindent 12 }}
       nodeSelector: {{- toYaml .deployment.nodeSelector | nindent 8 }}
       tolerations: {{- toYaml .deployment.tolerations | nindent 8 }}
