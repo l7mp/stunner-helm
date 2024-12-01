@@ -75,7 +75,7 @@ stunnerAuthService:
   deployment:
     podLabels: {}
     tolerations: []
-    # replicas: 3
+    replicas: 1
     nodeSelector:
       kubernetes.io/os: linux
     imagePullSecrets:
