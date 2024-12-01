@@ -83,10 +83,7 @@ stunnerAuthService:
     container:
       authService:
         securityContext:
-          allowPrivilegeEscalation: false
-          capabilities:
-            drop:
-              - "ALL"
+          runAsNonRoot: true
         image:
           name: docker.io/l7mp/stunner-auth-server
           pullPolicy: IfNotPresent
