@@ -48,6 +48,8 @@ stunnerGatewayOperator:
         name: docker.io/l7mp/stunnerd
         pullPolicy: IfNotPresent
         tag: 1.0.0
+      imagePullSecrets:
+        # - name: docker-registry-secret
       command:
         - stunnerd
       args:
