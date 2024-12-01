@@ -1,4 +1,23 @@
-# STUNner Gateway Operator
+# STUNner
+
+The Helm chart of STUNner: A Kubernetes media gateway for WebRTC.
+
+## Note
+
+The official documentation for the STUNner installation methods is in the repository of STUNner. For further information, see the [documentation](https://github.com/l7mp/stunner/blob/main/docs/INSTALL.md).
+
+## Installation
+
+This chart is the recommended way to deploy the STUNner ecosystem into your cluster.
+
+The below will install the stable version of STUNner. In particular, the this will install only the STUNner control plane, i.e., the gateway operator and the authentication service, the dataplane will be automatically provisioned by the operator when needed (but see below). We recommend to use the `stunner-system` namespace to keep the full STUNner control plane in a single scope.
+
+```console
+helm install stunner-gateway-operator stunner/stunner-gateway-operator --create-namespace \
+    --namespace=stunner-system
+```
+
+And that's all: you don't need to install the dataplane separately, this is handled automatically by the operator.  The `stunnerd` pods created by the operator can be customized using the Dataplane custom resource: you can specify the `stunnerd` container image version, provision resources per each `stunnerd` pod, deploy into the host network namespace, etc.; see the documentation [here](https://pkg.go.dev/github.com/l7mp/stunner-gateway-operator/api/v1alpha1#DataplaneSpec).
 
 ## Parameters
 
