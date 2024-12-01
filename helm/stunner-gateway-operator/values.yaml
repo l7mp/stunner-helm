@@ -78,10 +78,11 @@ stunnerAuthService:
   deployment:
     podLabels: {}
     tolerations: []
+    replicas: 1
     nodeSelector:
       kubernetes.io/os: linux
     imagePullSecrets:
-#      - name: docker-registry-secret
+    #  - name: docker-registry-secret
     container:
       authService:
         securityContext:

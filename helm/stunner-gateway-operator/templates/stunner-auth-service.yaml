@@ -12,7 +12,7 @@ spec:
   selector:
     matchLabels:
       app: stunner-auth
-  replicas: 1
+  replicas: {{ .deployment.replicas }}
   template:
     metadata:
       labels:
