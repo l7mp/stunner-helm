@@ -30,7 +30,7 @@ spec:
           args:
           - --cds-server-address=stunner-config-discovery.{{ $.Values.namespace | default $.Release.Namespace }}.svc
           {{- range $.Values.stunnerAuthService.deployment.container.authService.args }}
-          -  {{ . }}
+          - {{ . }}
           {{- end }}
           {{- with $.Values.stunnerAuthService.deployment.container.authService.securityContext }}
           securityContext: {{- toYaml . | nindent 16 }}
