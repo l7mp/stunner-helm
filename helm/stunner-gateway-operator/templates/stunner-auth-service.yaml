@@ -35,7 +35,6 @@ spec:
           {{- with .deployment.container.authService.securityContext }}
           securityContext: {{- toYaml . | nindent 12 }}
           {{- end }}
-          {{- end }}
           resources: {{- toYaml .deployment.container.authService.resources | nindent 12 }}
       nodeSelector: {{- toYaml .deployment.nodeSelector | nindent 8 }}
       tolerations: {{- toYaml .deployment.tolerations | nindent 8 }}
