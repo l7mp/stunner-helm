@@ -81,6 +81,11 @@ stunnerAuthService:
 #      - name: docker-registry-secret
     container:
       authService:
+        securityContext:
+          allowPrivilegeEscalation: false
+          capabilities:
+            drop:
+              - "ALL"
         image:
           name: docker.io/l7mp/stunner-auth-server
           pullPolicy: IfNotPresent
