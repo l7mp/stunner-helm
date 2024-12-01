@@ -49,7 +49,7 @@ stunnerGatewayOperator:
         pullPolicy: IfNotPresent
         tag: 1.0.0
       imagePullSecrets:
-        - name: image-pull-secret
+        # - name: docker-registry-secret
       command:
         - stunnerd
       args:
