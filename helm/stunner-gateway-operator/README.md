@@ -57,6 +57,7 @@ Default dataplane configuration for the operator to use. See more [here](https:/
 | `stunnerGatewayOperator.dataplane.spec.image.name`                    | The name of the image to use for the dataplane.                                                                                                      | `docker.io/l7mp/stunnerd` |
 | `stunnerGatewayOperator.dataplane.spec.image.pullPolicy`              | The pull policy for the image.                                                                                                                       | `IfNotPresent`            |
 | `stunnerGatewayOperator.dataplane.spec.image.tag`                     | The tag for the image.                                                                                                                               | `1.0.0`                   |
+| `stunnerGatewayOperator.dataplane.spec.imagePullSecrets`              | Image pull secrets for the image.                                                                                                                    | `[]`                      |
 | `stunnerGatewayOperator.dataplane.spec.command`                       | The command for the image to run on startup.                                                                                                         | `[]`                      |
 | `stunnerGatewayOperator.dataplane.spec.args`                          | The arguments for the image to use with the command.                                                                                                 | `[]`                      |
 | `stunnerGatewayOperator.dataplane.spec.env`                           | Environment variables to set for the image.                                                                                                          | `[]`                      |
@@ -71,6 +72,7 @@ Default dataplane configuration for the operator to use. See more [here](https:/
 | `stunnerGatewayOperator.dataplane.spec.annotations`                   | Annotations to be applied to the deployed stunner instance.                                                                                          | `{}`                      |
 | `stunnerGatewayOperator.dataplane.spec.affinity`                      | Affinity settings for the deployed stunner instance.                                                                                                 | `{}`                      |
 | `stunnerGatewayOperator.dataplane.spec.securityContext`               | Security context for the deployed stunner instance.                                                                                                  | `{}`                      |
+| `stunnerGatewayOperator.dataplane.spec.containerSecurityContext`      | Security context for the container.                                                                                                                  | `{}`                      |
 | `stunnerGatewayOperator.dataplane.spec.tolerations`                   | Tolerations for pod assignment.                                                                                                                      | `[]`                      |
 
 ### STUNner Authentication Service
@@ -82,8 +84,10 @@ Default configuration for the authentication service to be deployed. See more th
 | `stunnerAuthService.enabled`                                                    | If enabled, the authentication service will be deployed. | `true`                               |
 | `stunnerAuthService.deployment.podLabels`                                       | Labels for the auth service pods.                        | `{}`                                 |
 | `stunnerAuthService.deployment.tolerations`                                     | Tolerations for pod assignment.                          | `[]`                                 |
+| `stunnerAuthService.deployment.replicas`                                        | Replicas for the auth-service deployment.                | `1`                                  |
 | `stunnerAuthService.deployment.nodeSelector`                                    | Node labels for pod assignment.                          |                                      |
 | `stunnerAuthService.deployment.imagePullSecrets`                                | Image pull secrets for the auth service image.           | `[]`                                 |
+| `stunnerAuthService.deployment.container.authService.securityContext`           | Security context for the auth-service pod.               | `{}`                                 |
 | `stunnerAuthService.deployment.container.authService.image.name`                | The name of the image to use.                            | `docker.io/l7mp/stunner-auth-server` |
 | `stunnerAuthService.deployment.container.authService.image.pullPolicy`          | The pull policy for the image.                           | `IfNotPresent`                       |
 | `stunnerAuthService.deployment.container.authService.image.tag`                 | The tag for the image.                                   | `1.0.0`                              |
