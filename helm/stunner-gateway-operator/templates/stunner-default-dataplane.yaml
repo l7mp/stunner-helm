@@ -32,6 +32,9 @@ spec:
   {{- with .affinity }}
   affinity: {{- toYaml . | nindent 4 }}
   {{- end }}
+  {{- with .containerSecurityContext }}
+  containerSecurityContext: {{- toYaml . | nindent 4 }}
+  {{- end }}
   {{- with .securityContext }}
   securityContext: {{- toYaml . | nindent 4 }}
   {{- end }}
