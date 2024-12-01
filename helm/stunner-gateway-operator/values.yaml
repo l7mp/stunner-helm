@@ -67,6 +67,7 @@ stunnerGatewayOperator:
       labels: {}
       annotations: {}
       affinity: {}
+      containerSecurityContext: {}
       securityContext: {}
       tolerations: []
 
@@ -81,6 +82,8 @@ stunnerAuthService:
 #      - name: docker-registry-secret
     container:
       authService:
+        securityContext:
+          runAsNonRoot: true
         image:
           name: docker.io/l7mp/stunner-auth-server
           pullPolicy: IfNotPresent
