@@ -1,6 +1,6 @@
 # STUNner Helm charts
 
-This repo contains the Helm charts for installing STUNner. 
+This repo contains the Helm charts for installing STUNner.
 
 ## Documentation
 
