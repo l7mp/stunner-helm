@@ -341,6 +341,7 @@ spec:
           requests:
             cpu: 5m
             memory: 64Mi
+        securityContext: {{- toYaml .Values.stunnerGatewayOperator.deployment.container.kubeRbacProxy.securityContext | nindent 10 }}
       - args:
         {{- range $.Values.stunnerGatewayOperator.deployment.container.manager.args }}
         -  {{ . }}
@@ -382,8 +383,7 @@ spec:
         - containerPort: 13478
           name: cds
           protocol: TCP
-        securityContext:
-          allowPrivilegeEscalation: false
+        securityContext: {{- toYaml .Values.stunnerGatewayOperator.deployment.container.manager.securityContext | nindent 10 }}
       securityContext:
         runAsNonRoot: true
       serviceAccountName: stunner-gateway-operator-controller-manager
