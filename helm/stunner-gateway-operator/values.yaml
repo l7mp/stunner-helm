@@ -14,6 +14,8 @@ stunnerGatewayOperator:
       kubernetes.io/os: linux
     imagePullSecrets:
 #      - name: docker-registry-secret
+    securityContext:
+      runAsNonRoot: true
     container:
       manager:
         image:

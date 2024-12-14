@@ -384,8 +384,7 @@ spec:
           name: cds
           protocol: TCP
         securityContext: {{- toYaml .Values.stunnerGatewayOperator.deployment.container.manager.securityContext | nindent 10 }}
-      securityContext:
-        runAsNonRoot: true
+      securityContext: {{- toYaml .Values.stunnerGatewayOperator.deployment.securityContext | nindent 8 }}
       serviceAccountName: stunner-gateway-operator-controller-manager
       serviceAccount: stunner-gateway-operator-controller-manager
       terminationGracePeriodSeconds: 10
