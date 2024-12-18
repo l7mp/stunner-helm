@@ -49,30 +49,10 @@ metadata:
   name: stunner-gateway-operator-manager-role
 rules:
 - apiGroups:
-  - apps
-  resources:
-  - deployments
-  verbs:
-  - create
-  - delete
-  - get
-  - list
-  - patch
-  - update
-  - watch
-- apiGroups:
-  - apps
-  resources:
-  - deployments/finalizers
-  - deployments/status
-  verbs:
-  - get
-  - list
-  - watch
-- apiGroups:
   - ""
   resources:
   - configmaps
+  - services
   verbs:
   - create
   - delete
@@ -91,27 +71,21 @@ rules:
   - ""
   resources:
   - endpoints
+  - endpoints/status
   - namespaces
   - nodes
-  - secrets
-  verbs:
-  - get
-  - list
-  - watch
-- apiGroups:
-  - ""
-  resources:
-  - endpoints/status
   - nodes/status
+  - secrets
   - services/status
   verbs:
   - get
   - list
   - watch
 - apiGroups:
-  - ""
+  - apps
   resources:
-  - services
+  - daemonsets
+  - deployments
   verbs:
   - create
   - delete
@@ -121,9 +95,12 @@ rules:
   - update
   - watch
 - apiGroups:
-  - discovery.k8s.io
+  - apps
   resources:
-  - endpointslices
+  - daemonsets/finalizers
+  - daemonsets/status
+  - deployments/finalizers
+  - deployments/status
   verbs:
   - get
   - list
@@ -131,6 +108,7 @@ rules:
 - apiGroups:
   - discovery.k8s.io
   resources:
+  - endpointslices
   - endpointslices/status
   verbs:
   - get
@@ -268,6 +246,15 @@ data:
       resourceName: 92062b70.l7mp.io
 ---
 apiVersion: v1
+kind: Secret
+metadata:
+  name: stunner-gateway-operator-customer-secret
+  namespace: {{ $.Values.namespace | default $.Release.Namespace }}
+type: Opaque
+data:
+  CUSTOMER_KEY: {{ .Values.stunnerGatewayOperator.customerKey | b64enc }}
+---
+apiVersion: v1
 kind: Service
 metadata:
   labels:
@@ -355,6 +342,11 @@ spec:
             fieldRef:
               apiVersion: v1
               fieldPath: status.podIP
+        - name: CUSTOMER_KEY
+          valueFrom:
+            secretKeyRef:
+              key: CUSTOMER_KEY
+              name: stunner-gateway-operator-customer-secret
         image: "{{ .Values.stunnerGatewayOperator.deployment.container.manager.image.name }}:{{ .Values.stunnerGatewayOperator.deployment.container.manager.image.tag }}"
         imagePullPolicy: {{ .Values.stunnerGatewayOperator.deployment.container.manager.image.pullPolicy }}
         livenessProbe:
