@@ -6,6 +6,7 @@
 
 stunnerGatewayOperator:
   enabled: true
+  customerKey: ""
   deployment:
     name: stunner-gateway-operator
     podLabels: {}
