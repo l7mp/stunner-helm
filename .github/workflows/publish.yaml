@@ -152,7 +152,7 @@ jobs:
           git push origin master
 
       - name: Update stunner-helm repo
-        if: ${{ env.TAG != 'dev' || env.TYPE != 'stunner-premium' }}
+        if: ${{ env.TAG != 'dev' && env.TYPE != 'stunner-premium' }}
         run: |
           cd stunner-helm
           rm helm/*.tgz
