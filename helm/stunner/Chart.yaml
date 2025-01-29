@@ -1,5 +1,5 @@
 apiVersion: v2
-name: stunner-dev
+name: stunner
 description: STUNner - A Kubernetes media gateway for WebRTC
 icon: https://raw.githubusercontent.com/l7mp/stunner/main/docs/img/stunner.svg
 maintainers:
@@ -26,4 +26,4 @@ version: 1.0.0
 # incremented each time you make changes to the application. Versions are not expected to
 # follow Semantic Versioning. They should reflect the version the application is using.
 # It is recommended to use it with quotes.
-appVersion: dev
+appVersion: 1.0.0
