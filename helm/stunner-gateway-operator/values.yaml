@@ -37,12 +37,6 @@ stunnerGatewayOperator:
           - --zap-log-level=info
         securityContext:
           allowPrivilegeEscalation: false
-      kubeRbacProxy:
-        image:
-          name: gcr.io/kubebuilder/kube-rbac-proxy
-          pullPolicy: IfNotPresent
-          tag: v0.16.0
-        securityContext: {}
   dataplane:
     # Can be 'legacy' or 'managed'
     # default is managed
