@@ -1719,7 +1719,7 @@ spec:
                 default: Deployment
                 description: |-
                   DataplaneResource defines the Kubernetes resource kind to use to deploy the dataplane,
-                  can be either Deployment (default) or DaemonSet (not supported in the free tier).
+                  can be either Deployment (default) or DaemonSet (supported only in the premium tier).
                 enum:
                 - Deployment
                 - DaemonSet
