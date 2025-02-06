@@ -43,6 +43,14 @@ stunnerGatewayOperator:
           pullPolicy: IfNotPresent
           tag: v0.16.0
         securityContext: {}
+        resources:
+          limits:
+            cpu: 500m
+            memory: 128Mi
+          requests:
+            cpu: 5m
+            memory: 64Mi
+
   dataplane:
     # Can be 'legacy' or 'managed'
     # default is managed
