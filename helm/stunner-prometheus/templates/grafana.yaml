@@ -36,12 +36,18 @@ spec:
       labels:
         app: grafana
     spec:
+      securityContext:
+        runAsUser: 472
+        fsGroup: 472
       containers:
       - name: grafana
         image: {{ .Values.image.grafana }}:{{ .Values.version.grafana }}
         ports:
         - name: grafana
           containerPort: 3000
+        env:
+          - name: GF_SECURITY_ALLOW_EMBEDDING
+            value: "true"
         resources:
           limits:
             memory: "2Gi"
@@ -57,11 +63,24 @@ spec:
             readOnly: false
       volumes:
         - name: grafana-storage
-          emptyDir: {}
+          persistentVolumeClaim:
+            claimName: grafana-pvc
         - name: grafana-datasources
           configMap:
               defaultMode: 420
               name: grafana-datasources
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: grafana-pvc
+  namespace: {{ .Values.namespace }}
+spec:
+  accessModes:
+    - ReadWriteOnce
+  resources:
+    requests:
+      storage: 1Gi
 ---
 apiVersion: v1
 kind: Service
