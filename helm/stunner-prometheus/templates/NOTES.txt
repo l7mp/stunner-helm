@@ -1,7 +1,0 @@
-{{ .Chart.Name }} has been successfully installed.
-
-You can read more about monitoring STUNner here:
-https://github.com/l7mp/stunner/blob/main/docs/MONITORING.md
-
-To cleanup:
-helm uninstall {{ .Release.Name }} -n {{ .Release.Namespace }}

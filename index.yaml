@@ -1,0 +1,666 @@
+apiVersion: v1
+entries:
+  kurento_webrtc_demo:
+  - apiVersion: v2
+    appVersion: 6.16.0
+    created: "2025-02-11T16:33:05.011395852Z"
+    description: A Helm chart for Kubernetes
+    digest: 5e06739d487505f51d53b2dcfe3972b7a468abca94d5b1f21ab3edf901bdd499
+    name: kurento_webrtc_demo
+    type: application
+    urls:
+    - https://l7mp.io/stunner/kurento_webrtc_demo-0.1.0.tgz
+    version: 0.1.0
+  stunner:
+  - apiVersion: v2
+    appVersion: 1.0.0
+    created: "2025-02-11T16:33:05.023250201Z"
+    description: STUNner - A Kubernetes media gateway for WebRTC
+    digest: af18329ca1273b505401e5eb8122884e344ddc5226ed96ea3c1c8cd21fdb0926
+    icon: https://raw.githubusercontent.com/l7mp/stunner/main/docs/img/stunner.svg
+    maintainers:
+    - email: info@l7mp.io
+      name: l7mp
+      url: https://l7mp.io
+    name: stunner
+    type: application
+    urls:
+    - https://l7mp.io/stunner/stunner-1.0.0.tgz
+    version: 1.0.0
+  - apiVersion: v2
+    appVersion: 0.21.0
+    created: "2025-02-11T16:33:05.021135494Z"
+    description: STUNner - A Kubernetes media gateway for WebRTC
+    digest: 035e73824d89051c514ff03ac69c2dcbd1cc2c4d5e0f000e8a9a2d28079693c1
+    icon: https://raw.githubusercontent.com/l7mp/stunner/main/docs/img/stunner.svg
+    maintainers:
+    - email: info@l7mp.io
+      name: l7mp
+      url: https://l7mp.io
+    name: stunner
+    type: application
+    urls:
+    - https://l7mp.io/stunner/stunner-0.21.0.tgz
+    version: 0.21.0
+  - apiVersion: v2
+    appVersion: 0.20.0
+    created: "2025-02-11T16:33:05.020710321Z"
+    description: STUNner - A Kubernetes media gateway for WebRTC
+    digest: 795dfc735bf03a79faf26df6497ee81af2ad0bd7f0748cb650af3cfd413189ac
+    icon: https://raw.githubusercontent.com/l7mp/stunner/main/docs/img/stunner.svg
+    maintainers:
+    - email: info@l7mp.io
+      name: l7mp
+      url: https://l7mp.io
+    name: stunner
+    type: application
+    urls:
+    - https://l7mp.io/stunner/stunner-0.20.0.tgz
+    version: 0.20.0
+  - apiVersion: v2
+    appVersion: 0.19.0
+    created: "2025-02-11T16:33:05.020277564Z"
+    description: A Helm chart for Kubernetes
+    digest: dd9548016eb50402789f73b06139a68cbfd72921fe992d2c9641d96bfcce79b4
+    maintainers:
+    - name: l7mp
+    name: stunner
+    type: application
+    urls:
+    - https://l7mp.io/stunner/stunner-0.19.0.tgz
+    version: 0.19.0
+  - apiVersion: v2
+    appVersion: 0.18.0
+    created: "2025-02-11T16:33:05.019866187Z"
+    description: A Helm chart for Kubernetes
+    digest: c8c56b4c3ba36fac49525718359a626ef8a70ae5820e56f24780ae3b8e6e8476
+    maintainers:
+    - name: l7mp
+    name: stunner
+    type: application
+    urls:
+    - https://l7mp.io/stunner/stunner-0.18.0.tgz
+    version: 0.18.0
+  - apiVersion: v2
+    appVersion: 0.17.0
+    created: "2025-02-11T16:33:05.019447437Z"
+    description: A Helm chart for Kubernetes
+    digest: deb34d14e85ca84631818b290e903fddb4423f0cda8319fa330dbd1de212cc78
+    maintainers:
+    - name: l7mp
+    name: stunner
+    type: application
+    urls:
+    - https://l7mp.io/stunner/stunner-0.17.0.tgz
+    version: 0.17.0
+  - apiVersion: v2
+    appVersion: 0.16.0
+    created: "2025-02-11T16:33:05.019017605Z"
+    description: A Helm chart for Kubernetes
+    digest: 27605893b572a61369448489ae1abba5e952f4c5452c924ff0a2246ef0f79d25
+    maintainers:
+    - name: l7mp
+    name: stunner
+    type: application
+    urls:
+    - https://l7mp.io/stunner/stunner-0.16.0.tgz
+    version: 0.16.0
+  - apiVersion: v2
+    appVersion: 0.15.0
+    created: "2025-02-11T16:33:05.01859652Z"
+    description: A Helm chart for Kubernetes
+    digest: d18b227e46491cd460b86ee1dac52bd2903bcba62f920f876d24f5ed5df346e2
+    maintainers:
+    - name: l7mp
+    name: stunner
+    type: application
+    urls:
+    - https://l7mp.io/stunner/stunner-0.15.0.tgz
+    version: 0.15.0
+  - apiVersion: v2
+    appVersion: 0.14.0
+    created: "2025-02-11T16:33:05.018085688Z"
+    description: A Helm chart for Kubernetes
+    digest: 2cc2488a41b3bbb0a1acfe2144c5e366adc82a89295107ff67bb64edcdd05d62
+    name: stunner
+    type: application
+    urls:
+    - https://l7mp.io/stunner/stunner-0.14.0.tgz
+    version: 0.14.0
+  - apiVersion: v2
+    appVersion: 0.13.0
+    created: "2025-02-11T16:33:05.01777556Z"
+    description: A Helm chart for Kubernetes
+    digest: cdd8a3ab59ea2e715cc105442eba6428db35012bcb4cffa17b29fe2a65c0b5b5
+    name: stunner
+    type: application
+    urls:
+    - https://l7mp.io/stunner/stunner-0.13.0.tgz
+    version: 0.13.0
+  - apiVersion: v2
+    appVersion: 0.11.3
+    created: "2025-02-11T16:33:05.017470972Z"
+    description: A Helm chart for Kubernetes
+    digest: a8954e66d8d99739d3feca71f516cffe252bca543894e18cba4dc0625c13a528
+    name: stunner
+    type: application
+    urls:
+    - https://l7mp.io/stunner/stunner-0.11.3.tgz
+    version: 0.11.3
+  - apiVersion: v2
+    appVersion: 0.11.2
+    created: "2025-02-11T16:33:05.01709413Z"
+    description: A Helm chart for Kubernetes
+    digest: afafd623cb387448f1034f8710f7ce0f547b41747a0b3f859d1a9ffe80111b13
+    name: stunner
+    type: application
+    urls:
+    - https://l7mp.io/stunner/stunner-0.11.2.tgz
+    version: 0.11.2
+  - apiVersion: v2
+    appVersion: 0.11.1
+    created: "2025-02-11T16:33:05.016808066Z"
+    description: A Helm chart for Kubernetes
+    digest: e871426c008a02a911c5f8eabdff9e6202f959671b1372195493765b26620fe1
+    name: stunner
+    type: application
+    urls:
+    - https://l7mp.io/stunner/stunner-0.11.1.tgz
+    version: 0.11.1
+  - apiVersion: v2
+    appVersion: 0.11.0
+    created: "2025-02-11T16:33:05.016219068Z"
+    description: A Helm chart for Kubernetes
+    digest: 315387074549e107685f122a2562219b324d17951d31cbeee5e14bee57efe5b0
+    name: stunner
+    type: application
+    urls:
+    - https://l7mp.io/stunner/stunner-0.11.0.tgz
+    version: 0.11.0
+  - apiVersion: v2
+    appVersion: 0.10.10
+    created: "2025-02-11T16:33:05.012348598Z"
+    description: A Helm chart for Kubernetes
+    digest: 4847572e131dc2d451c36a30fa421dd3b6616af996899c106ce81323dffeda21
+    name: stunner
+    type: application
+    urls:
+    - https://l7mp.io/stunner/stunner-0.10.10.tgz
+    version: 0.10.10
+  - apiVersion: v2
+    appVersion: 0.10.9
+    created: "2025-02-11T16:33:05.015457293Z"
+    description: A Helm chart for Kubernetes
+    digest: cf9cbdd17b5e2fb2861fa4d6fd99d0f28432eb846f1bfd9c89dbd915e3e9c06d
+    name: stunner
+    type: application
+    urls:
+    - https://l7mp.io/stunner/stunner-0.10.9.tgz
+    version: 0.10.9
+  - apiVersion: v2
+    appVersion: 0.10.8
+    created: "2025-02-11T16:33:05.014799216Z"
+    description: A Helm chart for Kubernetes
+    digest: 4364e5b25b236472c86b4c80786b849287dd59cea823b4886026e4265d61b002
+    name: stunner
+    type: application
+    urls:
+    - https://l7mp.io/stunner/stunner-0.10.8.tgz
+    version: 0.10.8
+  - apiVersion: v2
+    appVersion: 0.10.7
+    created: "2025-02-11T16:33:05.01445768Z"
+    description: A Helm chart for Kubernetes
+    digest: 0abfb0ca3ff6553bb61c6f7a5bc681f8a4d23a3943fb0595fa0d3b7b83f06472
+    name: stunner
+    type: application
+    urls:
+    - https://l7mp.io/stunner/stunner-0.10.7.tgz
+    version: 0.10.7
+  - apiVersion: v2
+    appVersion: 0.10.6
+    created: "2025-02-11T16:33:05.014152401Z"
+    description: A Helm chart for Kubernetes
+    digest: 716e1adf8dcfeb578db25c92a2552f8be45da7a74454894f7dafc5e85db457c7
+    name: stunner
+    type: application
+    urls:
+    - https://l7mp.io/stunner/stunner-0.10.6.tgz
+    version: 0.10.6
+  - apiVersion: v2
+    appVersion: 0.10.5
+    created: "2025-02-11T16:33:05.013869493Z"
+    description: A Helm chart for Kubernetes
+    digest: 953fc72f7d33ca142377dedb0a2e4de24abd14c96cbb772e01a6169d18be4b1c
+    name: stunner
+    type: application
+    urls:
+    - https://l7mp.io/stunner/stunner-0.10.5.tgz
+    version: 0.10.5
+  - apiVersion: v2
+    appVersion: 0.10.4
+    created: "2025-02-11T16:33:05.01360489Z"
+    description: A Helm chart for Kubernetes
+    digest: aa65121c28a406b9cfb919bacae20cfbeca1d7d138c4a081dde38473d2cc7787
+    name: stunner
+    type: application
+    urls:
+    - https://l7mp.io/stunner/stunner-0.10.4.tgz
+    version: 0.10.4
+  - apiVersion: v2
+    appVersion: 0.1.0
+    created: "2025-02-11T16:33:05.013289492Z"
+    description: A Helm chart for Kubernetes
+    digest: c557212d588a1919b10abcb0437d05bc4d45e97f849f6b30036a4ca6a9f667dd
+    name: stunner
+    type: application
+    urls:
+    - https://l7mp.io/stunner/stunner-0.10.3.tgz
+    version: 0.10.3
+  - apiVersion: v2
+    appVersion: 0.10.3-t
+    created: "2025-02-11T16:33:05.01296143Z"
+    description: A Helm chart for Kubernetes
+    digest: 525596a0f2e8323150a419d38f92034a8c2dd30b6404eb64fb12695650ec5f34
+    name: stunner
+    type: application
+    urls:
+    - https://l7mp.io/stunner/stunner-0.10.3-t.tgz
+    version: 0.10.3-t
+  - apiVersion: v2
+    appVersion: 0.1.0
+    created: "2025-02-11T16:33:05.012654989Z"
+    description: A Helm chart for Kubernetes
+    digest: 81a5437c9acbf1c45e5694e123eb8253fcdb5dd1cf7540b3226185dd3a2e7df2
+    name: stunner
+    type: application
+    urls:
+    - https://l7mp.io/stunner/stunner-0.10.2.tgz
+    version: 0.10.2
+  - apiVersion: v2
+    appVersion: 0.1.0
+    created: "2025-02-11T16:33:05.012018573Z"
+    description: A Helm chart for Kubernetes
+    digest: a927d99fe1ab558645b9e960f177156f79042ed54971e44197e3b36b6241ba77
+    name: stunner
+    type: application
+    urls:
+    - https://l7mp.io/stunner/stunner-0.10.1.tgz
+    version: 0.10.1
+  - apiVersion: v2
+    appVersion: 0.1.0
+    created: "2025-02-11T16:33:05.01170621Z"
+    description: A Helm chart for Kubernetes
+    digest: b58377c453e0e2d2affcf22c4b7a29d7709ddac561b00f0e94567dbcd76934a6
+    name: stunner
+    type: application
+    urls:
+    - https://l7mp.io/stunner/stunner-0.10.0.tgz
+    version: 0.10.0
+  - apiVersion: v2
+    appVersion: 0.1.0
+    created: "2025-02-11T16:33:05.022015895Z"
+    description: A Helm chart for Kubernetes
+    digest: b740d16f737585ca28c37b6b650161bdf560660486e6d2398672a29251af3f95
+    name: stunner
+    type: application
+    urls:
+    - https://l7mp.io/stunner/stunner-0.9.9.tgz
+    version: 0.9.9
+  - apiVersion: v2
+    appVersion: 0.1.0
+    created: "2025-02-11T16:33:05.021729832Z"
+    description: A Helm chart for Kubernetes
+    digest: dd37a4cc51d1c69f3a5706ff9a097c6078386f026545a1b7712dec001f6a8b12
+    name: stunner
+    type: application
+    urls:
+    - https://l7mp.io/stunner/stunner-0.9.2.tgz
+    version: 0.9.2
+  - apiVersion: v2
+    appVersion: 0.1.0
+    created: "2025-02-11T16:33:05.021462714Z"
+    description: A Helm chart for Kubernetes
+    digest: e70723f6b250d9a3ea9f881180843d7639ffec693e871f6f0af9fe4f90089cb3
+    name: stunner
+    type: application
+    urls:
+    - https://l7mp.io/stunner/stunner-0.9.1.tgz
+    version: 0.9.1
+  stunner-dev:
+  - apiVersion: v2
+    appVersion: dev
+    created: "2025-02-11T16:33:05.023754371Z"
+    description: STUNner - A Kubernetes media gateway for WebRTC
+    digest: 0a110ec1f1274ae4a4625774fd4c23dda1e649fbe3d82194880deeb53116064f
+    icon: https://raw.githubusercontent.com/l7mp/stunner/main/docs/img/stunner.svg
+    maintainers:
+    - email: info@l7mp.io
+      name: l7mp
+      url: https://l7mp.io
+    name: stunner-dev
+    type: application
+    urls:
+    - https://l7mp.io/stunner/stunner-dev-1.0.0.tgz
+    version: 1.0.0
+  stunner-gateway-operator:
+  - annotations:
+      artifacthub.io/category: networking
+      artifacthub.io/images: |
+        - name: stunner
+          image: docker.io/l7mp/stunnerd:1.0.0
+        - name: stunner-gateway-operator
+          image: docker.io/l7mp/stunner-gateway-operator:1.0.0
+        - name: stunner-auth-server
+          image: docker.io/l7mp/stunner-auth-server:1.0.0
+        - name: kube-rbac-proxy
+          image: gcr.io/kubebuilder/kube-rbac-proxy:v0.16.0
+      artifacthub.io/license: MIT License
+    apiVersion: v2
+    appVersion: 1.0.0
+    created: "2025-02-11T16:33:05.069053118Z"
+    description: STUNner Kubernetes Gateway Operator
+    digest: be39ce2e456eb5e2acb51610d8a6c99d30b7106aa080627ef99ebd56b60fc11c
+    icon: https://raw.githubusercontent.com/l7mp/stunner/main/docs/img/stunner.svg
+    maintainers:
+    - email: info@l7mp.io
+      name: l7mp
+      url: https://l7mp.io
+    name: stunner-gateway-operator
+    type: application
+    urls:
+    - https://l7mp.io/stunner/stunner-gateway-operator-1.0.0.tgz
+    version: 1.0.0
+  - apiVersion: v2
+    appVersion: 0.21.0
+    created: "2025-02-11T16:33:05.064560042Z"
+    description: STUNner Kubernetes Gateway Operator
+    digest: 10939a280bb93fdfec3c4a00261993291a7d3a5ce3dfb0056f4ed4ba41daa215
+    icon: https://raw.githubusercontent.com/l7mp/stunner/main/docs/img/stunner.svg
+    maintainers:
+    - email: info@l7mp.io
+      name: l7mp
+      url: https://l7mp.io
+    name: stunner-gateway-operator
+    type: application
+    urls:
+    - https://l7mp.io/stunner/stunner-gateway-operator-0.21.0.tgz
+    version: 0.21.0
+  - apiVersion: v2
+    appVersion: 0.20.0
+    created: "2025-02-11T16:33:05.060106953Z"
+    description: STUNner Kubernetes Gateway Operator
+    digest: 3c22d7c0f4ffada07e364c95f09f0e87edc338c66ccdd7ad28e8086b0ff15b2f
+    icon: https://raw.githubusercontent.com/l7mp/stunner/main/docs/img/stunner.svg
+    maintainers:
+    - email: info@l7mp.io
+      name: l7mp
+      url: https://l7mp.io
+    name: stunner-gateway-operator
+    type: application
+    urls:
+    - https://l7mp.io/stunner/stunner-gateway-operator-0.20.0.tgz
+    version: 0.20.0
+  - apiVersion: v2
+    appVersion: 0.19.0
+    created: "2025-02-11T16:33:05.055274404Z"
+    description: A Helm chart for Kubernetes
+    digest: dc766c06d651d90155ef7637061c39515757d959dcc1895cc5aa5bdbf85594ae
+    maintainers:
+    - name: l7mp
+    name: stunner-gateway-operator
+    type: application
+    urls:
+    - https://l7mp.io/stunner/stunner-gateway-operator-0.19.0.tgz
+    version: 0.19.0
+  - apiVersion: v2
+    appVersion: 0.18.0
+    created: "2025-02-11T16:33:05.051471392Z"
+    description: A Helm chart for Kubernetes
+    digest: 59fa4e9aee5a9879415e4f282c5f9f5286d052dd67e54898e767bdcc29c73b27
+    maintainers:
+    - name: l7mp
+    name: stunner-gateway-operator
+    type: application
+    urls:
+    - https://l7mp.io/stunner/stunner-gateway-operator-0.18.0.tgz
+    version: 0.18.0
+  - apiVersion: v2
+    appVersion: 0.17.0
+    created: "2025-02-11T16:33:05.04712956Z"
+    description: A Helm chart for Kubernetes
+    digest: 0f789bf934aecc208bf216a298bf39a96c2f75fa8fed9f42a8d919cb8087ede5
+    maintainers:
+    - name: l7mp
+    name: stunner-gateway-operator
+    type: application
+    urls:
+    - https://l7mp.io/stunner/stunner-gateway-operator-0.17.0.tgz
+    version: 0.17.0
+  - apiVersion: v2
+    appVersion: 0.16.0
+    created: "2025-02-11T16:33:05.043130908Z"
+    description: A Helm chart for Kubernetes
+    digest: 07beb8c9a1c20f25bdff718989b885e32a8cf9c98439c00714239d77442a8bb7
+    maintainers:
+    - name: l7mp
+    name: stunner-gateway-operator
+    type: application
+    urls:
+    - https://l7mp.io/stunner/stunner-gateway-operator-0.16.0.tgz
+    version: 0.16.0
+  - apiVersion: v2
+    appVersion: 0.15.0
+    created: "2025-02-11T16:33:05.040072023Z"
+    description: A Helm chart for Kubernetes
+    digest: 022d8c293ca624be4febd1b5739edfc71f2f240191031c9c7ae829895c9720f5
+    maintainers:
+    - name: l7mp
+    name: stunner-gateway-operator
+    type: application
+    urls:
+    - https://l7mp.io/stunner/stunner-gateway-operator-0.15.0.tgz
+    version: 0.15.0
+  - apiVersion: v2
+    appVersion: 0.13.0
+    created: "2025-02-11T16:33:05.038818186Z"
+    description: A Helm chart for Kubernetes
+    digest: da6cc505b743b6e82b609e6a117fa4d9e58a70e1772c4c7aec10f4a58f81b93b
+    name: stunner-gateway-operator
+    type: application
+    urls:
+    - https://l7mp.io/stunner/stunner-gateway-operator-0.13.0.tgz
+    version: 0.13.0
+  - apiVersion: v2
+    appVersion: 0.12.1
+    created: "2025-02-11T16:33:05.037156128Z"
+    description: A Helm chart for Kubernetes
+    digest: 0766ef638a5505c24e908af54f47d4b4d486526c3a06ad15d9b26861c1bc4d60
+    name: stunner-gateway-operator
+    type: application
+    urls:
+    - https://l7mp.io/stunner/stunner-gateway-operator-0.12.1.tgz
+    version: 0.12.1
+  - apiVersion: v2
+    appVersion: 0.12.0
+    created: "2025-02-11T16:33:05.035534264Z"
+    description: A Helm chart for Kubernetes
+    digest: 55656e8ab82276d1332dd66c6923bd176dcad7a3f4a3094398b1ccd9e06257a9
+    name: stunner-gateway-operator
+    type: application
+    urls:
+    - https://l7mp.io/stunner/stunner-gateway-operator-0.12.0.tgz
+    version: 0.12.0
+  - apiVersion: v2
+    appVersion: 0.11.9
+    created: "2025-02-11T16:33:05.033914986Z"
+    description: A Helm chart for Kubernetes
+    digest: ec3b9a73b88dba019150aba65302e2f170c36d4cf17653f0747a9d85c7321ff9
+    name: stunner-gateway-operator
+    type: application
+    urls:
+    - https://l7mp.io/stunner/stunner-gateway-operator-0.11.9.tgz
+    version: 0.11.9
+  - apiVersion: v2
+    appVersion: 0.11.8
+    created: "2025-02-11T16:33:05.031531892Z"
+    description: A Helm chart for Kubernetes
+    digest: 7feece3418634ee79f51a3a7a4f22c47937bb8c47e2b65640616df1489352cd2
+    name: stunner-gateway-operator
+    type: application
+    urls:
+    - https://l7mp.io/stunner/stunner-gateway-operator-0.11.8.tgz
+    version: 0.11.8
+  - apiVersion: v2
+    appVersion: 0.11.7
+    created: "2025-02-11T16:33:05.030698689Z"
+    description: A Helm chart for Kubernetes
+    digest: 5604170a79f0bdeda70b87ca9915a1799d4e636c808ed88bae56ed72e091e8c5
+    name: stunner-gateway-operator
+    type: application
+    urls:
+    - https://l7mp.io/stunner/stunner-gateway-operator-0.11.7.tgz
+    version: 0.11.7
+  - apiVersion: v2
+    appVersion: 0.11.6
+    created: "2025-02-11T16:33:05.029865977Z"
+    description: A Helm chart for Kubernetes
+    digest: cd4f01cef4ca6a2975ce3834b7a6ee32c752d375153bebb3a5dfaaed4fd3e39d
+    name: stunner-gateway-operator
+    type: application
+    urls:
+    - https://l7mp.io/stunner/stunner-gateway-operator-0.11.6.tgz
+    version: 0.11.6
+  - apiVersion: v2
+    appVersion: 0.11.5
+    created: "2025-02-11T16:33:05.029006975Z"
+    description: A Helm chart for Kubernetes
+    digest: 92b46d6bb8d686f7ba087a236c1447cb6c09be93bc928deb6bf110d094dcd773
+    name: stunner-gateway-operator
+    type: application
+    urls:
+    - https://l7mp.io/stunner/stunner-gateway-operator-0.11.5.tgz
+    version: 0.11.5
+  - apiVersion: v2
+    appVersion: 0.11.4
+    created: "2025-02-11T16:33:05.027462864Z"
+    description: A Helm chart for Kubernetes
+    digest: 11a0ca596ecfcb3fb0f712e616e7b5d703979eb10583c432fccf2c4de46c4e42
+    name: stunner-gateway-operator
+    type: application
+    urls:
+    - https://l7mp.io/stunner/stunner-gateway-operator-0.11.4.tgz
+    version: 0.11.4
+  - apiVersion: v2
+    appVersion: 0.11.3
+    created: "2025-02-11T16:33:05.026578666Z"
+    description: A Helm chart for Kubernetes
+    digest: 806a1eb79cdf53e02ff80951da3387f796d259561de6d104bd12855e08e0d520
+    name: stunner-gateway-operator
+    type: application
+    urls:
+    - https://l7mp.io/stunner/stunner-gateway-operator-0.11.3.tgz
+    version: 0.11.3
+  - apiVersion: v2
+    appVersion: 0.11.2
+    created: "2025-02-11T16:33:05.025726908Z"
+    description: A Helm chart for Kubernetes
+    digest: 67c27485f1f05e377194b75e7c81e2871f310235b9dda3b360df6d2db52b4e1b
+    name: stunner-gateway-operator
+    type: application
+    urls:
+    - https://l7mp.io/stunner/stunner-gateway-operator-0.11.2.tgz
+    version: 0.11.2
+  - apiVersion: v2
+    appVersion: 0.1.0
+    created: "2025-02-11T16:33:05.024806282Z"
+    description: A Helm chart for Kubernetes
+    digest: 92a49c90cfb0047e5fa18730337590a56b5ad4a7f9b83126310ac3bd7ae5c6fe
+    name: stunner-gateway-operator
+    type: application
+    urls:
+    - https://l7mp.io/stunner/stunner-gateway-operator-0.1.0.tgz
+    version: 0.1.0
+  stunner-gateway-operator-dev:
+  - annotations:
+      artifacthub.io/category: networking
+      artifacthub.io/images: |
+        - name: stunner
+          image: docker.io/l7mp/stunnerd:1.0.0
+        - name: stunner-gateway-operator
+          image: docker.io/l7mp/stunner-gateway-operator:1.0.0
+        - name: stunner-auth-server
+          image: docker.io/l7mp/stunner-auth-server:1.0.0
+        - name: kube-rbac-proxy
+          image: gcr.io/kubebuilder/kube-rbac-proxy:v0.16.0
+      artifacthub.io/license: MIT License
+    apiVersion: v2
+    appVersion: dev
+    created: "2025-02-11T16:33:05.073956915Z"
+    description: STUNner Kubernetes Gateway Operator
+    digest: 17b91768ba4d14759f4918b1b2508d19336c290fe0c355ab40a928e5018a1460
+    icon: https://raw.githubusercontent.com/l7mp/stunner/main/docs/img/stunner.svg
+    maintainers:
+    - email: info@l7mp.io
+      name: l7mp
+      url: https://l7mp.io
+    name: stunner-gateway-operator-dev
+    type: application
+    urls:
+    - https://l7mp.io/stunner/stunner-gateway-operator-dev-1.0.0.tgz
+    version: 1.0.0
+  stunner-kurento-one2one-call:
+  - apiVersion: v2
+    appVersion: 6.16.0
+    created: "2025-02-11T16:33:05.074226778Z"
+    description: A Helm chart for Kubernetes
+    digest: e67349dde8704331a21da04aefc541523486ac72827684251d776322421f8bdf
+    name: stunner-kurento-one2one-call
+    type: application
+    urls:
+    - https://l7mp.io/stunner/stunner-kurento-one2one-call-0.1.0.tgz
+    version: 0.1.0
+  stunner-prometheus:
+  - apiVersion: v2
+    appVersion: 0.17.0
+    created: "2025-02-11T16:33:05.092015936Z"
+    description: A Helm chart for monitoring STUNner, the Kubernetes media gateway
+      for WebRTC
+    digest: cfc402ec8c76eede6154877f3ef683b0a4ffcf9d952213ec579092ce0702696b
+    icon: https://raw.githubusercontent.com/l7mp/stunner/main/docs/img/stunner.svg
+    maintainers:
+    - email: info@l7mp.io
+      name: l7mp
+      url: https://l7mp.io
+    name: stunner-prometheus
+    type: application
+    urls:
+    - https://l7mp.io/stunner/stunner-prometheus-0.2.1.tgz
+    version: 0.2.1
+  - apiVersion: v2
+    appVersion: 0.17.0
+    created: "2025-02-11T16:33:05.085935986Z"
+    description: A Helm chart for monitoring STUNner, the Kubernetes ingress gateway
+      for WebRTC
+    digest: 6a2f8d86c3fb3137fa9dc4941d3fae3b7614f71270af9bb46e597d75861eb33c
+    maintainers:
+    - name: l7mp
+    name: stunner-prometheus
+    type: application
+    urls:
+    - https://l7mp.io/stunner/stunner-prometheus-0.2.0.tgz
+    version: 0.2.0
+  - apiVersion: v2
+    appVersion: 0.11.0
+    created: "2025-02-11T16:33:05.079776764Z"
+    description: A Helm chart for monitoring STUNner, the Kubernetes ingress gateway
+      for WebRTC
+    digest: ad122d9adf90a33e4d30503cfc482a4c3ee5710fb96babbdbeec736f4f222ce9
+    maintainers:
+    - name: l7mp
+    name: stunner-prometheus
+    type: application
+    urls:
+    - https://l7mp.io/stunner/stunner-prometheus-0.1.0.tgz
+    version: 0.1.0
+generated: "2025-02-11T16:33:05.010975639Z"
