@@ -14,7 +14,6 @@ on:
           - stunner-gateway-operator
           - stunner-premium #stunner-gateway-operator premium edition, left out the gateway-operator part to shorten the name
 
-
 env:
   TAG: ${{ inputs.tag }}
   TYPE: ${{ inputs.type }}
@@ -89,7 +88,7 @@ jobs:
       - name: Set up Helm
         uses: azure/setup-helm@v4
         with:
-          version: v3.16.2
+          version: v3.16.4
 
       - name: Set up chart-testing
         uses: helm/chart-testing-action@v2
@@ -127,29 +126,29 @@ jobs:
           git config --global user.email "l7mp.info@gmail.com"
           git config --global user.name "BotL7mp"
 
-      - name: l7mp.io checkout
+      - name: website checkout
         uses: actions/checkout@v4
         with:
           token: ${{ secrets.WEB_PAT_TOKEN }}
-          path: l7mp.io
-          ref: master
-          repository: l7mp/l7mp.io
+          path: website
+          repository: l7mp/website
+          ref: main
 
-      - name: Update and deploy l7mp/l7mp.io repository
+      - name: Update the website repository
         run: |
           if ${{ env.TAG == 'dev' }}; then
-            rm -rf l7mp.io/public/stunner/${{ env.TYPE }}-dev*.tgz
+            rm -rf website/landing/public/stunner/${{ env.TYPE }}-dev*.tgz
           fi
-          cp stunner-helm/helm/*.tgz l7mp.io/public/stunner
-          helm repo index l7mp.io/public/stunner/ --url https://l7mp.io/stunner
-          cd l7mp.io
+          cp stunner-helm/helm/*.tgz website/landing/public/stunner
+          helm repo index website/landing/public/stunner/ --url https://website.stunner.cc/stunner
+          cd website
           git add .
           if ${{ env.TAG == 'dev' }}; then
             git commit -m "Update dev helm chart from l7mp/${{ env.TYPE }}" -m "(triggered by the 'Helm release' github action.)"
           else
             git commit -m "Release helm chart from l7mp/${{ env.TYPE }}" -m "(triggered by the 'Helm release' github action.)"
           fi
-          git push origin master
+          git push origin main
 
       - name: Update stunner-helm repo
         if: ${{ env.TAG != 'dev' && env.TYPE != 'stunner-premium' }}
