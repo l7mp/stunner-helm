@@ -14,6 +14,7 @@ on:
           - stunner
           - stunner-gateway-operator
           - stunner-prometheus
+          - stunner-premium #stunner-gateway-operator premium edition, left out the gateway-operator part to shorten the name
 
 env:
   TAG: ${{ inputs.tag }}
@@ -56,19 +57,40 @@ jobs:
             sed -ri 's/^(\s*)(name\s*:\s*.*\s*$)/\1name: stunner-gateway-operator-dev/' stunner-gateway-operator/Chart.yaml
             sed -i '/stunnerGatewayOperator:/,/pullPolicy:/ s/\(pullPolicy:\s*\).*/\1Always/' stunner-gateway-operator/values.yaml
             sed -i '/dataplane:/,/pullPolicy:/ s/\(pullPolicy:\s*\).*/\1Always/' stunner-gateway-operator/values.yaml
-            sed -i '/dataplane:/,/tag:/ s/\(tag:\s*\).*/\1'"dev"'/' stunner-gateway-operator/values.yaml
             sed -i '/authService:/,/pullPolicy:/ s/\(pullPolicy:\s*\).*/\1Always/' stunner-gateway-operator/values.yaml
-            sed -i '/authService:/,/tag:/ s/\(tag:\s*\).*/\1'"dev"'/' stunner-gateway-operator/values.yaml
           else
             sed -ri 's/^(\s*)(version\s*:\s*.*\s*$)/\1version: ${{ env.TAG }}/' stunner-gateway-operator/Chart.yaml
           fi
           sed -i '/stunnerGatewayOperator:/,/tag:/ s/\(tag:\s*\).*/\1'"${{ env.TAG }}"'/' stunner-gateway-operator/values.yaml
+          sed -i '/dataplane:/,/tag:/ s/\(tag:\s*\).*/\1'"${{ env.TAG }}"'/' stunner-gateway-operator/values.yaml
+          sed -i '/authService:/,/tag:/ s/\(tag:\s*\).*/\1'"${{ env.TAG }}"'/' stunner-gateway-operator/values.yaml
           sed -ri 's/^(\s*)(appVersion\s*:\s*.*\s*$)/\1appVersion: ${{ env.TAG }}/' stunner-gateway-operator/Chart.yaml
+
+      # STUNner premium edition
+      - name: Edit helm chart for stunner-premium
+        if: ${{ env.TYPE == 'stunner-premium' }}
+        run: |
+          cd stunner-helm/helm
+          if ${{ env.TAG == 'dev' }}; then
+            sed -ri 's/^(\s*)(name\s*:\s*.*\s*$)/\1name: stunner-gateway-operator-dev/' stunner-gateway-operator/Chart.yaml
+            sed -i '/stunnerGatewayOperator:/,/pullPolicy:/ s/\(pullPolicy:\s*\).*/\1Always/' stunner-gateway-operator/values.yaml
+            sed -i '/dataplane:/,/pullPolicy:/ s/\(pullPolicy:\s*\).*/\1Always/' stunner-gateway-operator/values.yaml
+            sed -i '/authService:/,/pullPolicy:/ s/\(pullPolicy:\s*\).*/\1Always/' stunner-gateway-operator/values.yaml
+          else
+            sed -ri 's/^(\s*)(version\s*:\s*.*\s*$)/\1version: ${{ env.TAG }}/' stunner-gateway-operator/Chart.yaml
+          fi
+          sed -i '/stunnerGatewayOperator:/,/tag:/ s/\(tag:\s*\).*/\1'"${{ env.TAG }}"'/' stunner-gateway-operator/values.yaml
+          sed -i '/dataplane:/,/tag:/ s/\(tag:\s*\).*/\1'"${{ env.TAG }}"'/' stunner-gateway-operator/values.yaml
+          sed -i '/authService:/,/tag:/ s/\(tag:\s*\).*/\1'"${{ env.TAG }}"'/' stunner-gateway-operator/values.yaml
+          sed -ri 's/^(\s*)(appVersion\s*:\s*.*\s*$)/\1appVersion: ${{ env.TAG }}/' stunner-gateway-operator/Chart.yaml
+          sed -i '/container:/,/name:/ s/\(name:\s*\)docker\.io\/l7mp\/stunner-gateway-operator/\1'"${{ env.TYPE }}"'/' stunner-gateway-operator/values.yaml
+          sed -i '/dataplane:/,/name:/ s/\(name:\s*\)docker\.io\/l7mp\/stunnerd/\1docker.io\/l7mp\/stunnerd-premium/' stunner-gateway-operator/values.yaml
+          sed -ri 's/^(\s*)(name\s*:\s*.*\s*$)/\1name: stunner-premium/' stunner-gateway-operator/Chart.yaml
 
       - name: Set up Helm
         uses: azure/setup-helm@v4
         with:
-          version: v3.16.2
+          version: v3.16.4
 
       - name: Set up chart-testing
         uses: helm/chart-testing-action@v2
@@ -96,28 +118,35 @@ jobs:
           git config --global user.email "l7mp.info@gmail.com"
           git config --global user.name "BotL7mp"
 
-      - name: l7mp.io checkout
+      - name: Checkout build branch
         uses: actions/checkout@v4
         with:
           token: ${{ secrets.WEB_PAT_TOKEN }}
-          path: l7mp.io
-          ref: master
-          repository: l7mp/l7mp.io
+          path: build
+          repository: l7mp/stunner-helm
+          ref: build
 
-      - name: Update and deploy l7mp/l7mp.io repository
+      - name: Update build branch
         run: |
           if ${{ env.TAG == 'dev' }}; then
-            rm -rf l7mp.io/public/stunner/${{ env.TYPE }}-dev*.tgz
-          else
-            rm -rf l7mp.io/public/stunner/${{ env.TYPE }}-${{ env.TAG }}.tgz
+            rm -rf build/${{ env.TYPE }}-dev*.tgz
           fi
-          cp stunner-helm/helm/*.tgz l7mp.io/public/stunner
-          helm repo index l7mp.io/public/stunner/ --url https://l7mp.io/stunner
-          cd l7mp.io
+          cp stunner-helm/helm/*.tgz build/
+          helm repo index build --url https://l7mp.io/stunner
+          cd build
           git add .
           if ${{ env.TAG == 'dev' }}; then
-            git commit -m "Manual publish: Update dev helm chart from l7mp/${{ env.TYPE }}" -m "(triggered by the 'Helm release' github action.)"
+            git commit -m "Update dev helm chart from l7mp/${{ env.TYPE }}" -m "(triggered by the 'Helm release' github action.)"
           else
-            git commit -m "Manual publish: Release helm chart from l7mp/${{ env.TYPE }}" -m "(triggered by the 'Helm release' github action.)"
+            git commit -m "Release helm chart from l7mp/${{ env.TYPE }}" -m "(triggered by the 'Helm release' github action.)"
           fi
-          git push origin master
+          git push origin build
+
+      - name: Update stunner-helm repo
+        if: ${{ env.TAG != 'dev' && env.TYPE != 'stunner-premium' }}
+        run: |
+          cd stunner-helm
+          rm helm/*.tgz
+          git add .
+          git commit -m "Update helm charts from l7mp/${{ env.TYPE }}" -m "(triggered by the 'Helm release' github action.)"
+          git push origin main
