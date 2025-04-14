@@ -95,15 +95,11 @@ jobs:
         uses: helm/chart-testing-action@v2
 
       - name: Run chart-testing (lint)
-        #TODO: temporary 'if', should be removed. To remove we may need to provide a dummy customer key, not sure
-        if: ${{ env.TYPE != 'stunner-premium' }}
         run: |
           cd stunner-helm
           ct lint --all --chart-dirs helm --excluded-charts stunner-kurento-one2one-call
 
       - name: Create kind cluster
-        #TODO: temporary 'if', should be removed. To remove we may need to provide a dummy customer key, not sure
-        if: ${{ env.TYPE != 'stunner-premium' }}
         uses: helm/kind-action@v1
 
       - name: Run chart-testing (install)
