@@ -107,8 +107,6 @@ jobs:
         uses: helm/kind-action@v1
 
       - name: Run chart-testing (install)
-        #TODO: temporary 'if', should be removed. To remove we may need to provide a dummy customer key, not sure
-        if: ${{ env.TYPE != 'stunner-premium' }}
         run: |
           cd stunner-helm
           ct install --chart-dirs helm --charts helm/${{ env.TYPE }}
