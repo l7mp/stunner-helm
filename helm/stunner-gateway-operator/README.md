@@ -41,10 +41,6 @@ And that's all: you don't need to install the dataplane separately, this is hand
 | `stunnerGatewayOperator.deployment.container.manager.resources.requests.cpu`    | CPU requests for the container.                                  | `250m`                                    |
 | `stunnerGatewayOperator.deployment.container.manager.resources.requests.memory` | Memory requests for the container.                               | `128Mi`                                   |
 | `stunnerGatewayOperator.deployment.container.manager.args`                      | Arguments for the container.                                     | `[]`                                      |
-| `stunnerGatewayOperator.deployment.container.kubeRbacProxy`                     | Configuration values for the Kube RBAC Proxy container.          |                                           |
-| `stunnerGatewayOperator.deployment.container.kubeRbacProxy.image.name`          | The name of the image to use.                                    | `gcr.io/kubebuilder/kube-rbac-proxy`      |
-| `stunnerGatewayOperator.deployment.container.kubeRbacProxy.image.pullPolicy`    | The pull policy for the image.                                   | `IfNotPresent`                            |
-| `stunnerGatewayOperator.deployment.container.kubeRbacProxy.image.tag`           | The tag for the image.                                           | `v0.16.0`                                 |
 
 ### Dataplane
 

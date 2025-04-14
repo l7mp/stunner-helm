@@ -5,8 +5,8 @@ You can modify them in order to make them serve you needs.
 
 You must serve some resources to the operator in order to make it work as intended.
 You can find everything here:
-https://github.com/l7mp/stunner/blob/main/README.md#configuration
+https://github.com/l7mp/stunner/blob/main/docs/GATEWAY.md
 
-To cleanup: 
+To cleanup:
 helm uninstall {{ .Release.Name }} -n {{ .Release.Namespace }}
 kubectl delete namespace {{ .Release.Namespace }}

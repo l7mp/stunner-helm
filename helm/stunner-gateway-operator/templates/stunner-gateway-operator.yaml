@@ -245,6 +245,17 @@ data:
       leaderElect: true
       resourceName: 92062b70.l7mp.io
 ---
+{{- if ne .Values.stunnerGatewayOperator.customerKey "" -}}
+apiVersion: v1
+kind: Secret
+metadata:
+  name: stunner-gateway-operator-customer-secret
+  namespace: {{ $.Values.namespace | default $.Release.Namespace }}
+type: Opaque
+data:
+  CUSTOMER_KEY: {{ .Values.stunnerGatewayOperator.customerKey | b64enc }}
+{{- end }}
+---
 apiVersion: v1
 kind: Secret
 metadata:
@@ -300,6 +311,9 @@ spec:
   template:
     metadata:
       annotations:
+        {{- with .Values.stunnerGatewayOperator.deployment.podAnnotations }}
+        {{- toYaml . | nindent 8 }}
+        {{- end }}
         kubectl.kubernetes.io/default-container: manager
       labels:
         control-plane: stunner-gateway-operator-controller-manager
@@ -309,26 +323,6 @@ spec:
         {{- end }}
     spec:
       containers:
-      - args:
-        - --secure-listen-address=0.0.0.0:8443
-        - --upstream=http://127.0.0.1:8080/
-        - --logtostderr=true
-        - --v=0
-        image: "{{ .Values.stunnerGatewayOperator.deployment.container.kubeRbacProxy.image.name }}:{{ .Values.stunnerGatewayOperator.deployment.container.kubeRbacProxy.image.tag }}"
-        imagePullPolicy: {{ .Values.stunnerGatewayOperator.deployment.container.kubeRbacProxy.image.pullPolicy }}
-        name: kube-rbac-proxy
-        ports:
-        - containerPort: 8443
-          name: https
-          protocol: TCP
-        resources:
-          limits:
-            cpu: 500m
-            memory: 128Mi
-          requests:
-            cpu: 5m
-            memory: 64Mi
-        securityContext: {{- toYaml .Values.stunnerGatewayOperator.deployment.container.kubeRbacProxy.securityContext | nindent 10 }}
       - args:
         {{- range $.Values.stunnerGatewayOperator.deployment.container.manager.args }}
         -  {{ . }}
@@ -342,11 +336,13 @@ spec:
             fieldRef:
               apiVersion: v1
               fieldPath: status.podIP
+        {{- if ne .Values.stunnerGatewayOperator.customerKey "" }}
         - name: CUSTOMER_KEY
           valueFrom:
             secretKeyRef:
               key: CUSTOMER_KEY
               name: stunner-gateway-operator-customer-secret
+        {{- end }}
         image: "{{ .Values.stunnerGatewayOperator.deployment.container.manager.image.name }}:{{ .Values.stunnerGatewayOperator.deployment.container.manager.image.tag }}"
         imagePullPolicy: {{ .Values.stunnerGatewayOperator.deployment.container.manager.image.pullPolicy }}
         livenessProbe:
