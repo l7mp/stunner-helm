@@ -302,6 +302,9 @@ spec:
   template:
     metadata:
       annotations:
+        {{- with .Values.stunnerGatewayOperator.deployment.podAnnotations }}
+        {{- toYaml . | nindent 8 }}
+        {{- end }}
         kubectl.kubernetes.io/default-container: manager
       labels:
         control-plane: stunner-gateway-operator-controller-manager
