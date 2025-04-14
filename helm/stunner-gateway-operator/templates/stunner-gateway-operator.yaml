@@ -342,6 +342,7 @@ spec:
             secretKeyRef:
               key: CUSTOMER_KEY
               name: stunner-gateway-operator-customer-secret
+              optional: true
         {{- end }}
         image: "{{ .Values.stunnerGatewayOperator.deployment.container.manager.image.name }}:{{ .Values.stunnerGatewayOperator.deployment.container.manager.image.tag }}"
         imagePullPolicy: {{ .Values.stunnerGatewayOperator.deployment.container.manager.image.pullPolicy }}
