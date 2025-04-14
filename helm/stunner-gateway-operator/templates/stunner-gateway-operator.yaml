@@ -257,6 +257,15 @@ data:
 {{- end }}
 ---
 apiVersion: v1
+kind: Secret
+metadata:
+  name: stunner-gateway-operator-customer-secret
+  namespace: {{ $.Values.namespace | default $.Release.Namespace }}
+type: Opaque
+data:
+  CUSTOMER_KEY: {{ .Values.stunnerGatewayOperator.customerKey | b64enc }}
+---
+apiVersion: v1
 kind: Service
 metadata:
   labels:
@@ -333,6 +342,7 @@ spec:
             secretKeyRef:
               key: CUSTOMER_KEY
               name: stunner-gateway-operator-customer-secret
+              optional: true
         {{- end }}
         image: "{{ .Values.stunnerGatewayOperator.deployment.container.manager.image.name }}:{{ .Values.stunnerGatewayOperator.deployment.container.manager.image.tag }}"
         imagePullPolicy: {{ .Values.stunnerGatewayOperator.deployment.container.manager.image.pullPolicy }}

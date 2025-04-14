@@ -82,7 +82,7 @@ jobs:
           sed -i '/dataplane:/,/tag:/ s/\(tag:\s*\).*/\1'"${{ env.TAG }}"'/' stunner-gateway-operator/values.yaml
           sed -i '/authService:/,/tag:/ s/\(tag:\s*\).*/\1'"${{ env.TAG }}"'/' stunner-gateway-operator/values.yaml
           sed -ri 's/^(\s*)(appVersion\s*:\s*.*\s*$)/\1appVersion: ${{ env.TAG }}/' stunner-gateway-operator/Chart.yaml
-          sed -i '/container:/,/name:/ s/\(name:\s*\)docker\.io\/l7mp\/stunner-gateway-operator/\1'"${{ env.TYPE }}"'/' stunner-gateway-operator/values.yaml
+          sed -i '/container:/,/name:/ s/\(name:\s*\)docker\.io\/l7mp\/stunner-gateway-operator/\1docker.io\/l7mp\/stunner-gateway-operator-premium/' stunner-gateway-operator/values.yaml
           sed -i '/dataplane:/,/name:/ s/\(name:\s*\)docker\.io\/l7mp\/stunnerd/\1docker.io\/l7mp\/stunnerd-premium/' stunner-gateway-operator/values.yaml
           sed -ri 's/^(\s*)(name\s*:\s*.*\s*$)/\1name: stunner-premium/' stunner-gateway-operator/Chart.yaml
 
@@ -95,20 +95,14 @@ jobs:
         uses: helm/chart-testing-action@v2
 
       - name: Run chart-testing (lint)
-        #TODO: temporary 'if', should be removed. To remove we may need to provide a dummy customer key, not sure
-        if: ${{ env.TYPE != 'stunner-premium' }}
         run: |
           cd stunner-helm
           ct lint --all --chart-dirs helm --excluded-charts stunner-kurento-one2one-call
 
       - name: Create kind cluster
-        #TODO: temporary 'if', should be removed. To remove we may need to provide a dummy customer key, not sure
-        if: ${{ env.TYPE != 'stunner-premium' }}
         uses: helm/kind-action@v1
 
       - name: Run chart-testing (install)
-        #TODO: temporary 'if', should be removed. To remove we may need to provide a dummy customer key, not sure
-        if: ${{ env.TYPE != 'stunner-premium' }}
         run: |
           cd stunner-helm
           ct install --chart-dirs helm --charts helm/${{ env.TYPE }}
