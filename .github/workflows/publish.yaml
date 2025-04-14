@@ -105,7 +105,11 @@ jobs:
       - name: Run chart-testing (install)
         run: |
           cd stunner-helm
-          ct install --chart-dirs helm --charts helm/${{ env.TYPE }}
+          if ${{ env.TYPE == 'stunner-premium' }}; then
+            ct install --chart-dirs helm --charts helm/stunner-gateway-operator
+          else
+            ct install --chart-dirs helm --charts helm/${{ env.TYPE }}
+          fi
 
       - name: Build helm chart for ${{ env.TYPE }}
         run: |
