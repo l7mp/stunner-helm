@@ -25,5 +25,5 @@ maintainers:
     url: https://l7mp.io
 icon: https://raw.githubusercontent.com/l7mp/stunner/main/docs/img/stunner.svg
 type: application
-version: 1.0.0
-appVersion: 1.0.0
+version: 1.1.0
+appVersion: 1.1.0
