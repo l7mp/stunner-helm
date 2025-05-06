@@ -20,7 +20,7 @@ stunner:
         image:
           name: docker.io/l7mp/stunnerd
           pullPolicy: IfNotPresent
-          tag: 1.0.0
+          tag: 1.1.0
         udpMultithreading:
           enabled: true
           readLoopsPerUDPListener: 16
