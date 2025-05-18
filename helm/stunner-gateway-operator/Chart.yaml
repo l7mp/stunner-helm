@@ -17,7 +17,7 @@ annotations:
 
 
 apiVersion: v2
-name: stunner-gateway-operator
+name: stunner
 description: STUNner Kubernetes Gateway Operator
 maintainers:
   - name: l7mp
