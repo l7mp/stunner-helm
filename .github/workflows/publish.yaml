@@ -10,9 +10,9 @@ on:
         required: true
         type: choice
         options:
-          - stunner
-          - stunner-gateway-operator
-          - stunner-premium #stunner-gateway-operator premium edition, left out the gateway-operator part to shorten the name
+          - stunner # stunner-gateway-operator before 1.1.0
+          - stunner-premium #stunner-gateway-operator premium edition, shortening the name by leaving out the gateway-operator part
+          - stunner-prometheus
 
 env:
   TAG: ${{ inputs.tag }}
@@ -34,21 +34,8 @@ jobs:
           ref: main
           repository: l7mp/stunner-helm
 
-      - name: Edit helm chart for stunner
-        if: ${{ env.TYPE == 'stunner'}}
-        run: |
-          cd stunner-helm/helm
-          if ${{ env.TAG == 'dev' }}; then
-            sed -ri 's/^(\s*)(name\s*:\s*.*\s*$)/\1name: stunner-dev/' stunner/Chart.yaml
-            sed -ri 's/^(\s*)(          pullPolicy\s*:\s*.*\s*$)/\1          pullPolicy: Always/' stunner/values.yaml
-          else
-            sed -ri 's/^(\s*)(version\s*:\s*.*\s*$)/\1version: ${{ env.TAG }}/' stunner/Chart.yaml
-          fi
-          sed -ri 's/^(\s*)(appVersion\s*:\s*.*\s*$)/\1appVersion: ${{ env.TAG }}/' stunner/Chart.yaml
-          sed -ri 's/^(\s*)(          tag\s*:\s*.*\s*$)/\1          tag: ${{ env.TAG }}/' stunner/values.yaml
-
-      - name: Edit helm chart for stunner-gateway-operator
-        if: ${{ env.TYPE == 'stunner-gateway-operator' }}
+      - name: Edit helm chart for stunner (stunner-gateway-operator previously)
+        if: ${{ env.TYPE == 'stunner' }}
         run: |
           cd stunner-helm/helm
           if ${{ env.TAG == 'dev' }}; then
@@ -104,19 +91,19 @@ jobs:
       - name: Run chart-testing (install)
         run: |
           cd stunner-helm
-          if ${{ env.TYPE == 'stunner-premium' }}; then
-            ct install --chart-dirs helm --charts helm/stunner-gateway-operator
+          if ${{ env.TYPE == 'stunner-prometheus' }}; then
+            ct install --chart-dirs helm --charts helm/stunner-prometheus
           else
-            ct install --chart-dirs helm --charts helm/${{ env.TYPE }}
+            ct install --chart-dirs helm --charts helm/stunner-gateway-operator
           fi
 
       - name: Build helm chart for ${{ env.TYPE }}
         run: |
           cd stunner-helm/helm
-          if ${{ env.TYPE == 'stunner-premium' }}; then
-            helm package stunner-gateway-operator
+          if ${{ env.TYPE == 'stunner-prometheus' }}; then
+            helm package stunner-prometheus
           else
-            helm package ${{ env.TYPE }}
+            helm package stunner-gateway-operator
           fi
 
       - name: Set git config
