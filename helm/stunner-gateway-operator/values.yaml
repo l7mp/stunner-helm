@@ -12,6 +12,7 @@ stunnerGatewayOperator:
     podLabels: {}
     podAnnotations: {}
     tolerations: []
+    replicas: 1
     nodeSelector:
       kubernetes.io/os: linux
     imagePullSecrets:
@@ -38,6 +39,7 @@ stunnerGatewayOperator:
           - --zap-log-level=info
         securityContext:
           allowPrivilegeEscalation: false
+    topologySpreadConstraints: []
   dataplane:
     # Can be 'legacy' or 'managed'
     # default is managed
@@ -103,3 +105,4 @@ stunnerAuthService:
         args:
           - --port=8088
           - -v
+    topologySpreadConstraints: {}
