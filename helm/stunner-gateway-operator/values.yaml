@@ -105,4 +105,4 @@ stunnerAuthService:
         args:
           - --port=8088
           - -v
-    topologySpreadConstraints: {}
+    topologySpreadConstraints: []
