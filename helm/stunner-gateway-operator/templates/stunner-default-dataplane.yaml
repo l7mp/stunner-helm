@@ -44,5 +44,8 @@ spec:
   {{- with .tolerations }}
   tolerations: {{- toYaml . | nindent 2 }}
   {{- end }}
+  {{- if .topologySpreadConstraints }}
+  topologySpreadConstraints: {{- toYaml .topologySpreadConstraints | nindent 4 }}
+  {{- end }}
 {{- end -}}
 {{- end -}}

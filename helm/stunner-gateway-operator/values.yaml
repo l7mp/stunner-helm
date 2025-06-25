@@ -75,6 +75,7 @@ stunnerGatewayOperator:
       containerSecurityContext: {}
       securityContext: {}
       tolerations: []
+      topologySpreadConstraints: []
 
 stunnerAuthService:
   enabled: true
