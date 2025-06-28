@@ -29,8 +29,10 @@ And that's all: you don't need to install the dataplane separately, this is hand
 | `stunnerGatewayOperator.deployment.name`                                        | Name of the deployment for the operator.                         | `stunner-gateway-operator`                |
 | `stunnerGatewayOperator.deployment.podLabels`                                   | Labels for the deployment pods.                                  | `{}`                                      |
 | `stunnerGatewayOperator.deployment.tolerations`                                 | Tolerations for pod assignment.                                  | `[]`                                      |
+| `stunnerGatewayOperator.deployment.replicas`                                    | Number of replicas of the operator to be deployed.               | `1`                                       |
 | `stunnerGatewayOperator.deployment.nodeSelector`                                | Node labels for pod assignment.                                  | `{}`                                      |
 | `stunnerGatewayOperator.deployment.imagePullSecrets`                            | Image pull secrets for the image.                                | `[]`                                      |
+| `stunnerGatewayOperator.deployment.topologySpreadConstraints`                   | Constraints to control how pods are spread across the cluster.   | `[]`                                      |
 | `stunnerGatewayOperator.deployment.container`                                   | Container configuration values.                                  |                                           |
 | `stunnerGatewayOperator.deployment.container.manager`                           | Configuration values for the STUNner Gateway Operator container. |                                           |
 | `stunnerGatewayOperator.deployment.container.manager.image.name`                | The name of the image to use.                                    | `docker.io/l7mp/stunner-gateway-operator` |
@@ -70,25 +72,27 @@ Default dataplane configuration for the operator to use. See more [here](https:/
 | `stunnerGatewayOperator.dataplane.spec.securityContext`               | Security context for the deployed stunner instance.                                                                                                  | `{}`                      |
 | `stunnerGatewayOperator.dataplane.spec.containerSecurityContext`      | Security context for the container.                                                                                                                  | `{}`                      |
 | `stunnerGatewayOperator.dataplane.spec.tolerations`                   | Tolerations for pod assignment.                                                                                                                      | `[]`                      |
+| `stunnerGatewayOperator.dataplane.spec.topologySpreadConstraints`     | Constraints to control how pods are spread across the cluster.                                                                                       | `[]`                      |
 
 ### STUNner Authentication Service
 
 Default configuration for the authentication service to be deployed. See more the authentication in STUNner [here](https://github.com/l7mp/stunner/blob/main/docs/AUTH.md).
 
-| Name                                                                            | Description                                              | Value                                |
-| ------------------------------------------------------------------------------- | -------------------------------------------------------- | ------------------------------------ |
-| `stunnerAuthService.enabled`                                                    | If enabled, the authentication service will be deployed. | `true`                               |
-| `stunnerAuthService.deployment.podLabels`                                       | Labels for the auth service pods.                        | `{}`                                 |
-| `stunnerAuthService.deployment.tolerations`                                     | Tolerations for pod assignment.                          | `[]`                                 |
-| `stunnerAuthService.deployment.replicas`                                        | Replicas for the auth-service deployment.                | `1`                                  |
-| `stunnerAuthService.deployment.nodeSelector`                                    | Node labels for pod assignment.                          |                                      |
-| `stunnerAuthService.deployment.imagePullSecrets`                                | Image pull secrets for the auth service image.           | `[]`                                 |
-| `stunnerAuthService.deployment.container.authService.securityContext`           | Security context for the auth-service pod.               | `{}`                                 |
-| `stunnerAuthService.deployment.container.authService.image.name`                | The name of the image to use.                            | `docker.io/l7mp/stunner-auth-server` |
-| `stunnerAuthService.deployment.container.authService.image.pullPolicy`          | The pull policy for the image.                           | `IfNotPresent`                       |
-| `stunnerAuthService.deployment.container.authService.image.tag`                 | The tag for the image.                                   | `1.0.0`                              |
-| `stunnerAuthService.deployment.container.authService.resources.limits.cpu`      | CPU limits for the container.                            | `200m`                               |
-| `stunnerAuthService.deployment.container.authService.resources.limits.memory`   | Memory limits for the container.                         | `128Mi`                              |
-| `stunnerAuthService.deployment.container.authService.resources.requests.cpu`    | CPU requests for the container.                          | `10m`                                |
-| `stunnerAuthService.deployment.container.authService.resources.requests.memory` | Memory requests for the container.                       | `64Mi`                               |
-| `stunnerAuthService.deployment.container.authService.args`                      | Arguments for the container.                             | `[]`                                 |
+| Name                                                                            | Description                                                     | Value                                |
+| ------------------------------------------------------------------------------- | ----------------------------------------------------------------| ------------------------------------ |
+| `stunnerAuthService.enabled`                                                    | If enabled, the authentication service will be deployed.        | `true`                               |
+| `stunnerAuthService.deployment.podLabels`                                       | Labels for the auth service pods.                               | `{}`                                 |
+| `stunnerAuthService.deployment.tolerations`                                     | Tolerations for pod assignment.                                 | `[]`                                 |
+| `stunnerAuthService.deployment.replicas`                                        | Replicas for the auth-service deployment.                       | `1`                                  |
+| `stunnerAuthService.deployment.nodeSelector`                                    | Node labels for pod assignment.                                 |                                      |
+| `stunnerAuthService.deployment.imagePullSecrets`                                | Image pull secrets for the auth service image.                  | `[]`                                 |
+| `stunnerAuthService.deployment.topologySpreadConstraints`                       | Constraints to control how pods are spread across the cluster.  | `[]`                                 |
+| `stunnerAuthService.deployment.container.authService.securityContext`           | Security context for the auth-service pod.                      | `{}`                                 |
+| `stunnerAuthService.deployment.container.authService.image.name`                | The name of the image to use.                                   | `docker.io/l7mp/stunner-auth-server` |
+| `stunnerAuthService.deployment.container.authService.image.pullPolicy`          | The pull policy for the image.                                  | `IfNotPresent`                       |
+| `stunnerAuthService.deployment.container.authService.image.tag`                 | The tag for the image.                                          | `1.0.0`                              |
+| `stunnerAuthService.deployment.container.authService.resources.limits.cpu`      | CPU limits for the container.                                   | `200m`                               |
+| `stunnerAuthService.deployment.container.authService.resources.limits.memory`   | Memory limits for the container.                                | `128Mi`                              |
+| `stunnerAuthService.deployment.container.authService.resources.requests.cpu`    | CPU requests for the container.                                 | `10m`                                |
+| `stunnerAuthService.deployment.container.authService.resources.requests.memory` | Memory requests for the container.                              | `64Mi`                               |
+| `stunnerAuthService.deployment.container.authService.args`                      | Arguments for the container.                                    | `[]`                                 |
