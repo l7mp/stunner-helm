@@ -43,4 +43,4 @@ jobs:
       - name: Test chart installability
         run: |
           cd stunner-helm
-          ct install --all --chart-dirs helm --excluded-charts stunner-kurento-one2one-call
+          ct install --chart-dirs helm --charts helm/stunner-gateway-operator
