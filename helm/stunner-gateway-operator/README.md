@@ -28,6 +28,7 @@ And that's all: you don't need to install the dataplane separately, this is hand
 | `stunnerGatewayOperator.enabled`                                                | If enabled, the operator will be installed.                      | `true`                                    |
 | `stunnerGatewayOperator.deployment.name`                                        | Name of the deployment for the operator.                         | `stunner-gateway-operator`                |
 | `stunnerGatewayOperator.deployment.podLabels`                                   | Labels for the deployment pods.                                  | `{}`                                      |
+| `stunnerGatewayOperator.deployment.affinity`                                    | Affinity settings for the deployed operator instance.            | `{}`                                      |
 | `stunnerGatewayOperator.deployment.tolerations`                                 | Tolerations for pod assignment.                                  | `[]`                                      |
 | `stunnerGatewayOperator.deployment.replicas`                                    | Number of replicas of the operator to be deployed.               | `1`                                       |
 | `stunnerGatewayOperator.deployment.nodeSelector`                                | Node labels for pod assignment.                                  | `{}`                                      |
@@ -82,6 +83,7 @@ Default configuration for the authentication service to be deployed. See more th
 | ------------------------------------------------------------------------------- | ----------------------------------------------------------------| ------------------------------------ |
 | `stunnerAuthService.enabled`                                                    | If enabled, the authentication service will be deployed.        | `true`                               |
 | `stunnerAuthService.deployment.podLabels`                                       | Labels for the auth service pods.                               | `{}`                                 |
+| `stunnerAuthService.deployment.affinity`                                        | Affinity settings for the deployed auth-service instance.       | `{}`                                 |
 | `stunnerAuthService.deployment.tolerations`                                     | Tolerations for pod assignment.                                 | `[]`                                 |
 | `stunnerAuthService.deployment.replicas`                                        | Replicas for the auth-service deployment.                       | `1`                                  |
 | `stunnerAuthService.deployment.nodeSelector`                                    | Node labels for pod assignment.                                 |                                      |

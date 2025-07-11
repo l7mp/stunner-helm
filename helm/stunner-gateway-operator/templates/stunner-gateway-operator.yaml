@@ -371,6 +371,9 @@ spec:
       {{- with .Values.stunnerGatewayOperator.deployment.nodeSelector }}
       nodeSelector: {{- toYaml . | nindent 8 }}
       {{- end }}
+      {{- with .Values.stunnerGatewayOperator.deployment.affinity }}
+      affinity: {{- toYaml . | nindent 8 }}
+      {{- end }}
       {{- with .Values.stunnerGatewayOperator.deployment.tolerations }}
       tolerations: {{- toYaml . | nindent 8 }}
       {{- end }}
