@@ -41,6 +41,7 @@ spec:
           {{- end }}
           resources: {{- toYaml .deployment.container.authService.resources | nindent 12 }}
       nodeSelector: {{- toYaml .deployment.nodeSelector | nindent 8 }}
+      affinity: {{- toYaml .deployment.affinity | nindent 8 }}
       tolerations: {{- toYaml .deployment.tolerations | nindent 8 }}
       {{- with .deployment.imagePullSecrets }}
       imagePullSecrets:

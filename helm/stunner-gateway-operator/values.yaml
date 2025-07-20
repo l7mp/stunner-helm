@@ -11,6 +11,7 @@ stunnerGatewayOperator:
     name: stunner-gateway-operator
     podLabels: {}
     podAnnotations: {}
+    affinity: {}
     tolerations: []
     replicas: 1
     nodeSelector:
@@ -82,6 +83,7 @@ stunnerAuthService:
   deployment:
     podLabels: {}
     podAnnotations: {}
+    affinity: {}
     tolerations: []
     replicas: 1
     nodeSelector:
