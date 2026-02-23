@@ -323,10 +323,7 @@ spec:
         - /manager
         env:
         - name: STUNNER_GATEWAY_OPERATOR_ADDRESS
-          valueFrom:
-            fieldRef:
-              apiVersion: v1
-              fieldPath: status.podIP
+          value: stunner-config-discovery.{{ $.Values.namespace | default $.Release.Namespace }}.svc
         {{- if ne .Values.stunnerGatewayOperator.customerKey "" }}
         - name: CUSTOMER_KEY
           valueFrom:
