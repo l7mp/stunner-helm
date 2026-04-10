@@ -8,8 +8,6 @@ annotations:
       image: docker.io/l7mp/stunner-gateway-operator:1.0.0
     - name: stunner-auth-server
       image: docker.io/l7mp/stunner-auth-server:1.0.0
-    - name: kube-rbac-proxy
-      image: gcr.io/kubebuilder/kube-rbac-proxy:v0.16.0
     - name: stunner-gateway-operator-premium
       image: docker.io/l7mp/stunner-gateway-operator-premium:dev
     - name: stunnerd-premium
