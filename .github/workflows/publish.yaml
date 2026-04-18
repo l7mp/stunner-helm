@@ -28,7 +28,7 @@ jobs:
           echo "Triggered by $TYPE"
 
       - name: stunner-helm checkout
-        uses: actions/checkout@v4
+        uses: actions/checkout@v6
         with:
           path: stunner-helm
           ref: main
@@ -73,9 +73,9 @@ jobs:
           sed -ri 's/^(\s*)(name\s*:\s*.*\s*$)/\1name: stunner-premium/' stunner-gateway-operator/Chart.yaml
 
       - name: Set up Helm
-        uses: azure/setup-helm@v4
+        uses: azure/setup-helm@v5
         with:
-          version: v3.16.4
+          version: v3.20.2
 
       - name: Set up chart-testing
         uses: helm/chart-testing-action@v2
@@ -112,7 +112,7 @@ jobs:
           git config --global user.name "BotL7mp"
 
       - name: Checkout build branch
-        uses: actions/checkout@v4
+        uses: actions/checkout@v6
         with:
           token: ${{ secrets.WEB_PAT_TOKEN }}
           path: build
