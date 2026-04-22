@@ -15,6 +15,7 @@
 #
 # Gateway API Experimental channel install
 #
+{{ if and .Values.crds.enabled .Values.crds.gatewayApi }}
 ---
 #
 # config/crd/experimental/gateway.networking.k8s.io_gatewayclasses.yaml
@@ -15211,3 +15212,4 @@ status:
   conditions: null
   storedVersions: null
 ---
+{{ end }}
