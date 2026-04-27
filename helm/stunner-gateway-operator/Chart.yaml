@@ -25,3 +25,9 @@ icon: https://raw.githubusercontent.com/l7mp/stunner/main/docs/img/stunner.svg
 type: application
 version: 1.1.1
 appVersion: 1.1.1
+dependencies:
+  - name: stunner-crds
+    version: "1.1.1"
+    repository: "file://../stunner-crds"
+    condition: stunnerCrds.enabled
+    alias: stunnerCrds
