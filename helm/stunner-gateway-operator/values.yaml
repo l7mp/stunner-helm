@@ -4,6 +4,11 @@
 # additional commands when installing your release
 # It will create the desired namespace if not present
 
+stunnerCrds:
+  enabled: true
+  gatewayCrds:
+    enabled: true
+
 stunnerGatewayOperator:
   enabled: true
   customerKey: ""

@@ -19,6 +19,53 @@ helm install stunner-gateway-operator stunner/stunner-gateway-operator --create-
 
 And that's all: you don't need to install the dataplane separately, this is handled automatically by the operator.  The `stunnerd` pods created by the operator can be customized using the Dataplane custom resource: you can specify the `stunnerd` container image version, provision resources per each `stunnerd` pod, deploy into the host network namespace, etc.; see the documentation [here](https://pkg.go.dev/github.com/l7mp/stunner-gateway-operator/api/v1#DataplaneSpec).
 
+## CRD Management
+
+This chart **no longer bundles** the Kubernetes Gateway API CRDs or the STUNner CRDs inside the `crds/` folder. Instead, STUNner's own CRDs are managed via a dedicated [`stunner-crds`](../stunner-crds) sub-chart. This allows `helm upgrade` to properly update CRD schemas when new fields are added.
+
+### Gateway API CRDs
+
+By default, the operator chart **installs** the official Kubernetes Gateway API CRDs (standard channel) via the `stunner-crds` dependency.
+
+- **GKE / Managed clusters:** If your cluster already provides Gateway API, you may want to skip the bundled Gateway API CRDs to avoid conflicts:
+  ```console
+  helm install stunner-gateway-operator stunner/stunner-gateway-operator --create-namespace \
+      --namespace=stunner-system \
+      --set stunnerCrds.gatewayCrds.enabled=false
+  ```
+- **Self-managed clusters:** The default install is all you need.
+
+#### Install Gateway API CRDs manually (explicit control)
+
+If you prefer to manage Gateway API CRDs yourself:
+
+```console
+kubectl apply -f https://github.com/kubernetes-sigs/gateway-api/releases/download/v1.3.0/standard-install.yaml
+helm install stunner-gateway-operator stunner/stunner-gateway-operator --create-namespace \
+    --namespace=stunner-system \
+    --set stunnerCrds.gatewayCrds.enabled=false
+```
+
+> Note: The exact version required may vary with STUNner releases; consult the [STUNner compatibility matrix](https://github.com/l7mp/stunner#supported-versions) for the recommended Gateway API version.
+
+### STUNner CRDs
+
+By default, the operator chart will automatically install the `stunner-crds` dependency for you.
+
+If you **already have the STUNner CRDs** installed (e.g. from a previous release, a GitOps pipeline, or a managed service), you can skip them:
+
+```console
+helm install stunner-gateway-operator stunner/stunner-gateway-operator --create-namespace \
+    --namespace=stunner-system \
+    --set stunnerCrds.enabled=false
+```
+
+To upgrade an existing installation (which will also upgrade the CRDs if needed):
+
+```console
+helm upgrade stunner-gateway-operator stunner/stunner-gateway-operator --namespace=stunner-system
+```
+
 ## Parameters
 
 ### STUNner Gateway operator
@@ -81,6 +128,7 @@ Default configuration for the authentication service to be deployed. See more th
 
 | Name                                                                            | Description                                                     | Value                                |
 | ------------------------------------------------------------------------------- | ----------------------------------------------------------------| ------------------------------------ |
+| `stunnerCrds.enabled`                                                           | If enabled, the STUNner CRDs will be installed/updated.         | `true`                               |
 | `stunnerAuthService.enabled`                                                    | If enabled, the authentication service will be deployed.        | `true`                               |
 | `stunnerAuthService.deployment.podLabels`                                       | Labels for the auth service pods.                               | `{}`                                 |
 | `stunnerAuthService.deployment.affinity`                                        | Affinity settings for the deployed auth-service instance.       | `{}`                                 |

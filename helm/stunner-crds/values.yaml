@@ -1,0 +1,17 @@
+# Default values for stunner-crds.
+#
+# This chart manages the lifecycle of STUNner CRDs and optionally
+# installs the official Kubernetes Gateway API CRDs.
+
+# -- Configure the Envoy Gateway gateway-crds-helm dependency.
+# By default, the official Kubernetes Gateway API CRDs are installed
+# (experimental channel). Disable this if your cluster already provides
+# Gateway API (e.g. GKE, EKS, AKS with Gateway API addon).
+gatewayCrds:
+  enabled: true
+  crds:
+    gatewayAPI:
+      enabled: true
+      channel: experimental
+    envoyGateway:
+      enabled: false

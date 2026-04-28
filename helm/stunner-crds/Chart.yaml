@@ -1,0 +1,30 @@
+annotations:
+  artifacthub.io/category: networking
+  artifacthub.io/license: MIT License
+
+apiVersion: v2
+name: stunner-crds
+description: STUNner Custom Resource Definitions (CRDs)
+maintainers:
+  - name: l7mp
+    email: info@l7mp.io
+    url: https://l7mp.io
+icon: https://raw.githubusercontent.com/l7mp/stunner/main/docs/img/stunner.svg
+type: application
+version: 1.1.1
+appVersion: 1.1.1
+keywords:
+  - stunner
+  - gateway
+  - webrtc
+  - turn
+  - crd
+sources:
+  - https://github.com/l7mp/stunner-helm
+home: https://github.com/l7mp/stunner-helm
+dependencies:
+  - name: gateway-crds-helm
+    alias: gatewayCrds
+    version: "v1.7.2"
+    repository: "oci://docker.io/envoyproxy"
+    condition: gatewayCrds.enabled
