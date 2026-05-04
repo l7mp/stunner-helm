@@ -53,14 +53,14 @@ helm install stunner-crds stunner/stunner-crds \
 
 ### As a dependency of the operator
 
-By default, the `stunner-gateway-operator` chart installs STUNner CRDs but **not** Gateway API CRDs (since many users run on managed clusters that already provide them):
+By default, the `stunner-gateway-operator` chart automatically installs this chart as a dependency, which means **both** STUNner CRDs and Gateway API CRDs are installed out of the box:
 
 ```console
 helm install stunner-gateway-operator stunner/stunner-gateway-operator --create-namespace \
     --namespace=stunner-system
 ```
 
-If you also need Gateway API CRDs (e.g. not on GKE):
+If your cluster already provides Gateway API (e.g. GKE) and you want to skip the bundled Gateway API CRDs:
 
 ```console
 helm install stunner-gateway-operator stunner/stunner-gateway-operator --create-namespace \
@@ -81,7 +81,7 @@ helm install stunner-gateway-operator stunner/stunner-gateway-operator --create-
 | Name | Description | Default (standalone) |
 |------|-------------|----------------------|
 | `gatewayCrds.enabled` | Install official Gateway API CRDs via Envoy Gateway chart | `true` |
-| `gatewayCrds.crds.gatewayAPI.channel` | Gateway API channel: `standard` or `experimental` | `experimental` |
+| `gatewayCrds.crds.gatewayAPI.channel` | Gateway API channel: `standard` or `experimental` | `standard` |
 
 ## Upgrading CRDs
 
