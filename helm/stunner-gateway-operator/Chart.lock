@@ -1,0 +1,6 @@
+dependencies:
+- name: stunner-crds
+  repository: file://../stunner-crds
+  version: 1.1.1
+digest: sha256:89b8eb54be3a9be97c3bc0aca9646619686628e245f95303e6a27c697ef151c0
+generated: "2026-05-04T22:49:06.567472906+02:00"
