@@ -13,5 +13,3 @@ gatewayCrds:
     gatewayAPI:
       enabled: true
       channel: experimental
-    envoyGateway:
-      enabled: false
