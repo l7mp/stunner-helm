@@ -52,7 +52,7 @@ helm install stunner-gateway-operator stunner/stunner-gateway-operator --create-
 
 By default, the operator chart will automatically install the `stunner-crds` dependency for you.
 
-If you **already have the STUNner CRDs** installed (e.g. from a previous release, a GitOps pipeline, or a managed service), you can skip them:
+If you **already have the STUNner CRDs** installed (e.g. from a previous release, a GitOps pipeline, or a managed service), you can skip installing them:
 
 ```console
 helm install stunner-gateway-operator stunner/stunner-gateway-operator --create-namespace \
