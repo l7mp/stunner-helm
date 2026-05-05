@@ -1,0 +1,15 @@
+apiVersion: v2
+name: gateway-api-experimental-crds
+description: Kubernetes Gateway API Experimental channel CRDs
+type: application
+version: 1.4.1
+appVersion: 1.4.1
+home: https://github.com/kubernetes-sigs/gateway-api
+keywords:
+  - gateway-api
+  - crd
+  - experimental
+maintainers:
+  - name: l7mp
+    email: info@l7mp.io
+    url: https://l7mp.io

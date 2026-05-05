@@ -26,8 +26,13 @@ type: application
 version: 1.1.1
 appVersion: 1.1.1
 dependencies:
-  - name: stunner-crds
-    version: "1.1.1"
-    repository: "file://../stunner-crds"
-    condition: stunnerCrds.enabled
-    alias: stunnerCrds
+  - name: gateway-api-standard-crds
+    alias: standardCrds
+    version: "1.4.1"
+    repository: "file://./charts/gateway-api-standard-crds"
+    condition: standardCrds.enabled
+  - name: gateway-api-experimental-crds
+    alias: experimentalCrds
+    version: "1.4.1"
+    repository: "file://./charts/gateway-api-experimental-crds"
+    condition: experimentalCrds.enabled
