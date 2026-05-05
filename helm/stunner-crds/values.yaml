@@ -7,9 +7,8 @@
 # By default, the official Kubernetes Gateway API CRDs are installed
 # (standard channel). Disable this if your cluster already provides
 # Gateway API (e.g. GKE, EKS, AKS with Gateway API addon).
-gatewayCrds:
+standardCrds:
   enabled: true
-  crds:
-    gatewayAPI:
-      enabled: true
-      channel: standard
+
+experimentalCrds:
+  enabled: false

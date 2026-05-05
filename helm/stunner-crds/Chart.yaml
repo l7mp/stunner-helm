@@ -23,8 +23,13 @@ sources:
   - https://github.com/l7mp/stunner-helm
 home: https://github.com/l7mp/stunner-helm
 dependencies:
-  - name: gateway-crds-helm
-    alias: gatewayCrds
-    version: "v1.7.2"
-    repository: "oci://docker.io/envoyproxy"
-    condition: gatewayCrds.enabled
+  - name: gateway-api-standard-crds
+    alias: standardCrds
+    version: "1.4.1"
+    repository: "file://./charts/gateway-api-standard-crds"
+    condition: standardCrds.enabled
+  - name: gateway-api-experimental-crds
+    alias: experimentalCrds
+    version: "1.4.1"
+    repository: "file://./charts/gateway-api-experimental-crds"
+    condition: experimentalCrds.enabled
