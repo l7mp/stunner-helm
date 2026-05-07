@@ -39,17 +39,9 @@ jobs:
         run: |
           cd stunner-helm/helm
           if ${{ env.TAG == 'dev' }}; then
-            # The dev release keeps both historical install paths available:
-            # stunner-dev for the legacy dataplane chart and
-            # stunner-gateway-operator-dev for the current operator chart.
-            yq -i '
-              .name = "stunner-dev" |
-              .appVersion = strenv(TAG)
-            ' stunner/Chart.yaml
-            yq -i '
-              .stunner.deployment.container.stunnerd.image.pullPolicy = "Always" |
-              .stunner.deployment.container.stunnerd.image.tag = strenv(TAG)
-            ' stunner/values.yaml
+            # The dev release exposes the same operator chart under both names.
+            # Keep the gateway-operator name for validation; the build step
+            # repackages this chart as stunner-dev as a compatibility alias.
             yq -i '.name = "stunner-gateway-operator-dev"' stunner-gateway-operator/Chart.yaml
             yq -i '
               .stunnerGatewayOperator.deployment.container.manager.image.pullPolicy = "Always" |
@@ -114,9 +106,8 @@ jobs:
           if ${{ env.TYPE == 'stunner-prometheus' }}; then
             ct install --chart-dirs helm --charts helm/stunner-prometheus
           elif ${{ env.TYPE == 'stunner' && env.TAG == 'dev' }}; then
-            # The stunner/dev release publishes both dev charts, so install-test both.
+            # stunner-dev is packaged from this same chart after validation.
             ct install --chart-dirs helm --charts helm/stunner-gateway-operator
-            ct install --chart-dirs helm --charts helm/stunner
           else
             ct install --chart-dirs helm --charts helm/stunner-gateway-operator
           fi
@@ -127,9 +118,10 @@ jobs:
           if ${{ env.TYPE == 'stunner-prometheus' }}; then
             helm package stunner-prometheus
           elif ${{ env.TYPE == 'stunner' && env.TAG == 'dev' }}; then
-            # Publish both STUNner dev charts from a single stunner/dev release.
+            # Publish the same operator chart under both dev chart names.
             helm package stunner-gateway-operator
-            helm package stunner
+            yq -i '.name = "stunner-dev"' stunner-gateway-operator/Chart.yaml
+            helm package stunner-gateway-operator
           else
             helm package stunner-gateway-operator
           fi

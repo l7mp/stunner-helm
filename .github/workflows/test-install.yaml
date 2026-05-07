@@ -27,15 +27,6 @@ jobs:
         run: |
           cd stunner-helm/helm
           yq -i '
-            .name = "stunner-dev" |
-            .appVersion = "dev"
-          ' stunner/Chart.yaml
-          yq -i '
-            .stunner.deployment.container.stunnerd.image.pullPolicy = "Always" |
-            .stunner.deployment.container.stunnerd.image.tag = "dev"
-          ' stunner/values.yaml
-
-          yq -i '
             .name = "stunner-gateway-operator-dev" |
             .appVersion = "dev"
           ' stunner-gateway-operator/Chart.yaml
