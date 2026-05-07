@@ -39,6 +39,13 @@ jobs:
         run: |
           cd stunner-helm/helm
           if ${{ env.TAG == 'dev' }}; then
+            # The dev release keeps both historical install paths available:
+            # stunner-dev for the legacy dataplane chart and
+            # stunner-gateway-operator-dev for the current operator chart.
+            sed -ri 's/^(\s*)(name\s*:\s*.*\s*$)/\1name: stunner-dev/' stunner/Chart.yaml
+            sed -ri 's/^(\s*)(          pullPolicy\s*:\s*.*\s*$)/\1          pullPolicy: Always/' stunner/values.yaml
+            sed -ri 's/^(\s*)(          tag\s*:\s*.*\s*$)/\1          tag: dev/' stunner/values.yaml
+            sed -ri 's/^(\s*)(appVersion\s*:\s*.*\s*$)/\1appVersion: dev/' stunner/Chart.yaml
             sed -ri 's/^(\s*)(name\s*:\s*.*\s*$)/\1name: stunner-gateway-operator-dev/' stunner-gateway-operator/Chart.yaml
             sed -i '/stunnerGatewayOperator:/,/pullPolicy:/ s/\(pullPolicy:\s*\).*/\1Always/' stunner-gateway-operator/values.yaml
             sed -i '/dataplane:/,/pullPolicy:/ s/\(pullPolicy:\s*\).*/\1Always/' stunner-gateway-operator/values.yaml
@@ -93,6 +100,10 @@ jobs:
           cd stunner-helm
           if ${{ env.TYPE == 'stunner-prometheus' }}; then
             ct install --chart-dirs helm --charts helm/stunner-prometheus
+          elif ${{ env.TYPE == 'stunner' && env.TAG == 'dev' }}; then
+            # The stunner/dev release publishes both dev charts, so install-test both.
+            ct install --chart-dirs helm --charts helm/stunner-gateway-operator
+            ct install --chart-dirs helm --charts helm/stunner
           else
             ct install --chart-dirs helm --charts helm/stunner-gateway-operator
           fi
@@ -102,6 +113,10 @@ jobs:
           cd stunner-helm/helm
           if ${{ env.TYPE == 'stunner-prometheus' }}; then
             helm package stunner-prometheus
+          elif ${{ env.TYPE == 'stunner' && env.TAG == 'dev' }}; then
+            # Publish both STUNner dev charts from a single stunner/dev release.
+            helm package stunner-gateway-operator
+            helm package stunner
           else
             helm package stunner-gateway-operator
           fi
@@ -122,7 +137,12 @@ jobs:
       - name: Update build branch
         run: |
           if ${{ env.TAG == 'dev' }}; then
-            rm -rf build/${{ env.TYPE }}-dev*.tgz
+            if ${{ env.TYPE == 'stunner' }}; then
+              # Remove previous moving dev artifacts before re-indexing the repo.
+              rm -rf build/stunner-dev*.tgz build/stunner-gateway-operator-dev*.tgz
+            else
+              rm -rf build/${{ env.TYPE }}-dev*.tgz
+            fi
           fi
           cp stunner-helm/helm/*.tgz build/
           helm repo index build --url https://l7mp.io/stunner
