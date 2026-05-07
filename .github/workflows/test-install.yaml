@@ -26,19 +26,27 @@ jobs:
       - name: Edit charts to use dev images
         run: |
           cd stunner-helm/helm
-          sed -ri 's/^(\s*)(name\s*:\s*.*\s*$)/\1name: stunner-dev/' stunner/Chart.yaml
-          sed -ri 's/^(\s*)(          pullPolicy\s*:\s*.*\s*$)/\1          pullPolicy: Always/' stunner/values.yaml
-          sed -ri 's/^(\s*)(appVersion\s*:\s*.*\s*$)/\1appVersion: dev/' stunner/Chart.yaml
-          sed -ri 's/^(\s*)(          tag\s*:\s*.*\s*$)/\1          tag: dev/' stunner/values.yaml
+          yq -i '
+            .name = "stunner-dev" |
+            .appVersion = "dev"
+          ' stunner/Chart.yaml
+          yq -i '
+            .stunner.deployment.container.stunnerd.image.pullPolicy = "Always" |
+            .stunner.deployment.container.stunnerd.image.tag = "dev"
+          ' stunner/values.yaml
 
-          sed -ri 's/^(\s*)(name\s*:\s*.*\s*$)/\1name: stunner-gateway-operator-dev/' stunner-gateway-operator/Chart.yaml
-          sed -i '/stunnerGatewayOperator:/,/pullPolicy:/ s/\(pullPolicy:\s*\).*/\1Always/' stunner-gateway-operator/values.yaml
-          sed -i '/dataplane:/,/pullPolicy:/ s/\(pullPolicy:\s*\).*/\1Always/' stunner-gateway-operator/values.yaml
-          sed -i '/dataplane:/,/tag:/ s/\(tag:\s*\).*/\1'"dev"'/' stunner-gateway-operator/values.yaml
-          sed -i '/authService:/,/pullPolicy:/ s/\(pullPolicy:\s*\).*/\1Always/' stunner-gateway-operator/values.yaml
-          sed -i '/authService:/,/tag:/ s/\(tag:\s*\).*/\1'"dev"'/' stunner-gateway-operator/values.yaml
-          sed -i '/stunnerGatewayOperator:/,/tag:/ s/\(tag:\s*\).*/\1'"dev"'/' stunner-gateway-operator/values.yaml
-          sed -ri 's/^(\s*)(appVersion\s*:\s*.*\s*$)/\1appVersion: dev/' stunner-gateway-operator/Chart.yaml
+          yq -i '
+            .name = "stunner-gateway-operator-dev" |
+            .appVersion = "dev"
+          ' stunner-gateway-operator/Chart.yaml
+          yq -i '
+            .stunnerGatewayOperator.deployment.container.manager.image.pullPolicy = "Always" |
+            .stunnerGatewayOperator.deployment.container.manager.image.tag = "dev" |
+            .stunnerGatewayOperator.dataplane.spec.image.pullPolicy = "Always" |
+            .stunnerGatewayOperator.dataplane.spec.image.tag = "dev" |
+            .stunnerAuthService.deployment.container.authService.image.pullPolicy = "Always" |
+            .stunnerAuthService.deployment.container.authService.image.tag = "dev"
+          ' stunner-gateway-operator/values.yaml
 
       - name: Test chart installability
         run: |

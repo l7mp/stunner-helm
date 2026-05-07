@@ -42,21 +42,29 @@ jobs:
             # The dev release keeps both historical install paths available:
             # stunner-dev for the legacy dataplane chart and
             # stunner-gateway-operator-dev for the current operator chart.
-            sed -ri 's/^(\s*)(name\s*:\s*.*\s*$)/\1name: stunner-dev/' stunner/Chart.yaml
-            sed -ri 's/^(\s*)(          pullPolicy\s*:\s*.*\s*$)/\1          pullPolicy: Always/' stunner/values.yaml
-            sed -ri 's/^(\s*)(          tag\s*:\s*.*\s*$)/\1          tag: dev/' stunner/values.yaml
-            sed -ri 's/^(\s*)(appVersion\s*:\s*.*\s*$)/\1appVersion: dev/' stunner/Chart.yaml
-            sed -ri 's/^(\s*)(name\s*:\s*.*\s*$)/\1name: stunner-gateway-operator-dev/' stunner-gateway-operator/Chart.yaml
-            sed -i '/stunnerGatewayOperator:/,/pullPolicy:/ s/\(pullPolicy:\s*\).*/\1Always/' stunner-gateway-operator/values.yaml
-            sed -i '/dataplane:/,/pullPolicy:/ s/\(pullPolicy:\s*\).*/\1Always/' stunner-gateway-operator/values.yaml
-            sed -i '/authService:/,/pullPolicy:/ s/\(pullPolicy:\s*\).*/\1Always/' stunner-gateway-operator/values.yaml
+            yq -i '
+              .name = "stunner-dev" |
+              .appVersion = strenv(TAG)
+            ' stunner/Chart.yaml
+            yq -i '
+              .stunner.deployment.container.stunnerd.image.pullPolicy = "Always" |
+              .stunner.deployment.container.stunnerd.image.tag = strenv(TAG)
+            ' stunner/values.yaml
+            yq -i '.name = "stunner-gateway-operator-dev"' stunner-gateway-operator/Chart.yaml
+            yq -i '
+              .stunnerGatewayOperator.deployment.container.manager.image.pullPolicy = "Always" |
+              .stunnerGatewayOperator.dataplane.spec.image.pullPolicy = "Always" |
+              .stunnerAuthService.deployment.container.authService.image.pullPolicy = "Always"
+            ' stunner-gateway-operator/values.yaml
           else
-            sed -ri 's/^(\s*)(version\s*:\s*.*\s*$)/\1version: ${{ env.TAG }}/' stunner-gateway-operator/Chart.yaml
+            yq -i '.version = strenv(TAG)' stunner-gateway-operator/Chart.yaml
           fi
-          sed -i '/stunnerGatewayOperator:/,/tag:/ s/\(tag:\s*\).*/\1'"${{ env.TAG }}"'/' stunner-gateway-operator/values.yaml
-          sed -i '/dataplane:/,/tag:/ s/\(tag:\s*\).*/\1'"${{ env.TAG }}"'/' stunner-gateway-operator/values.yaml
-          sed -i '/authService:/,/tag:/ s/\(tag:\s*\).*/\1'"${{ env.TAG }}"'/' stunner-gateway-operator/values.yaml
-          sed -ri 's/^(\s*)(appVersion\s*:\s*.*\s*$)/\1appVersion: ${{ env.TAG }}/' stunner-gateway-operator/Chart.yaml
+          yq -i '
+            .stunnerGatewayOperator.deployment.container.manager.image.tag = strenv(TAG) |
+            .stunnerGatewayOperator.dataplane.spec.image.tag = strenv(TAG) |
+            .stunnerAuthService.deployment.container.authService.image.tag = strenv(TAG)
+          ' stunner-gateway-operator/values.yaml
+          yq -i '.appVersion = strenv(TAG)' stunner-gateway-operator/Chart.yaml
 
       # STUNner premium edition
       - name: Edit helm chart for stunner-premium
@@ -64,20 +72,25 @@ jobs:
         run: |
           cd stunner-helm/helm
           if ${{ env.TAG == 'dev' }}; then
-            sed -ri 's/^(\s*)(name\s*:\s*.*\s*$)/\1name: stunner-gateway-operator-dev/' stunner-gateway-operator/Chart.yaml
-            sed -i '/stunnerGatewayOperator:/,/pullPolicy:/ s/\(pullPolicy:\s*\).*/\1Always/' stunner-gateway-operator/values.yaml
-            sed -i '/dataplane:/,/pullPolicy:/ s/\(pullPolicy:\s*\).*/\1Always/' stunner-gateway-operator/values.yaml
-            sed -i '/authService:/,/pullPolicy:/ s/\(pullPolicy:\s*\).*/\1Always/' stunner-gateway-operator/values.yaml
+            yq -i '
+              .stunnerGatewayOperator.deployment.container.manager.image.pullPolicy = "Always" |
+              .stunnerGatewayOperator.dataplane.spec.image.pullPolicy = "Always" |
+              .stunnerAuthService.deployment.container.authService.image.pullPolicy = "Always"
+            ' stunner-gateway-operator/values.yaml
           else
-            sed -ri 's/^(\s*)(version\s*:\s*.*\s*$)/\1version: ${{ env.TAG }}/' stunner-gateway-operator/Chart.yaml
+            yq -i '.version = strenv(TAG)' stunner-gateway-operator/Chart.yaml
           fi
-          sed -i '/stunnerGatewayOperator:/,/tag:/ s/\(tag:\s*\).*/\1'"${{ env.TAG }}"'/' stunner-gateway-operator/values.yaml
-          sed -i '/dataplane:/,/tag:/ s/\(tag:\s*\).*/\1'"${{ env.TAG }}"'/' stunner-gateway-operator/values.yaml
-          sed -i '/authService:/,/tag:/ s/\(tag:\s*\).*/\1'"${{ env.TAG }}"'/' stunner-gateway-operator/values.yaml
-          sed -ri 's/^(\s*)(appVersion\s*:\s*.*\s*$)/\1appVersion: ${{ env.TAG }}/' stunner-gateway-operator/Chart.yaml
-          sed -i '/container:/,/name:/ s/\(name:\s*\)docker\.io\/l7mp\/stunner-gateway-operator/\1docker.io\/l7mp\/stunner-gateway-operator-premium/' stunner-gateway-operator/values.yaml
-          sed -i '/dataplane:/,/name:/ s/\(name:\s*\)docker\.io\/l7mp\/stunnerd/\1docker.io\/l7mp\/stunnerd-premium/' stunner-gateway-operator/values.yaml
-          sed -ri 's/^(\s*)(name\s*:\s*.*\s*$)/\1name: stunner-premium/' stunner-gateway-operator/Chart.yaml
+          yq -i '
+            .stunnerGatewayOperator.deployment.container.manager.image.tag = strenv(TAG) |
+            .stunnerGatewayOperator.dataplane.spec.image.tag = strenv(TAG) |
+            .stunnerAuthService.deployment.container.authService.image.tag = strenv(TAG) |
+            .stunnerGatewayOperator.deployment.container.manager.image.name = "docker.io/l7mp/stunner-gateway-operator-premium" |
+            .stunnerGatewayOperator.dataplane.spec.image.name = "docker.io/l7mp/stunnerd-premium"
+          ' stunner-gateway-operator/values.yaml
+          yq -i '
+            .name = "stunner-premium" |
+            .appVersion = strenv(TAG)
+          ' stunner-gateway-operator/Chart.yaml
 
       - name: Set up Helm
         uses: azure/setup-helm@v5
