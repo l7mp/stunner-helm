@@ -4,96 +4,122 @@
 # additional commands when installing your release
 # It will create the desired namespace if not present
 
-stunner:
+standardCrds:
+  enabled: true
+
+experimentalCrds:
+  enabled: false
+
+logging:
+  operator:
+    format: text
+    level: info
+  dataplane:
+    format: text
+  authService:
+    format: text
+
+stunnerGatewayOperator:
+  enabled: true
+  customerKey: ""
   deployment:
-    name: stunner
-    label:
-      app: stunner
-    replica: 1
+    name: stunner-gateway-operator
+    podLabels: {}
+    podAnnotations: {}
+    affinity: {}
     tolerations: []
+    replicas: 1
     nodeSelector:
       kubernetes.io/os: linux
-    hostNetwork: false
+    imagePullSecrets:
+#      - name: docker-registry-secret
+    securityContext:
+      runAsNonRoot: true
     container:
-      stunnerd:
-        name: stunnerd
+      manager:
         image:
-          name: docker.io/l7mp/stunnerd
+          name: docker.io/l7mp/stunner-gateway-operator
           pullPolicy: IfNotPresent
-          tag: 1.1.0
-        udpMultithreading:
-          enabled: true
-          readLoopsPerUDPListener: 16
+          tag: 1.1.1
         resources:
           limits:
-            cpu: 2
+            cpu: 1000m
             memory: 512Mi
           requests:
-            cpu: 500m
+            cpu: 250m
             memory: 128Mi
-        livenessProbe:
-          httpGet:
-            path: /live
-            port: 8086
-          initialDelaySeconds: 0
-          periodSeconds: 15
-        readinessProbe:
-          httpGet:
-            path: /ready
-            port: 8086
-          initialDelaySeconds: 0
-          periodSeconds: 15
-        terminationGracePeriodSeconds: 3600
+        args:
+          - --health-probe-bind-address=:8081
+          - --metrics-bind-address=127.0.0.1:8080
+          - --leader-elect
+        securityContext:
+          allowPrivilegeEscalation: false
+    topologySpreadConstraints: []
+  dataplane:
+    # Can be 'legacy' or 'managed'
+    # default is managed
+    mode: managed
+    spec:
+      replicas: 1
+      # for dev version set it to docker.io/l7mp/stunnerd:dev
+      image:
+        name: docker.io/l7mp/stunnerd
+        pullPolicy: IfNotPresent
+        tag: 1.1.1
+      imagePullSecrets:
+        # - name: docker-registry-secret
+      command:
+        - stunnerd
+      args:
+        - -w
+        - --udp-thread-num=16
+      env: []
+      resources:
+        limits:
+          cpu: 2
+          memory: 512Mi
+        requests:
+          cpu: 500m
+          memory: 128Mi
+      terminationGracePeriodSeconds: 3600
+      enableMetricsEndpoint: false
+      hostNetwork: false
+      labels: {}
+      annotations: {}
+      affinity: {}
+      containerSecurityContext: {}
+      securityContext: {}
+      tolerations: []
+      topologySpreadConstraints: []
 
-      configWatcher:
-        enabled: true
-        serviceAccountName: stunner-config-watcher-serviceaccount
-        roleName: stunner-config-watcher-role
-        roleBindName: stunner-config-watcher-rolebind
-        env:
-        - name: LABEL
-          value: "stunner.l7mp.io/owned-by"
-        - name: LABEL_VALUE
-          value: "stunner"
-        - name: FOLDER
-          value: /etc/stunnerd
-        - name: RESOURCE
-          value: configmap
+stunnerAuthService:
+  enabled: true
+  deployment:
+    podLabels: {}
+    podAnnotations: {}
+    affinity: {}
+    tolerations: []
+    replicas: 1
+    nodeSelector:
+      kubernetes.io/os: linux
+    imagePullSecrets:
+    #  - name: docker-registry-secret
+    container:
+      authService:
+        securityContext:
+          runAsNonRoot: true
+        image:
+          name: docker.io/l7mp/stunner-auth-server
+          pullPolicy: IfNotPresent
+          tag: 1.1.1
         resources:
           limits:
-            cpu: 500m
-            memory: 500Mi
-          requests:
-            cpu: 100m
+            cpu: 200m
             memory: 128Mi
-
-      netdebug:
-        enabled: false
-
-    monitoring:
-      enabled: true
-      portName: web
-      containerPort: 8080
-
-  service:
-    port: 3478
-
-  networkPolicy: enable
-
-  standalone:
-    enabled: false
-    serviceAccountName: post-install-sa
-    image:
-      repository: ""
-      name: l7mp/stunner-job
-      pullPolicy: Always
-      tag: latest
-    config:
-      # PLEASE CUSTOMIZE THE VALUES BELOW
-      STUNNER_REALM: stunner.l7mp.io
-      STUNNER_PORT: 3478
-      STUNNER_USERNAME: user
-      STUNNER_PASSWORD: pass
-      STUNNER_LOGLEVEL: all:WARN
-      STUNNER_MIN_PORT: 10000
-      STUNNER_MAX_PORT: 20000
+          requests:
+            cpu: 10m
+            memory: 64Mi
+        args:
+          - --port=8088
+          - -v
+    topologySpreadConstraints: []

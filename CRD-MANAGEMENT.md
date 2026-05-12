@@ -12,7 +12,7 @@ STUNner requires two sets of CRDs to function:
 ## Architecture
 
 ```
-stunner-gateway-operator/
+stunner/
 ├── crds/
 │   └── stunner-crds.yaml                        # STUNner CRDs (always installed)
 ├── charts/
@@ -49,14 +49,14 @@ STUNner CRDs are always installed and cannot be disabled.
 
 ```console
 helm repo add stunner https://l7mp.io/stunner
-helm install stunner-gateway-operator stunner/stunner-gateway-operator \
+helm install stunner stunner/stunner \
     --create-namespace --namespace=stunner-system
 ```
 
 ### Experimental channel
 
 ```console
-helm install stunner-gateway-operator stunner/stunner-gateway-operator \
+helm install stunner stunner/stunner \
     --create-namespace --namespace=stunner-system \
     --set standardCrds.enabled=false \
     --set experimentalCrds.enabled=true
@@ -67,7 +67,7 @@ helm install stunner-gateway-operator stunner/stunner-gateway-operator \
 For clusters that already have Gateway API (e.g. GKE):
 
 ```console
-helm install stunner-gateway-operator stunner/stunner-gateway-operator \
+helm install stunner stunner/stunner \
     --create-namespace --namespace=stunner-system \
     --set standardCrds.enabled=false
 ```
@@ -79,7 +79,7 @@ helm install stunner-gateway-operator stunner/stunner-gateway-operator \
 ### Fresh cluster, no Gateway API
 
 ```console
-helm install stunner-gateway-operator stunner/stunner-gateway-operator \
+helm install stunner stunner/stunner \
     --create-namespace --namespace=stunner-system \
     --set standardCrds.enabled=false \
     --set experimentalCrds.enabled=true
@@ -88,7 +88,7 @@ helm install stunner-gateway-operator stunner/stunner-gateway-operator \
 ### GKE cluster with Gateway API enabled
 
 ```console
-helm install stunner-gateway-operator stunner/stunner-gateway-operator \
+helm install stunner stunner/stunner \
     --create-namespace --namespace=stunner-system \
     --set standardCrds.enabled=false
 ```
@@ -100,7 +100,7 @@ Install Gateway API CRDs manually, then install the operator without them:
 ```console
 kubectl apply -f https://github.com/kubernetes-sigs/gateway-api/releases/download/v1.4.1/experimental-install.yaml
 
-helm install stunner-gateway-operator stunner/stunner-gateway-operator \
+helm install stunner stunner/stunner \
     --create-namespace --namespace=stunner-system \
     --set standardCrds.enabled=false
 ```
@@ -108,7 +108,7 @@ helm install stunner-gateway-operator stunner/stunner-gateway-operator \
 ### Upgrading an existing installation
 
 ```console
-helm upgrade stunner-gateway-operator stunner/stunner-gateway-operator \
+helm upgrade stunner stunner/stunner \
     --namespace=stunner-system
 ```
 
@@ -121,8 +121,8 @@ helm upgrade stunner-gateway-operator stunner/stunner-gateway-operator \
 ```console
 git clone https://github.com/l7mp/stunner-helm.git
 cd stunner-helm
-helm dependency build helm/stunner-gateway-operator
-helm install stunner-gateway-operator ./helm/stunner-gateway-operator \
+helm dependency build helm/stunner
+helm install stunner ./helm/stunner \
     --create-namespace --namespace=stunner-system
 ```
 

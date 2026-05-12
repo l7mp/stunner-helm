@@ -1,29 +1,38 @@
+annotations:
+  artifacthub.io/category: networking
+  artifacthub.io/license: MIT License
+  artifacthub.io/images: |
+    - name: stunner
+      image: docker.io/l7mp/stunnerd:1.0.0
+    - name: stunner-gateway-operator
+      image: docker.io/l7mp/stunner-gateway-operator:1.0.0
+    - name: stunner-auth-server
+      image: docker.io/l7mp/stunner-auth-server:1.0.0
+    - name: stunner-gateway-operator-premium
+      image: docker.io/l7mp/stunner-gateway-operator-premium:dev
+    - name: stunnerd-premium
+      image: docker.io/l7mp/stunnerd-premium:dev
+
+
 apiVersion: v2
 name: stunner
-description: STUNner - A Kubernetes media gateway for WebRTC
-icon: https://raw.githubusercontent.com/l7mp/stunner/main/docs/img/stunner.svg
+description: STUNner Kubernetes Gateway Operator
 maintainers:
   - name: l7mp
     email: info@l7mp.io
     url: https://l7mp.io
-
-# A chart can be either an 'application' or a 'library' chart.
-#
-# Application charts are a collection of templates that can be packaged into versioned archives
-# to be deployed.
-#
-# Library charts provide useful utilities or functions for the chart developer. They're included as
-# a dependency of application charts to inject those utilities and functions into the rendering
-# pipeline. Library charts do not define any templates and therefore cannot be deployed.
+icon: https://raw.githubusercontent.com/l7mp/stunner/main/docs/img/stunner.svg
 type: application
-
-# This is the chart version. This version number should be incremented each time you make changes
-# to the chart and its templates, including the app version.
-# Versions are expected to follow Semantic Versioning (https://semver.org/)
-version: 1.1.0
-
-# This is the version number of the application being deployed. This version number should be
-# incremented each time you make changes to the application. Versions are not expected to
-# follow Semantic Versioning. They should reflect the version the application is using.
-# It is recommended to use it with quotes.
-appVersion: 1.1.0
+version: 1.1.1
+appVersion: 1.1.1
+dependencies:
+  - name: gateway-api-standard-crds
+    alias: standardCrds
+    version: "1.4.1"
+    repository: "file://./charts/gateway-api-standard-crds"
+    condition: standardCrds.enabled
+  - name: gateway-api-experimental-crds
+    alias: experimentalCrds
+    version: "1.4.1"
+    repository: "file://./charts/gateway-api-experimental-crds"
+    condition: experimentalCrds.enabled

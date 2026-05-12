@@ -28,4 +28,4 @@ jobs:
       - name: Run chart-testing (lint)
         run: |
           cd stunner-helm
-          ct lint --chart-dirs helm --charts helm/stunner-gateway-operator
+          ct lint --chart-dirs helm --charts helm/stunner

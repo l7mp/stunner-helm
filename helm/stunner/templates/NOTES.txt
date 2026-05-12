@@ -1,16 +1,11 @@
-{{ .Chart.Name }} successfully installed
-{{- if eq .Values.stunner.standalone.enabled false}}
-Your installation depends on the stunner-gateway-operator.
-If you have not already installed it you can do it with the following command:
-helm install stunner-gateway-operator stunner/stunner-gateway-operator
-To checkout the installed resources:
-$ kubectl get pod -n {{ .Release.Namespace }}
-{{- else}}
-You installed stunner without the gateway operator in Standalone Mode.
-!IMPORTANT!
-Customize the default values below stunner.config
-to your own specification!
-{{- end}}
+Stunner Gateway operator has been successfully installed.
+
+In order to serve the essential manifests apply the following resources.
+You can modify them in order to make them serve you needs.
+
+You must serve some resources to the operator in order to make it work as intended.
+You can find everything here:
+https://github.com/l7mp/stunner/blob/main/docs/GATEWAY.md
 
 To cleanup:
 helm uninstall {{ .Release.Name }} -n {{ .Release.Namespace }}

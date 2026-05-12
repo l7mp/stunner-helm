@@ -10,8 +10,8 @@ on:
         required: true
         type: choice
         options:
-          - stunner # stunner-gateway-operator before 1.1.0
-          - stunner-premium #stunner-gateway-operator premium edition, shortening the name by leaving out the gateway-operator part
+          - stunner
+          - stunner-premium
 
 env:
   TAG: ${{ inputs.tag }}
@@ -33,29 +33,26 @@ jobs:
           ref: main
           repository: l7mp/stunner-helm
 
-      - name: Edit helm chart for stunner (stunner-gateway-operator previously)
+      - name: Edit helm chart for stunner
         if: ${{ env.TYPE == 'stunner' }}
         run: |
           cd stunner-helm/helm
           if ${{ env.TAG == 'dev' }}; then
-            # The dev release exposes the same operator chart under both names.
-            # Keep the gateway-operator name for validation; the build step
-            # repackages this chart as stunner-dev as a compatibility alias.
-            yq -i '.name = "stunner-gateway-operator-dev"' stunner-gateway-operator/Chart.yaml
+            yq -i '.name = "stunner-dev"' stunner/Chart.yaml
             yq -i '
               .stunnerGatewayOperator.deployment.container.manager.image.pullPolicy = "Always" |
               .stunnerGatewayOperator.dataplane.spec.image.pullPolicy = "Always" |
               .stunnerAuthService.deployment.container.authService.image.pullPolicy = "Always"
-            ' stunner-gateway-operator/values.yaml
+            ' stunner/values.yaml
           else
-            yq -i '.version = strenv(TAG)' stunner-gateway-operator/Chart.yaml
+            yq -i '.version = strenv(TAG)' stunner/Chart.yaml
           fi
           yq -i '
             .stunnerGatewayOperator.deployment.container.manager.image.tag = strenv(TAG) |
             .stunnerGatewayOperator.dataplane.spec.image.tag = strenv(TAG) |
             .stunnerAuthService.deployment.container.authService.image.tag = strenv(TAG)
-          ' stunner-gateway-operator/values.yaml
-          yq -i '.appVersion = strenv(TAG)' stunner-gateway-operator/Chart.yaml
+          ' stunner/values.yaml
+          yq -i '.appVersion = strenv(TAG)' stunner/Chart.yaml
 
       # STUNner premium edition
       - name: Edit helm chart for stunner-premium
@@ -67,9 +64,9 @@ jobs:
               .stunnerGatewayOperator.deployment.container.manager.image.pullPolicy = "Always" |
               .stunnerGatewayOperator.dataplane.spec.image.pullPolicy = "Always" |
               .stunnerAuthService.deployment.container.authService.image.pullPolicy = "Always"
-            ' stunner-gateway-operator/values.yaml
+            ' stunner/values.yaml
           else
-            yq -i '.version = strenv(TAG)' stunner-gateway-operator/Chart.yaml
+            yq -i '.version = strenv(TAG)' stunner/Chart.yaml
           fi
           yq -i '
             .stunnerGatewayOperator.deployment.container.manager.image.tag = strenv(TAG) |
@@ -77,11 +74,11 @@ jobs:
             .stunnerAuthService.deployment.container.authService.image.tag = strenv(TAG) |
             .stunnerGatewayOperator.deployment.container.manager.image.name = "docker.io/l7mp/stunner-gateway-operator-premium" |
             .stunnerGatewayOperator.dataplane.spec.image.name = "docker.io/l7mp/stunnerd-premium"
-          ' stunner-gateway-operator/values.yaml
+            ' stunner/values.yaml
           yq -i '
             .name = "stunner-premium" |
             .appVersion = strenv(TAG)
-          ' stunner-gateway-operator/Chart.yaml
+          ' stunner/Chart.yaml
 
       - name: Set up Helm
         uses: azure/setup-helm@v5
@@ -103,22 +100,18 @@ jobs:
         run: |
           cd stunner-helm
           if ${{ env.TYPE == 'stunner' && env.TAG == 'dev' }}; then
-            # stunner-dev is packaged from this same chart after validation.
-            ct install --chart-dirs helm --charts helm/stunner-gateway-operator
+            ct install --chart-dirs helm --charts helm/stunner
           else
-            ct install --chart-dirs helm --charts helm/stunner-gateway-operator
+            ct install --chart-dirs helm --charts helm/stunner
           fi
 
       - name: Build helm chart for ${{ env.TYPE }}
         run: |
           cd stunner-helm/helm
           if ${{ env.TYPE == 'stunner' && env.TAG == 'dev' }}; then
-            # Publish the same operator chart under both dev chart names.
-            helm package stunner-gateway-operator
-            yq -i '.name = "stunner-dev"' stunner-gateway-operator/Chart.yaml
-            helm package stunner-gateway-operator
+            helm package stunner
           else
-            helm package stunner-gateway-operator
+            helm package stunner
           fi
 
       - name: Set git config
@@ -139,7 +132,7 @@ jobs:
           if ${{ env.TAG == 'dev' }}; then
             if ${{ env.TYPE == 'stunner' }}; then
               # Remove previous moving dev artifacts before re-indexing the repo.
-              rm -rf build/stunner-dev*.tgz build/stunner-gateway-operator-dev*.tgz
+              rm -rf build/stunner-dev*.tgz
             else
               rm -rf build/${{ env.TYPE }}-dev*.tgz
             fi

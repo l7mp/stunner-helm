@@ -27,9 +27,9 @@ jobs:
         run: |
           cd stunner-helm/helm
           yq -i '
-            .name = "stunner-gateway-operator-dev" |
+            .name = "stunner-dev" |
             .appVersion = "dev"
-          ' stunner-gateway-operator/Chart.yaml
+          ' stunner/Chart.yaml
           yq -i '
             .stunnerGatewayOperator.deployment.container.manager.image.pullPolicy = "Always" |
             .stunnerGatewayOperator.deployment.container.manager.image.tag = "dev" |
@@ -37,9 +37,9 @@ jobs:
             .stunnerGatewayOperator.dataplane.spec.image.tag = "dev" |
             .stunnerAuthService.deployment.container.authService.image.pullPolicy = "Always" |
             .stunnerAuthService.deployment.container.authService.image.tag = "dev"
-          ' stunner-gateway-operator/values.yaml
+          ' stunner/values.yaml
 
       - name: Test chart installability
         run: |
           cd stunner-helm
-          ct install --chart-dirs helm --charts helm/stunner-gateway-operator
+          ct install --chart-dirs helm --charts helm/stunner
