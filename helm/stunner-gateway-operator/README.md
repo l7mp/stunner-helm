@@ -68,6 +68,15 @@ helm upgrade stunner-gateway-operator stunner/stunner-gateway-operator --namespa
 
 ## Parameters
 
+### Logging
+
+| Name                        | Description                                                            | Value  |
+| --------------------------- | ---------------------------------------------------------------------- | ------ |
+| `logging.operator.format`   | Log format for the gateway operator. Must be `text` or `json`.        | `text` |
+| `logging.operator.level`    | Log level for the gateway operator zap logger (pass-through string).  | `info` |
+| `logging.dataplane.format`  | Log format for managed dataplane pods. Must be `text` or `json`.      | `text` |
+| `logging.authService.format` | Log format for the auth service. Must be `text` or `json`.           | `text` |
+
 ### STUNner Gateway operator
 
 | Name                                                                            | Description                                                      | Value                                     |

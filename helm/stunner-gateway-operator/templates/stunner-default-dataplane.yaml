@@ -1,4 +1,8 @@
 {{- if eq .Values.stunnerGatewayOperator.dataplane.mode "managed"}}
+{{- $dataplaneLogFormat := (default "text" .Values.logging.dataplane.format | lower) }}
+{{- if and (ne $dataplaneLogFormat "text") (ne $dataplaneLogFormat "json") }}
+{{- fail (printf "invalid logging.dataplane.format %q: must be text or json" .Values.logging.dataplane.format) }}
+{{- end }}
 {{- with .Values.stunnerGatewayOperator.dataplane.spec }}
 apiVersion: stunner.l7mp.io/v1
 kind: Dataplane
@@ -19,6 +23,7 @@ spec:
     {{- range .args }}
     - {{ . }}
     {{- end }}
+    - --log-format={{ $dataplaneLogFormat }}
   {{- with .env }}
   env: {{- toYaml . | nindent 2 }}
   {{- end }}

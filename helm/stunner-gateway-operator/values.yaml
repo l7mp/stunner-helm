@@ -10,6 +10,15 @@ standardCrds:
 experimentalCrds:
   enabled: false
 
+logging:
+  operator:
+    format: text
+    level: info
+  dataplane:
+    format: text
+  authService:
+    format: text
+
 stunnerGatewayOperator:
   enabled: true
   customerKey: ""
@@ -43,8 +52,6 @@ stunnerGatewayOperator:
           - --health-probe-bind-address=:8081
           - --metrics-bind-address=127.0.0.1:8080
           - --leader-elect
-          - --zap-log-level=info
-          #  - --zap-encoder json
         securityContext:
           allowPrivilegeEscalation: false
     topologySpreadConstraints: []
@@ -66,7 +73,6 @@ stunnerGatewayOperator:
       args:
         - -w
         - --udp-thread-num=16
-        # - --log-format=json
       env: []
       resources:
         limits:
@@ -116,5 +122,4 @@ stunnerAuthService:
         args:
           - --port=8088
           - -v
-          # - --log-format=json
     topologySpreadConstraints: []

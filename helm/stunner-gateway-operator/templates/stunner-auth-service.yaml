@@ -1,4 +1,8 @@
 {{- if eq .Values.stunnerAuthService.enabled true}}
+{{- $authLogFormat := (default "text" .Values.logging.authService.format | lower) }}
+{{- if and (ne $authLogFormat "text") (ne $authLogFormat "json") }}
+{{- fail (printf "invalid logging.authService.format %q: must be text or json" .Values.logging.authService.format) }}
+{{- end }}
 {{- with .Values.stunnerAuthService }}
 ---
 apiVersion: apps/v1
@@ -36,6 +40,7 @@ spec:
           {{- range $.Values.stunnerAuthService.deployment.container.authService.args }}
           - {{ . }}
           {{- end }}
+          - --log-format={{ $authLogFormat }}
           {{- with .deployment.container.authService.securityContext }}
           securityContext: {{- toYaml . | nindent 12 }}
           {{- end }}

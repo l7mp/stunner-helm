@@ -313,11 +313,21 @@ spec:
         {{- toYaml . | nindent 8 }}
         {{- end }}
     spec:
+      {{- $operatorLogFormat := (default "text" $.Values.logging.operator.format | lower) }}
+      {{- if and (ne $operatorLogFormat "text") (ne $operatorLogFormat "json") }}
+      {{- fail (printf "invalid logging.operator.format %q: must be text or json" $.Values.logging.operator.format) }}
+      {{- end }}
       containers:
       - args:
         {{- range $.Values.stunnerGatewayOperator.deployment.container.manager.args }}
         -  {{ . }}
         {{- end }}
+        {{- if eq $operatorLogFormat "json" }}
+        -  --zap-encoder=json
+        {{- else }}
+        -  --zap-encoder=console
+        {{- end }}
+        -  --zap-log-level={{ default "info" $.Values.logging.operator.level }}
         -  --dataplane-mode={{.Values.stunnerGatewayOperator.dataplane.mode }}
         command:
         - /manager
@@ -387,4 +397,3 @@ spec:
         {{- toYaml . | nindent 8 }}
         {{- end }}
       {{- end }}
-
