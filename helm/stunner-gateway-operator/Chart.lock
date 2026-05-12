@@ -1,0 +1,9 @@
+dependencies:
+- name: gateway-api-standard-crds
+  repository: file://./charts/gateway-api-standard-crds
+  version: 1.4.1
+- name: gateway-api-experimental-crds
+  repository: file://./charts/gateway-api-experimental-crds
+  version: 1.4.1
+digest: sha256:a2419e02e50492daa08a6557865624598cf496514b6adc5d5b6449a1fc8ce5f0
+generated: "2026-05-06T01:29:32.29433202+02:00"
