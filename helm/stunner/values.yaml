@@ -6,10 +6,8 @@
 
 standardCrds:
   enabled: true
-
 experimentalCrds:
   enabled: false
-
 logging:
   operator:
     format: text
@@ -18,7 +16,6 @@ logging:
     format: text
   authService:
     format: text
-
 stunnerGatewayOperator:
   enabled: true
   customerKey: ""
@@ -32,7 +29,7 @@ stunnerGatewayOperator:
     nodeSelector:
       kubernetes.io/os: linux
     imagePullSecrets:
-#      - name: docker-registry-secret
+    #      - name: docker-registry-secret
     securityContext:
       runAsNonRoot: true
     container:
@@ -40,7 +37,7 @@ stunnerGatewayOperator:
         image:
           name: docker.io/l7mp/stunner-gateway-operator
           pullPolicy: IfNotPresent
-          tag: 1.1.1
+          tag: 1.2.0
         resources:
           limits:
             cpu: 1000m
@@ -65,9 +62,9 @@ stunnerGatewayOperator:
       image:
         name: docker.io/l7mp/stunnerd
         pullPolicy: IfNotPresent
-        tag: 1.1.1
+        tag: 1.2.0
       imagePullSecrets:
-        # - name: docker-registry-secret
+      # - name: docker-registry-secret
       command:
         - stunnerd
       args:
@@ -91,7 +88,6 @@ stunnerGatewayOperator:
       securityContext: {}
       tolerations: []
       topologySpreadConstraints: []
-
 stunnerAuthService:
   enabled: true
   deployment:
@@ -111,7 +107,7 @@ stunnerAuthService:
         image:
           name: docker.io/l7mp/stunner-auth-server
           pullPolicy: IfNotPresent
-          tag: 1.1.1
+          tag: 1.2.0
         resources:
           limits:
             cpu: 200m
