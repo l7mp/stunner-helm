@@ -37,7 +37,7 @@ stunnerGatewayOperator:
         image:
           name: docker.io/l7mp/stunner-gateway-operator
           pullPolicy: IfNotPresent
-          tag: 1.2.0
+          tag: 1.2.1
         resources:
           limits:
             cpu: 1000m
@@ -62,7 +62,7 @@ stunnerGatewayOperator:
       image:
         name: docker.io/l7mp/stunnerd
         pullPolicy: IfNotPresent
-        tag: 1.2.0
+        tag: 1.2.1
       imagePullSecrets:
       # - name: docker-registry-secret
       command:
@@ -107,7 +107,7 @@ stunnerAuthService:
         image:
           name: docker.io/l7mp/stunner-auth-server
           pullPolicy: IfNotPresent
-          tag: 1.2.0
+          tag: 1.2.1
         resources:
           limits:
             cpu: 200m
