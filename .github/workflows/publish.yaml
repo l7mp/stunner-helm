@@ -80,6 +80,13 @@ jobs:
             .appVersion = strenv(TAG)
           ' stunner/Chart.yaml
 
+      - name: Sync README image fields from values
+        run: |
+          cd stunner-helm/helm
+          python3 ../.github/scripts/sync_readme_image_rows.py \
+            --readme stunner/README.md \
+            --values stunner/values.yaml
+
       - name: Set up Helm
         uses: azure/setup-helm@v5
         with:

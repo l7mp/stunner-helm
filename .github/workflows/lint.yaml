@@ -25,6 +25,13 @@ jobs:
       - name: Set up chart-testing
         uses: helm/chart-testing-action@v2
 
+      - name: Verify README image fields are in sync
+        run: |
+          python3 stunner-helm/.github/scripts/sync_readme_image_rows.py \
+            --readme stunner-helm/helm/stunner/README.md \
+            --values stunner-helm/helm/stunner/values.yaml \
+            --check
+
       - name: Run chart-testing (lint)
         run: |
           cd stunner-helm
