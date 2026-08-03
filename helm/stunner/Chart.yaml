@@ -26,11 +26,11 @@ appVersion: 1.2.1
 dependencies:
   - name: gateway-api-standard-crds
     alias: standardCrds
-    version: "1.4.1"
+    version: "1.6.1"
     repository: "file://./charts/gateway-api-standard-crds"
     condition: standardCrds.enabled
   - name: gateway-api-experimental-crds
     alias: experimentalCrds
-    version: "1.4.1"
+    version: "1.6.1"
     repository: "file://./charts/gateway-api-experimental-crds"
     condition: experimentalCrds.enabled

@@ -119,6 +119,7 @@ rules:
   resources:
   - gatewayclasses
   - gateways
+  - tcproutes
   - udproutes
   verbs:
   - get
@@ -131,6 +132,7 @@ rules:
   resources:
   - gatewayclasses/status
   - gateways/status
+  - tcproutes/status
   - udproutes/status
   verbs:
   - patch
@@ -141,6 +143,7 @@ rules:
   - dataplanes
   - gatewayconfigs
   - staticservices
+  - tcproutes
   - udproutes
   verbs:
   - get
@@ -152,6 +155,8 @@ rules:
   - stunner.l7mp.io
   resources:
   - staticservices/finalizers
+  - tcproutes/finalizers
+  - tcproutes/status
   - udproutes/finalizers
   - udproutes/status
   verbs:
