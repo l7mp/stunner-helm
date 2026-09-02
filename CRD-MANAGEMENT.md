@@ -4,8 +4,10 @@
 
 STUNner requires two sets of CRDs to function:
 
-1. **STUNner CRDs** (`stunner.l7mp.io`) — `GatewayConfig`, `Dataplane`, `StaticService`, `UDPRoute`
-2. **Kubernetes Gateway API CRDs** (`gateway.networking.k8s.io`) — `GatewayClass`, `Gateway`, `HTTPRoute`, etc.
+1. **STUNner CRDs** (`stunner.l7mp.io`): `GatewayConfig`, `Dataplane`, `StaticService`, `UDPRoute`,
+   `TCPRoute`
+2. **Kubernetes Gateway API CRDs** (`gateway.networking.k8s.io`): `GatewayClass`, `Gateway`,
+   `HTTPRoute`, etc.
 
 ---
 
@@ -98,7 +100,7 @@ helm install stunner stunner/stunner \
 Install Gateway API CRDs manually, then install the operator without them:
 
 ```console
-kubectl apply -f https://github.com/kubernetes-sigs/gateway-api/releases/download/v1.4.1/experimental-install.yaml
+kubectl apply -f https://github.com/kubernetes-sigs/gateway-api/releases/download/v1.6.1/experimental-install.yaml
 
 helm install stunner stunner/stunner \
     --create-namespace --namespace=stunner-system \
@@ -126,8 +128,6 @@ helm install stunner ./helm/stunner \
     --create-namespace --namespace=stunner-system
 ```
 
----
-
 ## FAQ
 
 ### Will uninstalling the operator delete my CRDs?
@@ -140,7 +140,7 @@ The STUNner operator pods will fail to start because the Kubernetes API server w
 
 ### Can I use a different version of the Gateway API CRDs?
 
-STUNner is tested against specific Gateway API versions. The bundled version is v1.4.1. Using a significantly older or newer version may cause compatibility issues. Always consult the [STUNner release notes](https://github.com/l7mp/stunner/releases) for the recommended Gateway API version.
+STUNner is tested against specific Gateway API versions. The bundled version is v1.6.1. Using a significantly older or newer version may cause compatibility issues. Always consult the [STUNner release notes](https://github.com/l7mp/stunner/releases) for the recommended Gateway API version.
 
 ---
 
