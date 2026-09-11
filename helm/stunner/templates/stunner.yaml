@@ -1,3 +1,7 @@
+{{- $useServiceAddress := .Values.stunnerGatewayOperator.deployment.useServiceAddress }}
+{{- if and $useServiceAddress (ne (int .Values.stunnerGatewayOperator.deployment.replicas) 1) }}
+{{- fail "stunnerGatewayOperator.deployment.useServiceAddress requires exactly one operator replica; the discovery Service does not select only a configured leader" }}
+{{- end }}
 ---
 apiVersion: v1
 kind: ServiceAccount
@@ -301,6 +305,11 @@ metadata:
   namespace: {{ $.Values.namespace | default $.Release.Namespace }}
 spec:
   replicas: {{ $.Values.stunnerGatewayOperator.deployment.replicas }}
+  {{- if $useServiceAddress }}
+  strategy:
+    type: Recreate
+    rollingUpdate: null
+  {{- end }}
   selector:
     matchLabels:
       control-plane: stunner-gateway-operator-controller-manager
@@ -338,10 +347,14 @@ spec:
         - /manager
         env:
         - name: STUNNER_GATEWAY_OPERATOR_ADDRESS
+          {{- if $useServiceAddress }}
+          value: stunner-config-discovery.{{ $.Values.namespace | default $.Release.Namespace }}.svc
+          {{- else }}
           valueFrom:
             fieldRef:
               apiVersion: v1
               fieldPath: status.podIP
+          {{- end }}
         {{- if ne .Values.stunnerGatewayOperator.customerKey "" }}
         - name: CUSTOMER_KEY
           valueFrom:

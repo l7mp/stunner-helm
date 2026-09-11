@@ -26,6 +26,9 @@ stunnerGatewayOperator:
     affinity: {}
     tolerations: []
     replicas: 1
+    # Advertise the discovery Service instead of the operator Pod IP. Requires one
+    # operator replica and uses Recreate to avoid serving an unconfigured follower.
+    useServiceAddress: false
     nodeSelector:
       kubernetes.io/os: linux
     imagePullSecrets:

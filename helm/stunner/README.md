@@ -19,6 +19,47 @@ helm install stunner stunner/stunner --create-namespace \
 
 And that's all: you don't need to install the dataplane separately, because this is handled automatically by the operator. The `stunnerd` pods created by the operator can be customized using the Dataplane custom resource: you can specify the `stunnerd` container image version, provision resources per `stunnerd` pod, deploy into the host network namespace, and more; see the documentation [here](https://pkg.go.dev/github.com/l7mp/stunner-gateway-operator/api/v1#DataplaneSpec).
 
+## Stable configuration discovery address
+
+Managed dataplanes normally receive the operator Pod IP as their configuration
+origin. Replacing the operator changes that address in the managed Deployment's
+Pod template, which can roll otherwise healthy TURN gateways.
+
+For a single-operator installation, opt in to advertising the existing discovery
+Service instead:
+
+```yaml
+stunnerGatewayOperator:
+  deployment:
+    replicas: 1
+    useServiceAddress: true
+```
+
+This advertises `stunner-config-discovery.<namespace>.svc` and sets the operator
+Deployment strategy to `Recreate`. The chart rejects this option with any replica
+count other than one: the Service selects all operator Pods, and a Ready follower
+can have no rendered configuration. `Recreate` prevents a normal Deployment update
+from starting the replacement alongside the old operator. Do not independently
+scale the operator or add other matching Pods while using this option.
+
+This is not highly available configuration discovery. Operator replacement still
+interrupts configuration watching; readiness does not establish leadership or a
+populated configuration store. Already configured gateways can keep forwarding
+while their watches reconnect. New gateways and configuration changes must wait
+for the replacement operator to become functional. Multiple operators require a
+separately validated leader/configuration-aware serving design.
+
+Enabling or disabling this option changes existing gateway templates once. Plan
+that initial rollout with capacity for replacements and a drain policy that keeps
+existing allocations routable through the external load balancer. Before adopting
+it, verify both existing and new media sessions during operator replacement and
+require unchanged gateway Pod identities. This option does not migrate TURN
+allocations or protect a gateway whose own node fails.
+
+The default is `false`, preserving Pod-IP advertisement and the existing operator
+update strategy. Authentication-service replicas and dataplane settings are
+independent of this option.
+
 ## CRD Management
 
 This chart installs CRDs from two sources:
@@ -93,6 +134,7 @@ helm upgrade stunner stunner/stunner --namespace=stunner-system
 | `stunnerGatewayOperator.deployment.affinity`                                    | Affinity settings for the deployed operator instance.            | `{}`                                      |
 | `stunnerGatewayOperator.deployment.tolerations`                                 | Tolerations for pod assignment.                                  | `[]`                                      |
 | `stunnerGatewayOperator.deployment.replicas`                                    | Number of replicas of the operator to be deployed.               | `1`                                       |
+| `stunnerGatewayOperator.deployment.useServiceAddress`                           | Advertise the discovery Service; requires one replica and selects Recreate. | `false`                         |
 | `stunnerGatewayOperator.deployment.nodeSelector`                                | Node labels for pod assignment.                                  | `{kubernetes.io/os: linux}`               |
 | `stunnerGatewayOperator.deployment.imagePullSecrets`                            | Image pull secrets for the image.                                | `[]`                                      |
 | `stunnerGatewayOperator.deployment.topologySpreadConstraints`                   | Constraints to control how pods are spread across the cluster.   | `[]`                                      |
