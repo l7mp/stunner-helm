@@ -25,40 +25,63 @@ Managed dataplanes normally receive the operator Pod IP as their configuration
 origin. Replacing the operator changes that address in the managed Deployment's
 Pod template, which can roll otherwise healthy TURN gateways.
 
-For a single-operator installation, opt in to advertising the existing discovery
-Service instead:
+The stable address is `stunner-config-discovery.<namespace>.svc`. For two operators,
+use the opt-in leader/standby mode with an operator image that implements
+`--leader-discovery-service` from the companion [operator change](https://github.com/l7mp/stunner-gateway-operator/pull/76) (the chart's current default image does not):
 
 ```yaml
 stunnerGatewayOperator:
   deployment:
-    replicas: 1
+    replicas: 2
     useServiceAddress: true
+    leaderStandby:
+      enabled: true
+    # Set container.manager.image to your tested image containing leader discovery.
 ```
 
-This advertises `stunner-config-discovery.<namespace>.svc` and sets the operator
-Deployment strategy to `Recreate`. The chart rejects this option with any replica
-count other than one: the Service selects all operator Pods, and a Ready follower
-can have no rendered configuration. `Recreate` prevents a normal Deployment update
-from starting the replacement alongside the old operator. Do not independently
-scale the operator or add other matching Pods while using this option.
+Both operator Pods stay healthy with synchronized Kubernetes caches. Only the
+elected operator renders configuration. After taking a complete resource snapshot
+and loading its CDS store, it opens CDS and publishes itself as the sole endpoint
+of the selectorless discovery Service. The standby does not listen on the CDS port.
+A leader is Ready only after successful endpoint publication; a healthy standby
+can be Ready without serving configuration. On shutdown or lease loss, the serving
+process closes its listener and watches; the successor replaces the EndpointSlice.
+Gateways keep the same configuration-origin address during that transition.
 
-This is not highly available configuration discovery. Operator replacement still
-interrupts configuration watching; readiness does not establish leadership or a
-populated configuration store. Already configured gateways can keep forwarding
-while their watches reconnect. New gateways and configuration changes must wait
-for the replacement operator to become functional. Multiple operators require a
-separately validated leader/configuration-aware serving design.
+The chart requires at least two operators and managed mode, enables leader election,
+disables destructive finalization, adds required hostname anti-affinity, and sets a
+PodDisruptionBudget with `minAvailable: 1`. Two schedulable nodes with sufficient
+capacity are required. The rolling strategy replaces one Pod at a time without a
+surge, so updates can complete on two nodes. Existing custom affinity is preserved.
+EndpointSlice writes are granted in the operator namespace; updates are restricted
+to `stunner-config-discovery-leader`. The Service must be single-stack; IPv4 and
+IPv6 single-stack Services are supported. Dual-stack HA discovery is not supported.
 
-Enabling or disabling this option changes existing gateway templates once. Plan
-that initial rollout with capacity for replacements and a drain policy that keeps
-existing allocations routable through the external load balancer. Before adopting
-it, verify both existing and new media sessions during operator replacement and
-require unchanged gateway Pod identities. This option does not migrate TURN
-allocations or protect a gateway whose own node fails.
+For a single operator without the companion operator change, `useServiceAddress:
+true` remains available with `replicas: 1` and `leaderStandby.enabled: false`. It uses
+`Recreate` and provides a stable address, with a configuration outage during replacement.
+The chart rejects multiple replicas in this single-operator mode.
 
-The default is `false`, preserving Pod-IP advertisement and the existing operator
-update strategy. Authentication-service replicas and dataplane settings are
-independent of this option.
+Adoption requires a controlled transition: do not run old operators that serve
+uninitialized CDS alongside HA operators. Stop the old operator, switch the Service
+to selectorless discovery, confirm its old automatically managed EndpointSlices
+are gone, and start two compatible operators. Already configured gateways retain
+their last configuration during this control-plane gap. Verify successful endpoint
+publication and configuration propagation before completing the rollout. Disabling
+HA also requires stopping both operators before restoring single-operator discovery.
+
+Enabling or disabling stable addressing changes existing gateway templates once.
+Plan that initial rollout with gateway capacity and a drain policy that keeps live
+allocations routable. Failover still includes lease expiry, configuration bootstrap,
+EndpointSlice propagation, and watch reconnection; it is not instantaneous. Validate
+both existing and new media sessions and unchanged gateway Pod identities. This
+protects against an operator replacement causing a gateway rollout; it does not
+migrate TURN allocations or protect a gateway whose own node fails.
+
+Both options default to `false`, preserving Pod-IP advertisement and the existing
+operator update strategy. Authentication-service replicas, dataplane images, and
+CRDs are unchanged. Select and validate compatible image versions explicitly before
+adoption; enabling HA with an older image fails on the unsupported flag.
 
 ## CRD Management
 
@@ -134,7 +157,8 @@ helm upgrade stunner stunner/stunner --namespace=stunner-system
 | `stunnerGatewayOperator.deployment.affinity`                                    | Affinity settings for the deployed operator instance.            | `{}`                                      |
 | `stunnerGatewayOperator.deployment.tolerations`                                 | Tolerations for pod assignment.                                  | `[]`                                      |
 | `stunnerGatewayOperator.deployment.replicas`                                    | Number of replicas of the operator to be deployed.               | `1`                                       |
-| `stunnerGatewayOperator.deployment.useServiceAddress`                           | Advertise the discovery Service; requires one replica and selects Recreate. | `false`                         |
+| `stunnerGatewayOperator.deployment.useServiceAddress`                           | Advertise the discovery Service; use one replica/Recreate or leaderStandby. | `false`                         |
+| `stunnerGatewayOperator.deployment.leaderStandby.enabled` | Route discovery to the initialized leader; requires a compatible image, stable addressing and at least two replicas. | `false` |
 | `stunnerGatewayOperator.deployment.nodeSelector`                                | Node labels for pod assignment.                                  | `{kubernetes.io/os: linux}`               |
 | `stunnerGatewayOperator.deployment.imagePullSecrets`                            | Image pull secrets for the image.                                | `[]`                                      |
 | `stunnerGatewayOperator.deployment.topologySpreadConstraints`                   | Constraints to control how pods are spread across the cluster.   | `[]`                                      |

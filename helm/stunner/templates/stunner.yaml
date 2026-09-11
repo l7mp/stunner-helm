@@ -1,5 +1,9 @@
 {{- $useServiceAddress := .Values.stunnerGatewayOperator.deployment.useServiceAddress }}
-{{- if and $useServiceAddress (ne (int .Values.stunnerGatewayOperator.deployment.replicas) 1) }}
+{{- $ha := .Values.stunnerGatewayOperator.deployment.leaderStandby.enabled }}
+{{- if and $ha (or (not $useServiceAddress) (lt (int .Values.stunnerGatewayOperator.deployment.replicas) 2) (ne .Values.stunnerGatewayOperator.dataplane.mode "managed")) }}
+{{- fail "leaderStandby requires useServiceAddress, at least two operator replicas, and managed dataplane mode" }}
+{{- end }}
+{{- if and $useServiceAddress (not $ha) (ne (int .Values.stunnerGatewayOperator.deployment.replicas) 1) }}
 {{- fail "stunnerGatewayOperator.deployment.useServiceAddress requires exactly one operator replica; the discovery Service does not select only a configured leader" }}
 {{- end }}
 ---
@@ -15,6 +19,15 @@ metadata:
   name: stunner-gateway-operator-leader-election-role
   namespace: {{ $.Values.namespace | default $.Release.Namespace }}
 rules:
+{{- if $ha }}
+- apiGroups: ["discovery.k8s.io"]
+  resources: ["endpointslices"]
+  verbs: ["create"]
+- apiGroups: ["discovery.k8s.io"]
+  resources: ["endpointslices"]
+  resourceNames: ["stunner-config-discovery-leader"]
+  verbs: ["get", "update"]
+{{- end }}
 - apiGroups:
   - ""
   resources:
@@ -293,8 +306,13 @@ spec:
   - name: cds
     port: 13478
     protocol: TCP
+  {{- if $ha }}
+  # The initialized leader owns the EndpointSlice. Both Pods may remain Ready.
+  selector: null
+  {{- else }}
   selector:
     control-plane: stunner-gateway-operator-controller-manager
+  {{- end }}
 ---
 apiVersion: apps/v1
 kind: Deployment
@@ -305,7 +323,14 @@ metadata:
   namespace: {{ $.Values.namespace | default $.Release.Namespace }}
 spec:
   replicas: {{ $.Values.stunnerGatewayOperator.deployment.replicas }}
-  {{- if $useServiceAddress }}
+  {{- if $ha }}
+  minReadySeconds: 10
+  strategy:
+    type: RollingUpdate
+    rollingUpdate:
+      maxSurge: 0
+      maxUnavailable: 1
+  {{- else if $useServiceAddress }}
   strategy:
     type: Recreate
     rollingUpdate: null
@@ -343,6 +368,11 @@ spec:
         {{- end }}
         -  --zap-log-level={{ default "info" $.Values.logging.operator.level }}
         -  --dataplane-mode={{.Values.stunnerGatewayOperator.dataplane.mode }}
+        {{- if $ha }}
+        - --leader-elect=true
+        - --enable-finalizer=false
+        - --leader-discovery-service=stunner-config-discovery
+        {{- end }}
         command:
         - /manager
         env:
@@ -355,6 +385,14 @@ spec:
               apiVersion: v1
               fieldPath: status.podIP
           {{- end }}
+        {{- if $ha }}
+        {{- range $name, $field := dict "POD_NAMESPACE" "metadata.namespace" "POD_NAME" "metadata.name" "POD_UID" "metadata.uid" "POD_IP" "status.podIP" }}
+        - name: {{ $name }}
+          valueFrom:
+            fieldRef:
+              fieldPath: {{ $field }}
+        {{- end }}
+        {{- end }}
         {{- if ne .Values.stunnerGatewayOperator.customerKey "" }}
         - name: CUSTOMER_KEY
           valueFrom:
@@ -399,7 +437,15 @@ spec:
       {{- with .Values.stunnerGatewayOperator.deployment.nodeSelector }}
       nodeSelector: {{- toYaml . | nindent 8 }}
       {{- end }}
-      {{- with .Values.stunnerGatewayOperator.deployment.affinity }}
+      {{- $affinity := deepCopy .Values.stunnerGatewayOperator.deployment.affinity }}
+      {{- if $ha }}
+      {{- $anti := get $affinity "podAntiAffinity" | default dict }}
+      {{- $terms := get $anti "requiredDuringSchedulingIgnoredDuringExecution" | default list }}
+      {{- $term := dict "topologyKey" "kubernetes.io/hostname" "labelSelector" (dict "matchLabels" (dict "control-plane" "stunner-gateway-operator-controller-manager")) }}
+      {{- $_ := set $anti "requiredDuringSchedulingIgnoredDuringExecution" (append $terms $term) }}
+      {{- $_ := set $affinity "podAntiAffinity" $anti }}
+      {{- end }}
+      {{- with $affinity }}
       affinity: {{- toYaml . | nindent 8 }}
       {{- end }}
       {{- with .Values.stunnerGatewayOperator.deployment.tolerations }}
@@ -415,3 +461,17 @@ spec:
         {{- toYaml . | nindent 8 }}
         {{- end }}
       {{- end }}
+
+{{- if $ha }}
+---
+apiVersion: policy/v1
+kind: PodDisruptionBudget
+metadata:
+  name: stunner-gateway-operator
+  namespace: {{ $.Values.namespace | default $.Release.Namespace }}
+spec:
+  minAvailable: 1
+  selector:
+    matchLabels:
+      control-plane: stunner-gateway-operator-controller-manager
+{{- end }}

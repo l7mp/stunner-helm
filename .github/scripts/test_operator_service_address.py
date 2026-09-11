@@ -13,6 +13,7 @@ import yaml
 CHART = Path(__file__).resolve().parents[2] / "helm" / "stunner"
 HELM = os.environ.get("HELM", "helm")
 OPTION = "stunnerGatewayOperator.deployment.useServiceAddress"
+HA = "stunnerGatewayOperator.deployment.leaderStandby.enabled"
 REPLICAS = "stunnerGatewayOperator.deployment.replicas"
 OPERATOR = "stunner-gateway-operator-controller-manager"
 
@@ -103,6 +104,45 @@ class ServiceAddressTests(unittest.TestCase):
         self.assertEqual(deployment["spec"]["replicas"], 2)
         self.assertIn("valueFrom", address(deployment))
         self.assertNotIn("strategy", deployment["spec"])
+
+
+    def test_leader_standby_routes_only_published_endpoints(self):
+        objects = render(f"{OPTION}=true", f"{HA}=true", f"{REPLICAS}=2")
+        deployment = operator(objects)
+        self.assertEqual(deployment["spec"]["replicas"], 2)
+        self.assertEqual(deployment["spec"]["strategy"], {"type": "RollingUpdate", "rollingUpdate": {"maxSurge": 0, "maxUnavailable": 1}})
+        self.assertIsNone(objects[("Service", "stunner-system", "stunner-config-discovery")]["spec"]["selector"])
+        pod = deployment["spec"]["template"]["spec"]
+        manager = pod["containers"][0]
+        self.assertIn("--leader-discovery-service=stunner-config-discovery", manager["args"])
+        self.assertIn("--leader-elect=true", manager["args"])
+        self.assertIn("--enable-finalizer=false", manager["args"])
+        self.assertEqual(manager["readinessProbe"]["httpGet"]["path"], "/readyz")
+        identity = {e["name"]: e["valueFrom"]["fieldRef"]["fieldPath"] for e in manager["env"] if e["name"].startswith("POD_")}
+        self.assertEqual(identity, {"POD_IP": "status.podIP", "POD_UID": "metadata.uid", "POD_NAME": "metadata.name", "POD_NAMESPACE": "metadata.namespace"})
+        term = pod["affinity"]["podAntiAffinity"]["requiredDuringSchedulingIgnoredDuringExecution"][-1]
+        self.assertEqual(term, {"topologyKey": "kubernetes.io/hostname", "labelSelector": {"matchLabels": {"control-plane": OPERATOR}}})
+        pdb = objects[("PodDisruptionBudget", "stunner-system", "stunner-gateway-operator")]
+        self.assertEqual(pdb["spec"]["minAvailable"], 1)
+        role = objects[("Role", "stunner-system", "stunner-gateway-operator-leader-election-role")]
+        self.assertIn({"apiGroups": ["discovery.k8s.io"], "resources": ["endpointslices"], "resourceNames": ["stunner-config-discovery-leader"], "verbs": ["get", "update"]}, role["rules"])
+        before = render()
+        for key, obj in before.items():
+            if key[0] not in ("Deployment", "Service", "Role") or key[2] not in (OPERATOR, "stunner-config-discovery", "stunner-gateway-operator-leader-election-role"):
+                self.assertEqual(objects[key], obj, key)
+
+    def test_leader_standby_rejects_missing_prerequisites(self):
+        cases = [(f"{REPLICAS}=1", f"{OPTION}=true"), (f"{REPLICAS}=2", f"{OPTION}=false"), (f"{REPLICAS}=2", f"{OPTION}=true", "stunnerGatewayOperator.dataplane.mode=legacy")]
+        for settings in cases:
+            with self.subTest(settings=settings):
+                result = render(f"{HA}=true", *settings, success=False)
+                self.assertNotEqual(result.returncode, 0)
+                self.assertIn("leaderStandby requires", result.stderr)
+
+    def test_leader_standby_preserves_custom_affinity(self):
+        objects = render(f"{OPTION}=true", f"{HA}=true", f"{REPLICAS}=2", "stunnerGatewayOperator.deployment.affinity.nodeAffinity.requiredDuringSchedulingIgnoredDuringExecution.nodeSelectorTerms[0].matchExpressions[0].key=zone", "stunnerGatewayOperator.deployment.affinity.nodeAffinity.requiredDuringSchedulingIgnoredDuringExecution.nodeSelectorTerms[0].matchExpressions[0].operator=Exists", namespace="other")
+        self.assertIn("nodeAffinity", operator(objects,"other")["spec"]["template"]["spec"]["affinity"])
+        self.assertEqual(address(operator(objects,"other"))["value"],"stunner-config-discovery.other.svc")
 
 
 if __name__ == "__main__":
