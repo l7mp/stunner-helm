@@ -26,12 +26,9 @@ stunnerGatewayOperator:
     affinity: {}
     tolerations: []
     replicas: 1
-    # Advertise the discovery Service instead of the operator Pod IP. Requires one
-    # operator replica with Recreate, or leaderStandby with a compatible operator.
+    # Advertise the discovery Service instead of the operator Pod IP.
     useServiceAddress: false
     leaderStandby:
-      # Requires an operator image implementing --leader-discovery-service.
-      # Set replicas >= 2 and useServiceAddress=true when enabling.
       enabled: false
     nodeSelector:
       kubernetes.io/os: linux
