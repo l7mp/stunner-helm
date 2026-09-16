@@ -43,7 +43,7 @@ By default, the operator chart installs the official Kubernetes Gateway API CRDs
 If you prefer to manage Gateway API CRDs yourself:
 
 ```console
-kubectl apply -f https://github.com/kubernetes-sigs/gateway-api/releases/download/v1.3.0/standard-install.yaml
+kubectl apply -f https://github.com/kubernetes-sigs/gateway-api/releases/download/v1.6.2/standard-install.yaml
 helm install stunner stunner/stunner --create-namespace \
     --namespace=stunner-system \
     --set standardCrds.enabled=false
@@ -59,11 +59,22 @@ helm install stunner stunner/stunner --create-namespace \
     --set experimentalCrds.enabled=true
 ```
 
-To upgrade an existing installation (which will also upgrade the CRDs if needed):
+To upgrade an existing installation:
 
 ```console
 helm upgrade stunner stunner/stunner --namespace=stunner-system
 ```
+
+> **Note: `helm upgrade` does NOT update CRDs.** STUNner has added new native CRDs, including
+> TCPRoute, which a `helm upgrade` will not install. In order to install the new CRDs on an
+> existing Helm deployment, apply the CRDs manually before upgrading:
+>
+> ```console
+> helm repo update
+> helm pull stunner/stunner --untar --untardir /tmp/stunner-chart
+> kubectl apply -f /tmp/stunner-chart/stunner/crds/
+> kubectl apply -f /tmp/stunner-chart/stunner/charts/gateway-api-standard-crds/crds/
+> ```
 
 ## Parameters
 
