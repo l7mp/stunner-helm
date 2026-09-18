@@ -75,10 +75,14 @@ jobs:
             .stunnerGatewayOperator.deployment.container.manager.image.name = "docker.io/l7mp/stunner-gateway-operator-premium" |
             .stunnerGatewayOperator.dataplane.spec.image.name = "docker.io/l7mp/stunnerd-premium"
             ' stunner/values.yaml
-          yq -i '
-            .name = "stunner-premium" |
-            .appVersion = strenv(TAG)
-          ' stunner/Chart.yaml
+          # The moving dev chart has its own name, like stunner-dev: with the release name it
+          # would overwrite the released stunner-premium package of the same chart version.
+          if ${{ env.TAG == 'dev' }}; then
+            yq -i '.name = "stunner-premium-dev"' stunner/Chart.yaml
+          else
+            yq -i '.name = "stunner-premium"' stunner/Chart.yaml
+          fi
+          yq -i '.appVersion = strenv(TAG)' stunner/Chart.yaml
 
       - name: Sync README image fields from values
         run: |
