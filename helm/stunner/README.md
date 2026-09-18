@@ -103,7 +103,9 @@ helm upgrade stunner stunner/stunner --namespace=stunner-system
 | `stunnerGatewayOperator.deployment.podLabels`                                   | Labels for the deployment pods.                                  | `{}`                                      |
 | `stunnerGatewayOperator.deployment.affinity`                                    | Affinity settings for the deployed operator instance.            | `{}`                                      |
 | `stunnerGatewayOperator.deployment.tolerations`                                 | Tolerations for pod assignment.                                  | `[]`                                      |
-| `stunnerGatewayOperator.deployment.replicas`                                    | Number of replicas of the operator to be deployed.               | `1`                                       |
+| `stunnerGatewayOperator.deployment.replicas`                                    | Number of replicas of the operator to be deployed. Replicas beyond the leader are leader-elected standbys, see [Operator high availability](#operator-high-availability). | `1`                                       |
+| `stunnerGatewayOperator.deployment.podDisruptionBudget.enabled`                 | If true, deploy a PodDisruptionBudget for the operator pods.     | `false`                                   |
+| `stunnerGatewayOperator.deployment.podDisruptionBudget.maxUnavailable`          | The `maxUnavailable` of the PodDisruptionBudget.                 | `1`                                       |
 | `stunnerGatewayOperator.deployment.nodeSelector`                                | Node labels for pod assignment.                                  | `{kubernetes.io/os: linux}`               |
 | `stunnerGatewayOperator.deployment.imagePullSecrets`                            | Image pull secrets for the image.                                | `[]`                                      |
 | `stunnerGatewayOperator.deployment.topologySpreadConstraints`                   | Constraints to control how pods are spread across the cluster.   | `[]`                                      |
@@ -117,6 +119,29 @@ helm upgrade stunner stunner/stunner --namespace=stunner-system
 | `stunnerGatewayOperator.deployment.container.manager.resources.requests.cpu`    | CPU requests for the container.                                  | `250m`                                    |
 | `stunnerGatewayOperator.deployment.container.manager.resources.requests.memory` | Memory requests for the container.                               | `128Mi`                                   |
 | `stunnerGatewayOperator.deployment.container.manager.args`                      | Arguments for the container.                                     | `[--health-probe-bind-address=:8081, --metrics-bind-address=127.0.0.1:8080, --leader-elect]` |
+
+#### Operator high availability
+
+The operator runs with leader election (`--leader-elect` in the manager args). With `replicas: 2` the second pod is a standby that takes over when the leader's lease expires, so a node failure or a rolling upgrade of the operator keeps the control plane available. The dataplane pods fetch their configuration from the leader: without the premium `HAOperator` feature they follow the leader's pod IP, so a failover still rolls them; with the feature they use the stable `stunner-config-discovery` Service address and stay untouched. A two-replica setup benefits from a PodDisruptionBudget and from spreading the replicas over nodes:
+
+```yaml
+stunnerGatewayOperator:
+  deployment:
+    replicas: 2
+    podDisruptionBudget:
+      enabled: true
+    affinity:
+      podAntiAffinity:
+        preferredDuringSchedulingIgnoredDuringExecution:
+          - weight: 100
+            podAffinityTerm:
+              topologyKey: kubernetes.io/hostname
+              labelSelector:
+                matchLabels:
+                  control-plane: stunner-gateway-operator-controller-manager
+```
+
+The leader election Lease is named `stunner-gateway-operator.l7mp.io`; `stunnerctl` reads it to find the leader when it forwards to the config discovery server.
 
 ### Dataplane
 

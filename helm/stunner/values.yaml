@@ -25,7 +25,15 @@ stunnerGatewayOperator:
     podAnnotations: {}
     affinity: {}
     tolerations: []
+    # More than one replica runs a leader-elected standby: only the leader serves the dataplane,
+    # the standby takes over when the leader's lease expires. Without the premium HAOperator
+    # feature a failover still rolls the dataplane pods, since they follow the leader's pod IP.
     replicas: 1
+    # A PodDisruptionBudget keeps a voluntary disruption (node drain, cluster upgrade) from taking
+    # every replica at once; only meaningful with replicas above one.
+    podDisruptionBudget:
+      enabled: false
+      maxUnavailable: 1
     nodeSelector:
       kubernetes.io/os: linux
     imagePullSecrets:
