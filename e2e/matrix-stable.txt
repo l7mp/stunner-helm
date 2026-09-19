@@ -1,0 +1,43 @@
+feature                free                     member                    enterprise                debug-member              debug-enterprise        
+license                OK/FREE/WORKS(PREM)      OK/GRANTED/WORKS(PREM)    OK/GRANTED/WORKS(PREM)    OK/GRANTED/WORKS(PREM)    OK/GRANTED/WORKS(PREM)  
+zero                   OK/FREE/WORKS(PREM)      OK/GRANTED/WORKS(PREM)    OK/GRANTED/WORKS(PREM)    OK/GRANTED/WORKS(PREM)    OK/GRANTED/WORKS(PREM)  
+zero-tcp               OK/FREE/WORKS(PREM)      OK/GRANTED/WORKS(PREM)    OK/GRANTED/WORKS(PREM)    OK/GRANTED/WORKS(PREM)    OK/GRANTED/WORKS(PREM)  
+turnoffload            NOT_OK/FREE/ERROR        NOT_OK/DENIED/ERROR       NOT_OK/GRANTED/ERROR      NOT_OK/DENIED/ERROR       NOT_OK/GRANTED/ERROR    
+userquota              NOT_OK/FREE/ERROR        OK/GRANTED/WORKS(PREM)    OK/GRANTED/WORKS(PREM)    OK/GRANTED/WORKS(PREM)    OK/GRANTED/WORKS(PREM)  
+daemonset              NOT_OK/FREE/WORKS(PREM)  OK/GRANTED/WORKS(PREM)    OK/GRANTED/WORKS(PREM)    OK/GRANTED/WORKS(PREM)    OK/GRANTED/WORKS(PREM)  
+stunserver             NOT_OK/FREE/WORKS(PREM)  OK/GRANTED/WORKS(PREM)    OK/GRANTED/WORKS(PREM)    OK/GRANTED/WORKS(PREM)    OK/GRANTED/WORKS(PREM)  
+relayaddressdiscovery  NOT_OK/FREE/WORKS(PREM)  OK/GRANTED/WORKS(PREM)    OK/GRANTED/WORKS(PREM)    OK/GRANTED/WORKS(PREM)    OK/GRANTED/WORKS(PREM)  
+tcproute               NOT_OK/FREE/ERROR        NOT_OK/DENIED/ERROR       NOT_OK/DENIED/ERROR       NOT_OK/DENIED/ERROR       NOT_OK/DENIED/ERROR     
+dualstack              OK/FREE/WORKS(OSS)       NOT_OK/DENIED/WORKS(OSS)  NOT_OK/DENIED/WORKS(OSS)  NOT_OK/DENIED/WORKS(OSS)  NOT_OK/DENIED/WORKS(OSS)
+haoperator             OK/FREE/WORKS(OSS)       NOT_OK/DENIED/WORKS(OSS)  NOT_OK/DENIED/WORKS(OSS)  NOT_OK/DENIED/WORKS(OSS)  NOT_OK/DENIED/WORKS(OSS)
+
+FAIL: 22 cells are NOT_OK
+  feature:turnoffload tier:free: NOT_OK, entitled to WORKS(OSS), license FREE, behavior ERROR: engine licensed and configured but nothing offloaded: offload status "TC[all]", counters rx/tx 0/0 pkts
+  feature:turnoffload tier:member: NOT_OK, entitled to WORKS(OSS), license DENIED, behavior ERROR: engine licensed and configured but nothing offloaded: offload status "TC[all]", counters rx/tx 0/0 pkts
+  feature:turnoffload tier:enterprise: NOT_OK, entitled to WORKS(PREM), license GRANTED, behavior ERROR: echo 2 through the relay failed: no echo reply through the relay within 5s
+  feature:turnoffload tier:debug-member: NOT_OK, entitled to WORKS(OSS), license DENIED, behavior ERROR: engine licensed and configured but nothing offloaded: offload status "TC[all]", counters rx/tx 0/0 pkts
+  feature:turnoffload tier:debug-enterprise: NOT_OK, entitled to WORKS(PREM), license GRANTED, behavior ERROR: engine licensed and configured but nothing offloaded: offload status "TC[all]", counters rx/tx 0/0 pkts
+  feature:userquota tier:free: NOT_OK, entitled to WORKS(OSS), license FREE, behavior ERROR: quota served=true but second allocation error: <nil>
+  feature:daemonset tier:free: NOT_OK, entitled to WORKS(OSS), license FREE, behavior WORKS(PREM): DaemonSet e2e/e2e-gw ready
+  feature:stunserver tier:free: NOT_OK, entitled to WORKS(OSS), license FREE, behavior WORKS(PREM): STUN mode served, allocation refused: upstream allocation failed: Allocate error response (error 400: )
+  feature:relayaddressdiscovery tier:free: NOT_OK, entitled to WORKS(OSS), license FREE, behavior WORKS(PREM): raw listener address "__node_address_placeholder"
+  feature:tcproute tier:free: NOT_OK, entitled to WORKS(OSS), license FREE, behavior ERROR: the cluster does not serve the TCPRoute kind: the chart ships no CRD for it
+  feature:tcproute tier:member: NOT_OK, entitled to WORKS(PREM), license DENIED, behavior ERROR: the cluster does not serve the TCPRoute kind: the chart ships no CRD for it
+  feature:tcproute tier:enterprise: NOT_OK, entitled to WORKS(PREM), license DENIED, behavior ERROR: the cluster does not serve the TCPRoute kind: the chart ships no CRD for it
+  feature:tcproute tier:debug-member: NOT_OK, entitled to WORKS(PREM), license DENIED, behavior ERROR: the cluster does not serve the TCPRoute kind: the chart ships no CRD for it
+  feature:tcproute tier:debug-enterprise: NOT_OK, entitled to WORKS(PREM), license DENIED, behavior ERROR: the cluster does not serve the TCPRoute kind: the chart ships no CRD for it
+  feature:dualstack tier:member: NOT_OK, entitled to WORKS(PREM), license DENIED, behavior WORKS(OSS): ipFamilyPolicy SingleStack, families [IPv4], node pod CIDRs [10.244.0.0/24 fd00:10:244::/64]
+  feature:dualstack tier:enterprise: NOT_OK, entitled to WORKS(PREM), license DENIED, behavior WORKS(OSS): ipFamilyPolicy SingleStack, families [IPv4], node pod CIDRs [10.244.0.0/24 fd00:10:244::/64]
+  feature:dualstack tier:debug-member: NOT_OK, entitled to WORKS(PREM), license DENIED, behavior WORKS(OSS): ipFamilyPolicy SingleStack, families [IPv4], node pod CIDRs [10.244.0.0/24 fd00:10:244::/64]
+  feature:dualstack tier:debug-enterprise: NOT_OK, entitled to WORKS(PREM), license DENIED, behavior WORKS(OSS): ipFamilyPolicy SingleStack, families [IPv4], node pod CIDRs [10.244.0.0/24 fd00:10:244::/64]
+  feature:haoperator tier:member: NOT_OK, entitled to WORKS(PREM), license DENIED, behavior WORKS(OSS): the dataplane pods were replaced after the operator restart
+  feature:haoperator tier:enterprise: NOT_OK, entitled to WORKS(PREM), license DENIED, behavior WORKS(OSS): the dataplane pods were replaced after the operator restart
+  feature:haoperator tier:debug-member: NOT_OK, entitled to WORKS(PREM), license DENIED, behavior WORKS(OSS): the dataplane pods were replaced after the operator restart
+  feature:haoperator tier:debug-enterprise: NOT_OK, entitled to WORKS(PREM), license DENIED, behavior WORKS(OSS): the dataplane pods were replaced after the operator restart
+
+Legend:
+  A cell reads verdict/license/behavior.
+  Verdict: OK when the behavior is the one the tier is entitled to (WORKS(PREM) for a feature the tier includes, WORKS(OSS) for one it does not), NOT_OK otherwise. The run passes only when every cell is OK.
+  License, what the operator's license status said: GRANTED lists the feature; DENIED was validated and does not list it; INVALID means the key was rejected or the license server unreachable; FREE means no key was given.
+  Behavior, what the spec saw: WORKS(PREM) is the licensed behavior; WORKS(OSS) the documented open-source behavior without the license; ERROR means the spec could not classify it (an error, a timeout, or neither behavior), the detail says what was seen; MISSING means the spec did not run or left no result.
+  Entitlements come from the feature catalog of the STUNner release under test: the member and enterprise tiers and their debug twins get their catalog features, free gets none.
