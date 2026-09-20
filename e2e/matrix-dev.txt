@@ -2,7 +2,7 @@ feature                free                member                  enterprise   
 license                OK/FREE/WORKS(OSS)  OK/GRANTED/WORKS(OSS)   OK/GRANTED/WORKS(OSS)   OK/GRANTED/WORKS(OSS)   OK/GRANTED/WORKS(OSS) 
 zero                   OK/FREE/WORKS(OSS)  OK/GRANTED/WORKS(OSS)   OK/GRANTED/WORKS(OSS)   OK/GRANTED/WORKS(OSS)   OK/GRANTED/WORKS(OSS) 
 zero-tcp               OK/FREE/WORKS(OSS)  OK/GRANTED/WORKS(OSS)   OK/GRANTED/WORKS(OSS)   OK/GRANTED/WORKS(OSS)   OK/GRANTED/WORKS(OSS) 
-turnoffload            OK/FREE/WORKS(OSS)  OK/DENIED/WORKS(OSS)    NOT_OK/GRANTED/ERROR    OK/DENIED/WORKS(OSS)    NOT_OK/GRANTED/ERROR  
+turnoffload            OK/FREE/WORKS(OSS)  NOT_OK/DENIED/ERROR     NOT_OK/GRANTED/ERROR    OK/DENIED/WORKS(OSS)    NOT_OK/GRANTED/ERROR  
 userquota              OK/FREE/WORKS(OSS)  OK/GRANTED/WORKS(PREM)  OK/GRANTED/WORKS(PREM)  OK/GRANTED/WORKS(PREM)  OK/GRANTED/WORKS(PREM)
 daemonset              OK/FREE/WORKS(OSS)  OK/GRANTED/WORKS(PREM)  OK/GRANTED/WORKS(PREM)  OK/GRANTED/WORKS(PREM)  OK/GRANTED/WORKS(PREM)
 stunserver             OK/FREE/WORKS(OSS)  OK/GRANTED/WORKS(PREM)  OK/GRANTED/WORKS(PREM)  OK/GRANTED/WORKS(PREM)  OK/GRANTED/WORKS(PREM)
@@ -11,9 +11,10 @@ tcproute               OK/FREE/WORKS(OSS)  OK/GRANTED/WORKS(PREM)  OK/GRANTED/WO
 dualstack              OK/FREE/WORKS(OSS)  OK/GRANTED/WORKS(PREM)  OK/GRANTED/WORKS(PREM)  OK/GRANTED/WORKS(PREM)  OK/GRANTED/WORKS(PREM)
 haoperator             OK/FREE/WORKS(OSS)  OK/GRANTED/WORKS(PREM)  OK/GRANTED/WORKS(PREM)  OK/GRANTED/WORKS(PREM)  OK/GRANTED/WORKS(PREM)
 
-FAIL: 2 cells are NOT_OK
-  feature:turnoffload tier:enterprise: NOT_OK, entitled to WORKS(PREM), license GRANTED, behavior ERROR: echo 1 through the relay failed: no echo reply through the relay within 5s
-  feature:turnoffload tier:debug-enterprise: NOT_OK, entitled to WORKS(PREM), license GRANTED, behavior ERROR: echo 2 through the relay failed: no echo reply through the relay within 5s
+FAIL: 3 cells are NOT_OK
+  feature:turnoffload tier:member: NOT_OK, entitled to WORKS(OSS), license DENIED, behavior ERROR: engine licensed and configured but nothing offloaded: offload status "TC[all]", counters rx/tx 0/0 pkts
+  feature:turnoffload tier:enterprise: NOT_OK, entitled to WORKS(PREM), license GRANTED, behavior ERROR: echo 2 through the relay failed: no echo reply through the relay within 5s
+  feature:turnoffload tier:debug-enterprise: NOT_OK, entitled to WORKS(PREM), license GRANTED, behavior ERROR: echo 1 through the relay failed: no echo reply through the relay within 5s
 
 Legend:
   A cell reads verdict/license/behavior.
