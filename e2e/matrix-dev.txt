@@ -12,7 +12,7 @@ dualstack              OK/FREE/WORKS(OSS)  OK/GRANTED/WORKS(PREM)  OK/GRANTED/WO
 haoperator             OK/FREE/WORKS(OSS)  OK/GRANTED/WORKS(PREM)  OK/GRANTED/WORKS(PREM)  OK/GRANTED/WORKS(PREM)  OK/GRANTED/WORKS(PREM)
 
 FAIL: 2 cells are NOT_OK
-  feature:turnoffload tier:enterprise: NOT_OK, entitled to WORKS(PREM), license GRANTED, behavior ERROR: echo 1 through the relay failed: no echo reply through the relay within 5s; offload status "TC[all]", kernel counters listener rx/tx 5/0, cluster rx/tx 0/5 pkts
+  feature:turnoffload tier:enterprise: NOT_OK, entitled to WORKS(PREM), license GRANTED, behavior ERROR: echo 1 through the relay failed: no echo reply through the relay within 5s; offload status "TC[all]", kernel counters listener rx/tx 5/1, cluster rx/tx 1/5 pkts
   feature:turnoffload tier:debug-enterprise: NOT_OK, entitled to WORKS(PREM), license GRANTED, behavior ERROR: echo 2 through the relay failed: no echo reply through the relay within 5s; offload status "TC[all]", kernel counters listener rx/tx 5/1, cluster rx/tx 1/5 pkts
 
 Legend:
