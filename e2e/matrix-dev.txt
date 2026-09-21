@@ -2,8 +2,7 @@ feature                free                member                  enterprise   
 license                OK/FREE/WORKS(OSS)  OK/GRANTED/WORKS(OSS)   OK/GRANTED/WORKS(OSS)   OK/GRANTED/WORKS(OSS)   OK/GRANTED/WORKS(OSS) 
 zero                   OK/FREE/WORKS(OSS)  OK/GRANTED/WORKS(OSS)   OK/GRANTED/WORKS(OSS)   OK/GRANTED/WORKS(OSS)   OK/GRANTED/WORKS(OSS) 
 zero-tcp               OK/FREE/WORKS(OSS)  OK/GRANTED/WORKS(OSS)   OK/GRANTED/WORKS(OSS)   OK/GRANTED/WORKS(OSS)   OK/GRANTED/WORKS(OSS) 
-turnoffload:tc         OK/FREE/WORKS(OSS)  OK/DENIED/WORKS(OSS)    NOT_OK/GRANTED/ERROR    OK/DENIED/WORKS(OSS)    NOT_OK/GRANTED/ERROR  
-turnoffload:xdp        NOT_OK/FREE/ERROR   NOT_OK/DENIED/ERROR     NOT_OK/GRANTED/ERROR    NOT_OK/DENIED/ERROR     NOT_OK/GRANTED/ERROR  
+turnoffload            OK/FREE/WORKS(OSS)  OK/DENIED/WORKS(OSS)    NOT_OK/GRANTED/ERROR    OK/DENIED/WORKS(OSS)    NOT_OK/GRANTED/ERROR  
 userquota              OK/FREE/WORKS(OSS)  OK/GRANTED/WORKS(PREM)  OK/GRANTED/WORKS(PREM)  OK/GRANTED/WORKS(PREM)  OK/GRANTED/WORKS(PREM)
 daemonset              OK/FREE/WORKS(OSS)  OK/GRANTED/WORKS(PREM)  OK/GRANTED/WORKS(PREM)  OK/GRANTED/WORKS(PREM)  OK/GRANTED/WORKS(PREM)
 stunserver             OK/FREE/WORKS(OSS)  OK/GRANTED/WORKS(PREM)  OK/GRANTED/WORKS(PREM)  OK/GRANTED/WORKS(PREM)  OK/GRANTED/WORKS(PREM)
@@ -12,14 +11,9 @@ tcproute               OK/FREE/WORKS(OSS)  OK/GRANTED/WORKS(PREM)  OK/GRANTED/WO
 dualstack              OK/FREE/WORKS(OSS)  OK/GRANTED/WORKS(PREM)  OK/GRANTED/WORKS(PREM)  OK/GRANTED/WORKS(PREM)  OK/GRANTED/WORKS(PREM)
 haoperator             OK/FREE/WORKS(OSS)  OK/GRANTED/WORKS(PREM)  OK/GRANTED/WORKS(PREM)  OK/GRANTED/WORKS(PREM)  OK/GRANTED/WORKS(PREM)
 
-FAIL: 7 cells are NOT_OK
-  feature:turnoffload:tc tier:enterprise: NOT_OK, entitled to WORKS(PREM), license GRANTED, behavior ERROR: echo 1 through the relay failed: no echo reply through the relay within 5s; offload status "TC[all]", kernel counters listener rx/tx 5/0, cluster rx/tx 0/5 pkts
-  feature:turnoffload:tc tier:debug-enterprise: NOT_OK, entitled to WORKS(PREM), license GRANTED, behavior ERROR: echo 1 through the relay failed: no echo reply through the relay within 5s; offload status "TC[all]", kernel counters listener rx/tx 5/0, cluster rx/tx 0/5 pkts
-  feature:turnoffload:xdp tier:free: NOT_OK, entitled to WORKS(OSS), license FREE, behavior ERROR: Expected success, but got an error:
-  feature:turnoffload:xdp tier:member: NOT_OK, entitled to WORKS(OSS), license DENIED, behavior ERROR: Expected success, but got an error:
-  feature:turnoffload:xdp tier:enterprise: NOT_OK, entitled to WORKS(PREM), license GRANTED, behavior ERROR: Expected success, but got an error:
-  feature:turnoffload:xdp tier:debug-member: NOT_OK, entitled to WORKS(OSS), license DENIED, behavior ERROR: Expected success, but got an error:
-  feature:turnoffload:xdp tier:debug-enterprise: NOT_OK, entitled to WORKS(PREM), license GRANTED, behavior ERROR: Expected success, but got an error:
+FAIL: 2 cells are NOT_OK
+  feature:turnoffload tier:enterprise: NOT_OK, entitled to WORKS(PREM), license GRANTED, behavior ERROR: echo 1 through the relay failed: no echo reply through the relay within 5s; offload status "TC[all]", kernel counters listener rx/tx 5/0, cluster rx/tx 0/5 pkts
+  feature:turnoffload tier:debug-enterprise: NOT_OK, entitled to WORKS(PREM), license GRANTED, behavior ERROR: echo 2 through the relay failed: no echo reply through the relay within 5s; offload status "TC[all]", kernel counters listener rx/tx 5/1, cluster rx/tx 1/5 pkts
 
 Legend:
   A cell reads verdict/license/behavior.
