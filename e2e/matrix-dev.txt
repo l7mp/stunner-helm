@@ -1,19 +1,24 @@
-feature                free                member                  enterprise              debug-member            debug-enterprise      
-license                OK/FREE/WORKS(OSS)  OK/GRANTED/WORKS(OSS)   OK/GRANTED/WORKS(OSS)   OK/GRANTED/WORKS(OSS)   OK/GRANTED/WORKS(OSS) 
-zero                   OK/FREE/WORKS(OSS)  OK/GRANTED/WORKS(OSS)   OK/GRANTED/WORKS(OSS)   OK/GRANTED/WORKS(OSS)   OK/GRANTED/WORKS(OSS) 
-zero-tcp               OK/FREE/WORKS(OSS)  OK/GRANTED/WORKS(OSS)   OK/GRANTED/WORKS(OSS)   OK/GRANTED/WORKS(OSS)   OK/GRANTED/WORKS(OSS) 
-turnoffload            OK/FREE/WORKS(OSS)  OK/DENIED/WORKS(OSS)    NOT_OK/GRANTED/ERROR    OK/DENIED/WORKS(OSS)    NOT_OK/GRANTED/ERROR  
-userquota              OK/FREE/WORKS(OSS)  OK/GRANTED/WORKS(PREM)  OK/GRANTED/WORKS(PREM)  OK/GRANTED/WORKS(PREM)  OK/GRANTED/WORKS(PREM)
-daemonset              OK/FREE/WORKS(OSS)  OK/GRANTED/WORKS(PREM)  OK/GRANTED/WORKS(PREM)  OK/GRANTED/WORKS(PREM)  OK/GRANTED/WORKS(PREM)
-stunserver             OK/FREE/WORKS(OSS)  OK/GRANTED/WORKS(PREM)  OK/GRANTED/WORKS(PREM)  OK/GRANTED/WORKS(PREM)  OK/GRANTED/WORKS(PREM)
-relayaddressdiscovery  OK/FREE/WORKS(OSS)  OK/GRANTED/WORKS(PREM)  OK/GRANTED/WORKS(PREM)  OK/GRANTED/WORKS(PREM)  OK/GRANTED/WORKS(PREM)
-tcproute               OK/FREE/WORKS(OSS)  OK/GRANTED/WORKS(PREM)  OK/GRANTED/WORKS(PREM)  OK/GRANTED/WORKS(PREM)  OK/GRANTED/WORKS(PREM)
-dualstack              OK/FREE/WORKS(OSS)  OK/GRANTED/WORKS(PREM)  OK/GRANTED/WORKS(PREM)  OK/GRANTED/WORKS(PREM)  OK/GRANTED/WORKS(PREM)
-haoperator             OK/FREE/WORKS(OSS)  OK/GRANTED/WORKS(PREM)  OK/GRANTED/WORKS(PREM)  OK/GRANTED/WORKS(PREM)  OK/GRANTED/WORKS(PREM)
+feature   free              member            enterprise        debug-member      debug-enterprise
+license   NOT_OK/-/MISSING  NOT_OK/-/MISSING  NOT_OK/-/MISSING  NOT_OK/-/MISSING  NOT_OK/-/MISSING
+zero      NOT_OK/-/MISSING  NOT_OK/-/MISSING  NOT_OK/-/MISSING  NOT_OK/-/MISSING  NOT_OK/-/MISSING
+zero-tcp  NOT_OK/-/MISSING  NOT_OK/-/MISSING  NOT_OK/-/MISSING  NOT_OK/-/MISSING  NOT_OK/-/MISSING
 
-FAIL: 2 cells are NOT_OK
-  feature:turnoffload tier:enterprise: NOT_OK, entitled to WORKS(PREM), license GRANTED, behavior ERROR: echo 1 through the relay failed: no echo reply through the relay within 5s; offload status "TC[all]", kernel counters listener rx/tx 5/1, cluster rx/tx 1/5 pkts
-  feature:turnoffload tier:debug-enterprise: NOT_OK, entitled to WORKS(PREM), license GRANTED, behavior ERROR: echo 2 through the relay failed: no echo reply through the relay within 5s; offload status "TC[all]", kernel counters listener rx/tx 5/1, cluster rx/tx 1/5 pkts
+FAIL: 15 cells are NOT_OK
+  feature:license tier:free: NOT_OK, entitled to WORKS(OSS), license -, behavior MISSING
+  feature:license tier:member: NOT_OK, entitled to WORKS(OSS), license -, behavior MISSING
+  feature:license tier:enterprise: NOT_OK, entitled to WORKS(OSS), license -, behavior MISSING
+  feature:license tier:debug-member: NOT_OK, entitled to WORKS(OSS), license -, behavior MISSING
+  feature:license tier:debug-enterprise: NOT_OK, entitled to WORKS(OSS), license -, behavior MISSING
+  feature:zero tier:free: NOT_OK, entitled to WORKS(OSS), license -, behavior MISSING
+  feature:zero tier:member: NOT_OK, entitled to WORKS(OSS), license -, behavior MISSING
+  feature:zero tier:enterprise: NOT_OK, entitled to WORKS(OSS), license -, behavior MISSING
+  feature:zero tier:debug-member: NOT_OK, entitled to WORKS(OSS), license -, behavior MISSING
+  feature:zero tier:debug-enterprise: NOT_OK, entitled to WORKS(OSS), license -, behavior MISSING
+  feature:zero-tcp tier:free: NOT_OK, entitled to WORKS(OSS), license -, behavior MISSING
+  feature:zero-tcp tier:member: NOT_OK, entitled to WORKS(OSS), license -, behavior MISSING
+  feature:zero-tcp tier:enterprise: NOT_OK, entitled to WORKS(OSS), license -, behavior MISSING
+  feature:zero-tcp tier:debug-member: NOT_OK, entitled to WORKS(OSS), license -, behavior MISSING
+  feature:zero-tcp tier:debug-enterprise: NOT_OK, entitled to WORKS(OSS), license -, behavior MISSING
 
 Legend:
   A cell reads verdict/license/behavior.
