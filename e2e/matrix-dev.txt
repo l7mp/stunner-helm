@@ -1,21 +1,17 @@
-feature                free                member                     enterprise                 debug-member               debug-enterprise         
-license                OK/FREE/WORKS(OSS)  OK/GRANTED/WORKS(OSS)      OK/GRANTED/WORKS(OSS)      OK/GRANTED/WORKS(OSS)      OK/GRANTED/WORKS(OSS)    
-zero                   OK/FREE/WORKS(OSS)  OK/GRANTED/WORKS(OSS)      OK/GRANTED/WORKS(OSS)      OK/GRANTED/WORKS(OSS)      OK/GRANTED/WORKS(OSS)    
-zero-tcp               OK/FREE/WORKS(OSS)  OK/GRANTED/WORKS(OSS)      OK/GRANTED/WORKS(OSS)      OK/GRANTED/WORKS(OSS)      OK/GRANTED/WORKS(OSS)    
-turnoffload            OK/FREE/WORKS(OSS)  OK/DENIED/WORKS(OSS)       OK/GRANTED/WORKS(PREM)     OK/DENIED/WORKS(OSS)       OK/GRANTED/WORKS(PREM)   
-userquota              OK/FREE/WORKS(OSS)  OK/GRANTED/WORKS(PREM)     OK/GRANTED/WORKS(PREM)     OK/GRANTED/WORKS(PREM)     OK/GRANTED/WORKS(PREM)   
-daemonset              OK/FREE/WORKS(OSS)  OK/GRANTED/WORKS(PREM)     OK/GRANTED/WORKS(PREM)     OK/GRANTED/WORKS(PREM)     OK/GRANTED/WORKS(PREM)   
-stunserver             OK/FREE/WORKS(OSS)  OK/GRANTED/WORKS(PREM)     OK/GRANTED/WORKS(PREM)     OK/GRANTED/WORKS(PREM)     OK/GRANTED/WORKS(PREM)   
-relayaddressdiscovery  OK/FREE/WORKS(OSS)  NOT_OK/GRANTED/WORKS(OSS)  NOT_OK/GRANTED/WORKS(OSS)  NOT_OK/GRANTED/WORKS(OSS)  NOT_OK/GRANTED/WORKS(OSS)
-tcproute               OK/FREE/WORKS(OSS)  OK/GRANTED/WORKS(PREM)     OK/GRANTED/WORKS(PREM)     OK/GRANTED/WORKS(PREM)     OK/GRANTED/WORKS(PREM)   
-dualstack              OK/FREE/WORKS(OSS)  OK/GRANTED/WORKS(PREM)     OK/GRANTED/WORKS(PREM)     OK/GRANTED/WORKS(PREM)     OK/GRANTED/WORKS(PREM)   
-haoperator             OK/FREE/WORKS(OSS)  OK/GRANTED/WORKS(PREM)     OK/GRANTED/WORKS(PREM)     OK/GRANTED/WORKS(PREM)     OK/GRANTED/WORKS(PREM)   
+feature                free                member                  enterprise              debug-member            debug-enterprise      
+license                OK/FREE/WORKS(OSS)  OK/GRANTED/WORKS(OSS)   OK/GRANTED/WORKS(OSS)   OK/GRANTED/WORKS(OSS)   OK/GRANTED/WORKS(OSS) 
+zero                   OK/FREE/WORKS(OSS)  OK/GRANTED/WORKS(OSS)   OK/GRANTED/WORKS(OSS)   OK/GRANTED/WORKS(OSS)   OK/GRANTED/WORKS(OSS) 
+zero-tcp               OK/FREE/WORKS(OSS)  OK/GRANTED/WORKS(OSS)   OK/GRANTED/WORKS(OSS)   OK/GRANTED/WORKS(OSS)   OK/GRANTED/WORKS(OSS) 
+turnoffload            OK/FREE/WORKS(OSS)  OK/DENIED/WORKS(OSS)    OK/GRANTED/WORKS(PREM)  OK/DENIED/WORKS(OSS)    OK/GRANTED/WORKS(PREM)
+userquota              OK/FREE/WORKS(OSS)  OK/GRANTED/WORKS(PREM)  OK/GRANTED/WORKS(PREM)  OK/GRANTED/WORKS(PREM)  OK/GRANTED/WORKS(PREM)
+daemonset              OK/FREE/WORKS(OSS)  OK/GRANTED/WORKS(PREM)  OK/GRANTED/WORKS(PREM)  OK/GRANTED/WORKS(PREM)  OK/GRANTED/WORKS(PREM)
+stunserver             OK/FREE/WORKS(OSS)  OK/GRANTED/WORKS(PREM)  OK/GRANTED/WORKS(PREM)  OK/GRANTED/WORKS(PREM)  OK/GRANTED/WORKS(PREM)
+relayaddressdiscovery  OK/FREE/WORKS(OSS)  OK/GRANTED/WORKS(PREM)  OK/GRANTED/WORKS(PREM)  OK/GRANTED/WORKS(PREM)  OK/GRANTED/WORKS(PREM)
+tcproute               OK/FREE/WORKS(OSS)  OK/GRANTED/WORKS(PREM)  OK/GRANTED/WORKS(PREM)  OK/GRANTED/WORKS(PREM)  OK/GRANTED/WORKS(PREM)
+dualstack              OK/FREE/WORKS(OSS)  OK/GRANTED/WORKS(PREM)  OK/GRANTED/WORKS(PREM)  OK/GRANTED/WORKS(PREM)  OK/GRANTED/WORKS(PREM)
+haoperator             OK/FREE/WORKS(OSS)  OK/GRANTED/WORKS(PREM)  OK/GRANTED/WORKS(PREM)  OK/GRANTED/WORKS(PREM)  OK/GRANTED/WORKS(PREM)
 
-FAIL: 4 cells are NOT_OK
-  feature:relayaddressdiscovery tier:member: NOT_OK, entitled to WORKS(PREM), license GRANTED, behavior WORKS(OSS): raw cluster relay addresses []
-  feature:relayaddressdiscovery tier:enterprise: NOT_OK, entitled to WORKS(PREM), license GRANTED, behavior WORKS(OSS): raw cluster relay addresses []
-  feature:relayaddressdiscovery tier:debug-member: NOT_OK, entitled to WORKS(PREM), license GRANTED, behavior WORKS(OSS): raw cluster relay addresses []
-  feature:relayaddressdiscovery tier:debug-enterprise: NOT_OK, entitled to WORKS(PREM), license GRANTED, behavior WORKS(OSS): raw cluster relay addresses []
+PASS: every cell is OK
 
 Legend:
   A cell reads verdict/license/behavior.
