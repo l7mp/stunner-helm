@@ -77,7 +77,6 @@ stunnerGatewayOperator:
         - stunnerd
       args:
         - -w
-        - --udp-thread-num=16
       env: []
       resources:
         limits:
