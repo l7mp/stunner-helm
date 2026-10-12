@@ -5,7 +5,7 @@
 STUNner requires two sets of CRDs to function:
 
 1. **STUNner CRDs** (`stunner.l7mp.io`): `GatewayConfig`, `Dataplane`, `StaticService`, `UDPRoute`,
-   `TCPRoute`
+   `TCPRoute`, `TURNRoute`
 2. **Kubernetes Gateway API CRDs** (`gateway.networking.k8s.io`): `GatewayClass`, `Gateway`,
    `HTTPRoute`, etc.
 
