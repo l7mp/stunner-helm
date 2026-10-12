@@ -1,25 +1,25 @@
 feature                free                member                  enterprise              debug-member            debug-enterprise      
-license                OK/FREE/WORKS(OSS)  OK/GRANTED/WORKS(OSS)   OK/GRANTED/WORKS(OSS)   OK/GRANTED/WORKS(OSS)   OK/GRANTED/WORKS(OSS) 
-zero                   OK/FREE/WORKS(OSS)  OK/GRANTED/WORKS(OSS)   OK/GRANTED/WORKS(OSS)   OK/GRANTED/WORKS(OSS)   OK/GRANTED/WORKS(OSS) 
-zero-tcp               OK/FREE/WORKS(OSS)  OK/GRANTED/WORKS(OSS)   OK/GRANTED/WORKS(OSS)   OK/GRANTED/WORKS(OSS)   OK/GRANTED/WORKS(OSS) 
+base-license           OK/FREE/WORKS(OSS)  OK/GRANTED/WORKS(OSS)   OK/GRANTED/WORKS(OSS)   OK/GRANTED/WORKS(OSS)   OK/GRANTED/WORKS(OSS) 
+base-turn-udp          OK/FREE/WORKS(OSS)  OK/GRANTED/WORKS(OSS)   OK/GRANTED/WORKS(OSS)   OK/GRANTED/WORKS(OSS)   OK/GRANTED/WORKS(OSS) 
+base-turn-tcp          OK/FREE/WORKS(OSS)  OK/GRANTED/WORKS(OSS)   OK/GRANTED/WORKS(OSS)   OK/GRANTED/WORKS(OSS)   OK/GRANTED/WORKS(OSS) 
+base-turn-tls          OK/FREE/WORKS(OSS)  OK/GRANTED/WORKS(OSS)   OK/GRANTED/WORKS(OSS)   OK/GRANTED/WORKS(OSS)   OK/GRANTED/WORKS(OSS) 
+base-l4-udp            OK/FREE/WORKS(OSS)  OK/GRANTED/WORKS(OSS)   OK/GRANTED/WORKS(OSS)   OK/GRANTED/WORKS(OSS)   OK/GRANTED/WORKS(OSS) 
+base-auth              OK/FREE/WORKS(OSS)  OK/GRANTED/WORKS(OSS)   OK/GRANTED/WORKS(OSS)   OK/GRANTED/WORKS(OSS)   OK/GRANTED/WORKS(OSS) 
+base-roundtrip         OK/FREE/WORKS(OSS)  OK/GRANTED/WORKS(OSS)   OK/GRANTED/WORKS(OSS)   OK/GRANTED/WORKS(OSS)   OK/GRANTED/WORKS(OSS) 
 turnoffload            OK/FREE/WORKS(OSS)  OK/DENIED/WORKS(OSS)    OK/GRANTED/WORKS(PREM)  OK/DENIED/WORKS(OSS)    OK/GRANTED/WORKS(PREM)
 userquota              OK/FREE/WORKS(OSS)  OK/GRANTED/WORKS(PREM)  OK/GRANTED/WORKS(PREM)  OK/GRANTED/WORKS(PREM)  OK/GRANTED/WORKS(PREM)
 daemonset              OK/FREE/WORKS(OSS)  OK/GRANTED/WORKS(PREM)  OK/GRANTED/WORKS(PREM)  OK/GRANTED/WORKS(PREM)  OK/GRANTED/WORKS(PREM)
-stunserver             OK/FREE/WORKS(OSS)  NOT_OK/GRANTED/ERROR    NOT_OK/GRANTED/ERROR    NOT_OK/GRANTED/ERROR    NOT_OK/GRANTED/ERROR  
+stunserver             OK/FREE/WORKS(OSS)  OK/GRANTED/WORKS(PREM)  OK/GRANTED/WORKS(PREM)  OK/GRANTED/WORKS(PREM)  OK/GRANTED/WORKS(PREM)
 relayaddressdiscovery  OK/FREE/WORKS(OSS)  OK/GRANTED/WORKS(PREM)  OK/GRANTED/WORKS(PREM)  OK/GRANTED/WORKS(PREM)  OK/GRANTED/WORKS(PREM)
 tcproute               OK/FREE/WORKS(OSS)  OK/GRANTED/WORKS(PREM)  OK/GRANTED/WORKS(PREM)  OK/GRANTED/WORKS(PREM)  OK/GRANTED/WORKS(PREM)
 dualstack              OK/FREE/WORKS(OSS)  OK/GRANTED/WORKS(PREM)  OK/GRANTED/WORKS(PREM)  OK/GRANTED/WORKS(PREM)  OK/GRANTED/WORKS(PREM)
 haoperator             OK/FREE/WORKS(OSS)  OK/GRANTED/WORKS(PREM)  OK/GRANTED/WORKS(PREM)  OK/GRANTED/WORKS(PREM)  OK/GRANTED/WORKS(PREM)
 
-FAIL: 4 cells are NOT_OK
-  feature:stunserver tier:member: NOT_OK, entitled to WORKS(PREM), license GRANTED, behavior ERROR: STUN mode served=false but allocation error: upstream allocation failed: Allocate error response (error 400: )
-  feature:stunserver tier:enterprise: NOT_OK, entitled to WORKS(PREM), license GRANTED, behavior ERROR: STUN mode served=false but allocation error: upstream allocation failed: Allocate error response (error 400: )
-  feature:stunserver tier:debug-member: NOT_OK, entitled to WORKS(PREM), license GRANTED, behavior ERROR: STUN mode served=false but allocation error: upstream allocation failed: Allocate error response (error 400: )
-  feature:stunserver tier:debug-enterprise: NOT_OK, entitled to WORKS(PREM), license GRANTED, behavior ERROR: STUN mode served=false but allocation error: upstream allocation failed: Allocate error response (error 400: )
+PASS: every cell is OK
 
 Legend:
   A cell reads verdict/license/behavior.
   Verdict: OK when the behavior is the one the tier is entitled to (WORKS(PREM) for a feature the tier includes, WORKS(OSS) for one it does not), NOT_OK otherwise. The run passes only when every cell is OK.
   License, what the operator's license status said: GRANTED lists the feature; DENIED was validated and does not list it; INVALID means the key was rejected or the license server unreachable; FREE means no key was given.
   Behavior, what the spec saw: WORKS(PREM) is the licensed behavior; WORKS(OSS) the documented open-source behavior without the license; ERROR means the spec could not classify it (an error, a timeout, or neither behavior), the detail says what was seen; MISSING means the spec did not run or left no result.
-  Entitlements come from the feature catalog of the STUNner release under test: the member and enterprise tiers and their debug twins get their catalog features, free gets none; the license and the plain relay rows have no premium behavior, WORKS(OSS) is their OK.
+  Entitlements come from the feature catalog of the STUNner release under test: the member and enterprise tiers and their debug twins get their catalog features, free gets none; the base rows (the license check and the basic connectivity checks) have no premium behavior, WORKS(OSS) is their OK.
