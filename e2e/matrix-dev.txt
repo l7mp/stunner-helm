@@ -1,48 +1,21 @@
-feature         free              member            enterprise        debug-member      debug-enterprise
-base-license    NOT_OK/-/MISSING  NOT_OK/-/MISSING  NOT_OK/-/MISSING  NOT_OK/-/MISSING  NOT_OK/-/MISSING
-base-turn-udp   NOT_OK/-/MISSING  NOT_OK/-/MISSING  NOT_OK/-/MISSING  NOT_OK/-/MISSING  NOT_OK/-/MISSING
-base-turn-tcp   NOT_OK/-/MISSING  NOT_OK/-/MISSING  NOT_OK/-/MISSING  NOT_OK/-/MISSING  NOT_OK/-/MISSING
-base-turn-tls   NOT_OK/-/MISSING  NOT_OK/-/MISSING  NOT_OK/-/MISSING  NOT_OK/-/MISSING  NOT_OK/-/MISSING
-base-l4-udp     NOT_OK/-/MISSING  NOT_OK/-/MISSING  NOT_OK/-/MISSING  NOT_OK/-/MISSING  NOT_OK/-/MISSING
-base-auth       NOT_OK/-/MISSING  NOT_OK/-/MISSING  NOT_OK/-/MISSING  NOT_OK/-/MISSING  NOT_OK/-/MISSING
-base-roundtrip  NOT_OK/-/MISSING  NOT_OK/-/MISSING  NOT_OK/-/MISSING  NOT_OK/-/MISSING  NOT_OK/-/MISSING
+feature                free                member                  enterprise              debug-member            debug-enterprise      
+base-license           OK/FREE/WORKS(OSS)  OK/GRANTED/WORKS(OSS)   OK/GRANTED/WORKS(OSS)   OK/GRANTED/WORKS(OSS)   OK/GRANTED/WORKS(OSS) 
+base-turn-udp          OK/FREE/WORKS(OSS)  OK/GRANTED/WORKS(OSS)   OK/GRANTED/WORKS(OSS)   OK/GRANTED/WORKS(OSS)   OK/GRANTED/WORKS(OSS) 
+base-turn-tcp          OK/FREE/WORKS(OSS)  OK/GRANTED/WORKS(OSS)   OK/GRANTED/WORKS(OSS)   OK/GRANTED/WORKS(OSS)   OK/GRANTED/WORKS(OSS) 
+base-turn-tls          OK/FREE/WORKS(OSS)  OK/GRANTED/WORKS(OSS)   OK/GRANTED/WORKS(OSS)   OK/GRANTED/WORKS(OSS)   OK/GRANTED/WORKS(OSS) 
+base-l4-udp            OK/FREE/WORKS(OSS)  OK/GRANTED/WORKS(OSS)   OK/GRANTED/WORKS(OSS)   OK/GRANTED/WORKS(OSS)   OK/GRANTED/WORKS(OSS) 
+base-auth              OK/FREE/WORKS(OSS)  OK/GRANTED/WORKS(OSS)   OK/GRANTED/WORKS(OSS)   OK/GRANTED/WORKS(OSS)   OK/GRANTED/WORKS(OSS) 
+base-roundtrip         OK/FREE/WORKS(OSS)  OK/GRANTED/WORKS(OSS)   OK/GRANTED/WORKS(OSS)   OK/GRANTED/WORKS(OSS)   OK/GRANTED/WORKS(OSS) 
+turnoffload            OK/FREE/WORKS(OSS)  OK/DENIED/WORKS(OSS)    OK/GRANTED/WORKS(PREM)  OK/DENIED/WORKS(OSS)    OK/GRANTED/WORKS(PREM)
+userquota              OK/FREE/WORKS(OSS)  OK/GRANTED/WORKS(PREM)  OK/GRANTED/WORKS(PREM)  OK/GRANTED/WORKS(PREM)  OK/GRANTED/WORKS(PREM)
+daemonset              OK/FREE/WORKS(OSS)  OK/GRANTED/WORKS(PREM)  OK/GRANTED/WORKS(PREM)  OK/GRANTED/WORKS(PREM)  OK/GRANTED/WORKS(PREM)
+stunserver             OK/FREE/WORKS(OSS)  OK/GRANTED/WORKS(PREM)  OK/GRANTED/WORKS(PREM)  OK/GRANTED/WORKS(PREM)  OK/GRANTED/WORKS(PREM)
+relayaddressdiscovery  OK/FREE/WORKS(OSS)  OK/GRANTED/WORKS(PREM)  OK/GRANTED/WORKS(PREM)  OK/GRANTED/WORKS(PREM)  OK/GRANTED/WORKS(PREM)
+tcproute               OK/FREE/WORKS(OSS)  OK/GRANTED/WORKS(PREM)  OK/GRANTED/WORKS(PREM)  OK/GRANTED/WORKS(PREM)  OK/GRANTED/WORKS(PREM)
+dualstack              OK/FREE/WORKS(OSS)  OK/GRANTED/WORKS(PREM)  OK/GRANTED/WORKS(PREM)  OK/GRANTED/WORKS(PREM)  OK/GRANTED/WORKS(PREM)
+haoperator             OK/FREE/WORKS(OSS)  OK/GRANTED/WORKS(PREM)  OK/GRANTED/WORKS(PREM)  OK/GRANTED/WORKS(PREM)  OK/GRANTED/WORKS(PREM)
 
-FAIL: 35 cells are NOT_OK
-  feature:base-license tier:free: NOT_OK, entitled to WORKS(OSS), license -, behavior MISSING
-  feature:base-license tier:member: NOT_OK, entitled to WORKS(OSS), license -, behavior MISSING
-  feature:base-license tier:enterprise: NOT_OK, entitled to WORKS(OSS), license -, behavior MISSING
-  feature:base-license tier:debug-member: NOT_OK, entitled to WORKS(OSS), license -, behavior MISSING
-  feature:base-license tier:debug-enterprise: NOT_OK, entitled to WORKS(OSS), license -, behavior MISSING
-  feature:base-turn-udp tier:free: NOT_OK, entitled to WORKS(OSS), license -, behavior MISSING
-  feature:base-turn-udp tier:member: NOT_OK, entitled to WORKS(OSS), license -, behavior MISSING
-  feature:base-turn-udp tier:enterprise: NOT_OK, entitled to WORKS(OSS), license -, behavior MISSING
-  feature:base-turn-udp tier:debug-member: NOT_OK, entitled to WORKS(OSS), license -, behavior MISSING
-  feature:base-turn-udp tier:debug-enterprise: NOT_OK, entitled to WORKS(OSS), license -, behavior MISSING
-  feature:base-turn-tcp tier:free: NOT_OK, entitled to WORKS(OSS), license -, behavior MISSING
-  feature:base-turn-tcp tier:member: NOT_OK, entitled to WORKS(OSS), license -, behavior MISSING
-  feature:base-turn-tcp tier:enterprise: NOT_OK, entitled to WORKS(OSS), license -, behavior MISSING
-  feature:base-turn-tcp tier:debug-member: NOT_OK, entitled to WORKS(OSS), license -, behavior MISSING
-  feature:base-turn-tcp tier:debug-enterprise: NOT_OK, entitled to WORKS(OSS), license -, behavior MISSING
-  feature:base-turn-tls tier:free: NOT_OK, entitled to WORKS(OSS), license -, behavior MISSING
-  feature:base-turn-tls tier:member: NOT_OK, entitled to WORKS(OSS), license -, behavior MISSING
-  feature:base-turn-tls tier:enterprise: NOT_OK, entitled to WORKS(OSS), license -, behavior MISSING
-  feature:base-turn-tls tier:debug-member: NOT_OK, entitled to WORKS(OSS), license -, behavior MISSING
-  feature:base-turn-tls tier:debug-enterprise: NOT_OK, entitled to WORKS(OSS), license -, behavior MISSING
-  feature:base-l4-udp tier:free: NOT_OK, entitled to WORKS(OSS), license -, behavior MISSING
-  feature:base-l4-udp tier:member: NOT_OK, entitled to WORKS(OSS), license -, behavior MISSING
-  feature:base-l4-udp tier:enterprise: NOT_OK, entitled to WORKS(OSS), license -, behavior MISSING
-  feature:base-l4-udp tier:debug-member: NOT_OK, entitled to WORKS(OSS), license -, behavior MISSING
-  feature:base-l4-udp tier:debug-enterprise: NOT_OK, entitled to WORKS(OSS), license -, behavior MISSING
-  feature:base-auth tier:free: NOT_OK, entitled to WORKS(OSS), license -, behavior MISSING
-  feature:base-auth tier:member: NOT_OK, entitled to WORKS(OSS), license -, behavior MISSING
-  feature:base-auth tier:enterprise: NOT_OK, entitled to WORKS(OSS), license -, behavior MISSING
-  feature:base-auth tier:debug-member: NOT_OK, entitled to WORKS(OSS), license -, behavior MISSING
-  feature:base-auth tier:debug-enterprise: NOT_OK, entitled to WORKS(OSS), license -, behavior MISSING
-  feature:base-roundtrip tier:free: NOT_OK, entitled to WORKS(OSS), license -, behavior MISSING
-  feature:base-roundtrip tier:member: NOT_OK, entitled to WORKS(OSS), license -, behavior MISSING
-  feature:base-roundtrip tier:enterprise: NOT_OK, entitled to WORKS(OSS), license -, behavior MISSING
-  feature:base-roundtrip tier:debug-member: NOT_OK, entitled to WORKS(OSS), license -, behavior MISSING
-  feature:base-roundtrip tier:debug-enterprise: NOT_OK, entitled to WORKS(OSS), license -, behavior MISSING
+PASS: every cell is OK
 
 Legend:
   A cell reads verdict/license/behavior.
