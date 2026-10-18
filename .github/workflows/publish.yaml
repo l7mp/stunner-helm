@@ -1,5 +1,10 @@
 name: Build and Release Helm charts
+# A push to main republishes the moving stunner-dev chart: the dev images are moving tags pulled
+# with Always, so the dev chart changes only with the chart. A release is dispatched with its tag.
 on:
+  push:
+    branches: [main]
+    paths: ['helm/stunner/**']
   workflow_dispatch:
     inputs:
       tag:
@@ -13,8 +18,8 @@ on:
           - stunner
 
 env:
-  TAG: ${{ inputs.tag }}
-  TYPE: ${{ inputs.type }}
+  TAG: ${{ inputs.tag || 'dev' }}
+  TYPE: ${{ inputs.type || 'stunner' }}
 
 jobs:
   push_chart:
