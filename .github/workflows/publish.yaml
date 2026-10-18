@@ -11,7 +11,6 @@ on:
         type: choice
         options:
           - stunner
-          - stunner-premium
 
 env:
   TAG: ${{ inputs.tag }}
@@ -27,7 +26,7 @@ jobs:
           echo "Triggered by $TYPE"
 
       - name: stunner-helm checkout
-        uses: actions/checkout@v6
+        uses: actions/checkout@v7
         with:
           path: stunner-helm
           ref: main
@@ -52,36 +51,6 @@ jobs:
             .stunnerGatewayOperator.dataplane.spec.image.tag = strenv(TAG) |
             .stunnerAuthService.deployment.container.authService.image.tag = strenv(TAG)
           ' stunner/values.yaml
-          yq -i '.appVersion = strenv(TAG)' stunner/Chart.yaml
-
-      # STUNner premium edition
-      - name: Edit helm chart for stunner-premium
-        if: ${{ env.TYPE == 'stunner-premium' }}
-        run: |
-          cd stunner-helm/helm
-          if ${{ env.TAG == 'dev' }}; then
-            yq -i '
-              .stunnerGatewayOperator.deployment.container.manager.image.pullPolicy = "Always" |
-              .stunnerGatewayOperator.dataplane.spec.image.pullPolicy = "Always" |
-              .stunnerAuthService.deployment.container.authService.image.pullPolicy = "Always"
-            ' stunner/values.yaml
-          else
-            yq -i '.version = strenv(TAG)' stunner/Chart.yaml
-          fi
-          yq -i '
-            .stunnerGatewayOperator.deployment.container.manager.image.tag = strenv(TAG) |
-            .stunnerGatewayOperator.dataplane.spec.image.tag = strenv(TAG) |
-            .stunnerAuthService.deployment.container.authService.image.tag = strenv(TAG) |
-            .stunnerGatewayOperator.deployment.container.manager.image.name = "docker.io/l7mp/stunner-gateway-operator-premium" |
-            .stunnerGatewayOperator.dataplane.spec.image.name = "docker.io/l7mp/stunnerd-premium"
-            ' stunner/values.yaml
-          # The moving dev chart has its own name, like stunner-dev: with the release name it
-          # would overwrite the released stunner-premium package of the same chart version.
-          if ${{ env.TAG == 'dev' }}; then
-            yq -i '.name = "stunner-premium-dev"' stunner/Chart.yaml
-          else
-            yq -i '.name = "stunner-premium"' stunner/Chart.yaml
-          fi
           yq -i '.appVersion = strenv(TAG)' stunner/Chart.yaml
 
       - name: Sync README image fields from values
@@ -131,7 +100,7 @@ jobs:
           git config --global user.name "BotL7mp"
 
       - name: Checkout build branch
-        uses: actions/checkout@v6
+        uses: actions/checkout@v7
         with:
           token: ${{ secrets.WEB_PAT_TOKEN }}
           path: build
@@ -141,12 +110,8 @@ jobs:
       - name: Update build branch
         run: |
           if ${{ env.TAG == 'dev' }}; then
-            if ${{ env.TYPE == 'stunner' }}; then
-              # Remove previous moving dev artifacts before re-indexing the repo.
-              rm -rf build/stunner-dev*.tgz
-            else
-              rm -rf build/${{ env.TYPE }}-dev*.tgz
-            fi
+            # Remove previous moving dev artifacts before re-indexing the repo.
+            rm -rf build/stunner-dev*.tgz
           fi
           cp stunner-helm/helm/*.tgz build/
           helm repo index build --url https://l7mp.io/stunner
@@ -160,7 +125,7 @@ jobs:
           git push origin build
 
       - name: Update stunner-helm repo
-        if: ${{ env.TAG != 'dev' && env.TYPE != 'stunner-premium' }}
+        if: ${{ env.TAG != 'dev' }}
         run: |
           cd stunner-helm
           rm helm/*.tgz
