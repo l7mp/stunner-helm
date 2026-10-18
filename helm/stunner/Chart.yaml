@@ -8,10 +8,6 @@ annotations:
       image: docker.io/l7mp/stunner-gateway-operator:1.0.0
     - name: stunner-auth-server
       image: docker.io/l7mp/stunner-auth-server:1.0.0
-    - name: stunner-gateway-operator-premium
-      image: docker.io/l7mp/stunner-gateway-operator-premium:dev
-    - name: stunnerd-premium
-      image: docker.io/l7mp/stunnerd-premium:dev
 apiVersion: v2
 name: stunner
 description: STUNner Kubernetes Gateway Operator

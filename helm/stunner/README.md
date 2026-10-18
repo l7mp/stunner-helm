@@ -145,11 +145,10 @@ The leader election Lease is named `stunner-gateway-operator.l7mp.io`; `stunnerc
 
 ### Dataplane
 
-Default dataplane configuration for the operator to use. See more [here](https://github.com/l7mp/stunner/blob/main/docs/GATEWAY.md#dataplane).
+Default dataplane configuration for the operator to use. See more [here](https://github.com/l7mp/stunner/blob/main/docs/REFERENCE.md#dataplane).
 
 | Name                                                                  | Description                                                                                                                                          | Value                     |
 | --------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------- | ------------------------- |
-| `stunnerGatewayOperator.dataplane.mode`                               | Dataplane deployment mode. Allowed values: `managed` or `legacy`. | `managed`                 |
 | `stunnerGatewayOperator.dataplane.spec.replicas`                      | The replica number of the dataplane to be deployed.                                                                                                  | `1`                       |
 | `stunnerGatewayOperator.dataplane.spec.image.name`                    | The name of the image to use for the dataplane.                                                                                                      | `docker.io/l7mp/stunnerd` |
 | `stunnerGatewayOperator.dataplane.spec.image.pullPolicy`              | The pull policy for the image.                                                                                                                       | `IfNotPresent`            |

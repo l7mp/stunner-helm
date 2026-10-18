@@ -1,4 +1,3 @@
-{{- if eq .Values.stunnerGatewayOperator.dataplane.mode "managed"}}
 {{- $dataplaneLogFormat := (default "text" .Values.logging.dataplane.format | lower) }}
 {{- if and (ne $dataplaneLogFormat "text") (ne $dataplaneLogFormat "json") }}
 {{- fail (printf "invalid logging.dataplane.format %q: must be text or json" .Values.logging.dataplane.format) }}
@@ -52,5 +51,4 @@ spec:
   {{- if .topologySpreadConstraints }}
   topologySpreadConstraints: {{- toYaml .topologySpreadConstraints | nindent 4 }}
   {{- end }}
-{{- end -}}
 {{- end -}}
