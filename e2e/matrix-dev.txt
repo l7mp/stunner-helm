@@ -1,63 +1,31 @@
-feature                free                member                  enterprise              debug-member      debug-enterprise
-base-license           OK/FREE/WORKS(OSS)  OK/GRANTED/WORKS(OSS)   OK/GRANTED/WORKS(OSS)   NOT_OK/-/MISSING  NOT_OK/-/MISSING
-base-turn-udp          OK/FREE/WORKS(OSS)  OK/GRANTED/WORKS(OSS)   OK/GRANTED/WORKS(OSS)   NOT_OK/-/MISSING  NOT_OK/-/MISSING
-base-turn-tcp          OK/FREE/WORKS(OSS)  OK/GRANTED/WORKS(OSS)   OK/GRANTED/WORKS(OSS)   NOT_OK/-/MISSING  NOT_OK/-/MISSING
-base-turn-tls          OK/FREE/WORKS(OSS)  OK/GRANTED/WORKS(OSS)   OK/GRANTED/WORKS(OSS)   NOT_OK/-/MISSING  NOT_OK/-/MISSING
-base-l4-udp            OK/FREE/WORKS(OSS)  OK/GRANTED/WORKS(OSS)   OK/GRANTED/WORKS(OSS)   NOT_OK/-/MISSING  NOT_OK/-/MISSING
-base-auth              OK/FREE/WORKS(OSS)  OK/GRANTED/WORKS(OSS)   OK/GRANTED/WORKS(OSS)   NOT_OK/-/MISSING  NOT_OK/-/MISSING
-base-roundtrip         OK/FREE/WORKS(OSS)  OK/GRANTED/WORKS(OSS)   OK/GRANTED/WORKS(OSS)   NOT_OK/-/MISSING  NOT_OK/-/MISSING
-base-stunserver        OK/FREE/WORKS(OSS)  OK/GRANTED/WORKS(OSS)   OK/GRANTED/WORKS(OSS)   NOT_OK/-/MISSING  NOT_OK/-/MISSING
-base-tcproute          OK/FREE/WORKS(OSS)  OK/GRANTED/WORKS(OSS)   OK/GRANTED/WORKS(OSS)   NOT_OK/-/MISSING  NOT_OK/-/MISSING
-turnoffload            OK/FREE/WORKS(OSS)  OK/DENIED/WORKS(OSS)    OK/GRANTED/WORKS(PREM)  NOT_OK/-/MISSING  NOT_OK/-/MISSING
-userquota              OK/FREE/WORKS(OSS)  OK/GRANTED/WORKS(PREM)  OK/GRANTED/WORKS(PREM)  NOT_OK/-/MISSING  NOT_OK/-/MISSING
-daemonset              OK/FREE/WORKS(OSS)  OK/GRANTED/WORKS(PREM)  OK/GRANTED/WORKS(PREM)  NOT_OK/-/MISSING  NOT_OK/-/MISSING
-relayaddressdiscovery  OK/FREE/WORKS(OSS)  OK/GRANTED/WORKS(PREM)  NOT_OK/GRANTED/ERROR    NOT_OK/-/MISSING  NOT_OK/-/MISSING
-dualstack              OK/FREE/WORKS(OSS)  OK/GRANTED/WORKS(PREM)  OK/GRANTED/WORKS(PREM)  NOT_OK/-/MISSING  NOT_OK/-/MISSING
-haoperator             OK/FREE/WORKS(OSS)  OK/GRANTED/WORKS(PREM)  OK/GRANTED/WORKS(PREM)  NOT_OK/-/MISSING  NOT_OK/-/MISSING
-sip-inbound            OK/FREE/WORKS(OSS)  NOT_OK/GRANTED/ERROR    NOT_OK/GRANTED/ERROR    NOT_OK/-/MISSING  NOT_OK/-/MISSING
-sip-registration       NOT_OK/FREE/ERROR   NOT_OK/GRANTED/ERROR    NOT_OK/GRANTED/ERROR    NOT_OK/-/MISSING  NOT_OK/-/MISSING
+feature                free                member                  enterprise              debug-member            debug-enterprise      
+base-license           OK/FREE/WORKS(OSS)  OK/GRANTED/WORKS(OSS)   OK/GRANTED/WORKS(OSS)   OK/GRANTED/WORKS(OSS)   OK/GRANTED/WORKS(OSS) 
+base-turn-udp          OK/FREE/WORKS(OSS)  OK/GRANTED/WORKS(OSS)   OK/GRANTED/WORKS(OSS)   OK/GRANTED/WORKS(OSS)   OK/GRANTED/WORKS(OSS) 
+base-turn-tcp          OK/FREE/WORKS(OSS)  OK/GRANTED/WORKS(OSS)   OK/GRANTED/WORKS(OSS)   OK/GRANTED/WORKS(OSS)   OK/GRANTED/WORKS(OSS) 
+base-turn-tls          OK/FREE/WORKS(OSS)  OK/GRANTED/WORKS(OSS)   OK/GRANTED/WORKS(OSS)   OK/GRANTED/WORKS(OSS)   OK/GRANTED/WORKS(OSS) 
+base-l4-udp            OK/FREE/WORKS(OSS)  OK/GRANTED/WORKS(OSS)   OK/GRANTED/WORKS(OSS)   OK/GRANTED/WORKS(OSS)   OK/GRANTED/WORKS(OSS) 
+base-auth              OK/FREE/WORKS(OSS)  OK/GRANTED/WORKS(OSS)   OK/GRANTED/WORKS(OSS)   OK/GRANTED/WORKS(OSS)   OK/GRANTED/WORKS(OSS) 
+base-roundtrip         OK/FREE/WORKS(OSS)  OK/GRANTED/WORKS(OSS)   OK/GRANTED/WORKS(OSS)   OK/GRANTED/WORKS(OSS)   OK/GRANTED/WORKS(OSS) 
+base-stunserver        OK/FREE/WORKS(OSS)  OK/GRANTED/WORKS(OSS)   OK/GRANTED/WORKS(OSS)   OK/GRANTED/WORKS(OSS)   OK/GRANTED/WORKS(OSS) 
+base-tcproute          OK/FREE/WORKS(OSS)  OK/GRANTED/WORKS(OSS)   OK/GRANTED/WORKS(OSS)   OK/GRANTED/WORKS(OSS)   OK/GRANTED/WORKS(OSS) 
+turnoffload            OK/FREE/WORKS(OSS)  OK/DENIED/WORKS(OSS)    OK/GRANTED/WORKS(PREM)  OK/DENIED/WORKS(OSS)    OK/GRANTED/WORKS(PREM)
+userquota              OK/FREE/WORKS(OSS)  OK/GRANTED/WORKS(PREM)  OK/GRANTED/WORKS(PREM)  OK/GRANTED/WORKS(PREM)  OK/GRANTED/WORKS(PREM)
+daemonset              OK/FREE/WORKS(OSS)  OK/GRANTED/WORKS(PREM)  OK/GRANTED/WORKS(PREM)  OK/GRANTED/WORKS(PREM)  OK/GRANTED/WORKS(PREM)
+relayaddressdiscovery  OK/FREE/WORKS(OSS)  OK/GRANTED/WORKS(PREM)  OK/GRANTED/WORKS(PREM)  OK/GRANTED/WORKS(PREM)  OK/GRANTED/WORKS(PREM)
+dualstack              OK/FREE/WORKS(OSS)  OK/GRANTED/WORKS(PREM)  OK/GRANTED/WORKS(PREM)  OK/GRANTED/WORKS(PREM)  OK/GRANTED/WORKS(PREM)
+haoperator             OK/FREE/WORKS(OSS)  OK/GRANTED/WORKS(PREM)  OK/GRANTED/WORKS(PREM)  OK/GRANTED/WORKS(PREM)  OK/GRANTED/WORKS(PREM)
+sip-inbound            OK/FREE/WORKS(OSS)  NOT_OK/GRANTED/ERROR    NOT_OK/GRANTED/ERROR    NOT_OK/GRANTED/ERROR    NOT_OK/GRANTED/ERROR  
+sip-registration       NOT_OK/FREE/ERROR   NOT_OK/GRANTED/ERROR    NOT_OK/GRANTED/ERROR    NOT_OK/GRANTED/ERROR    OK/GRANTED/WORKS(OSS) 
 
-FAIL: 40 cells are NOT_OK
-  feature:base-license tier:debug-member: NOT_OK, entitled to WORKS(OSS), license -, behavior MISSING
-  feature:base-license tier:debug-enterprise: NOT_OK, entitled to WORKS(OSS), license -, behavior MISSING
-  feature:base-turn-udp tier:debug-member: NOT_OK, entitled to WORKS(OSS), license -, behavior MISSING
-  feature:base-turn-udp tier:debug-enterprise: NOT_OK, entitled to WORKS(OSS), license -, behavior MISSING
-  feature:base-turn-tcp tier:debug-member: NOT_OK, entitled to WORKS(OSS), license -, behavior MISSING
-  feature:base-turn-tcp tier:debug-enterprise: NOT_OK, entitled to WORKS(OSS), license -, behavior MISSING
-  feature:base-turn-tls tier:debug-member: NOT_OK, entitled to WORKS(OSS), license -, behavior MISSING
-  feature:base-turn-tls tier:debug-enterprise: NOT_OK, entitled to WORKS(OSS), license -, behavior MISSING
-  feature:base-l4-udp tier:debug-member: NOT_OK, entitled to WORKS(OSS), license -, behavior MISSING
-  feature:base-l4-udp tier:debug-enterprise: NOT_OK, entitled to WORKS(OSS), license -, behavior MISSING
-  feature:base-auth tier:debug-member: NOT_OK, entitled to WORKS(OSS), license -, behavior MISSING
-  feature:base-auth tier:debug-enterprise: NOT_OK, entitled to WORKS(OSS), license -, behavior MISSING
-  feature:base-roundtrip tier:debug-member: NOT_OK, entitled to WORKS(OSS), license -, behavior MISSING
-  feature:base-roundtrip tier:debug-enterprise: NOT_OK, entitled to WORKS(OSS), license -, behavior MISSING
-  feature:base-stunserver tier:debug-member: NOT_OK, entitled to WORKS(OSS), license -, behavior MISSING
-  feature:base-stunserver tier:debug-enterprise: NOT_OK, entitled to WORKS(OSS), license -, behavior MISSING
-  feature:base-tcproute tier:debug-member: NOT_OK, entitled to WORKS(OSS), license -, behavior MISSING
-  feature:base-tcproute tier:debug-enterprise: NOT_OK, entitled to WORKS(OSS), license -, behavior MISSING
-  feature:turnoffload tier:debug-member: NOT_OK, entitled to WORKS(OSS), license -, behavior MISSING
-  feature:turnoffload tier:debug-enterprise: NOT_OK, entitled to WORKS(PREM), license -, behavior MISSING
-  feature:userquota tier:debug-member: NOT_OK, entitled to WORKS(PREM), license -, behavior MISSING
-  feature:userquota tier:debug-enterprise: NOT_OK, entitled to WORKS(PREM), license -, behavior MISSING
-  feature:daemonset tier:debug-member: NOT_OK, entitled to WORKS(PREM), license -, behavior MISSING
-  feature:daemonset tier:debug-enterprise: NOT_OK, entitled to WORKS(PREM), license -, behavior MISSING
-  feature:relayaddressdiscovery tier:enterprise: NOT_OK, entitled to WORKS(PREM), license GRANTED, behavior ERROR: timed out after 3m0s: stunnerd pod e2e-gw-5cb5b487f8-bgtdg not yet replaced and ready
-  feature:relayaddressdiscovery tier:debug-member: NOT_OK, entitled to WORKS(PREM), license -, behavior MISSING
-  feature:relayaddressdiscovery tier:debug-enterprise: NOT_OK, entitled to WORKS(PREM), license -, behavior MISSING
-  feature:dualstack tier:debug-member: NOT_OK, entitled to WORKS(PREM), license -, behavior MISSING
-  feature:dualstack tier:debug-enterprise: NOT_OK, entitled to WORKS(PREM), license -, behavior MISSING
-  feature:haoperator tier:debug-member: NOT_OK, entitled to WORKS(PREM), license -, behavior MISSING
-  feature:haoperator tier:debug-enterprise: NOT_OK, entitled to WORKS(PREM), license -, behavior MISSING
-  feature:sip-inbound tier:member: NOT_OK, entitled to WORKS(OSS), license GRANTED, behavior ERROR: etcdserver: request timed out
-  feature:sip-inbound tier:enterprise: NOT_OK, entitled to WORKS(OSS), license GRANTED, behavior ERROR: timed out after 3m0s: the Service of Gateway e2e-sip is still there: <nil>
-  feature:sip-inbound tier:debug-member: NOT_OK, entitled to WORKS(OSS), license -, behavior MISSING
-  feature:sip-inbound tier:debug-enterprise: NOT_OK, entitled to WORKS(OSS), license -, behavior MISSING
-  feature:sip-registration tier:free: NOT_OK, entitled to WORKS(OSS), license FREE, behavior ERROR: the call to sip:+3612345678@172.18.0.1 lost media: sent=250 received=221 lost=0 rtcp-sent=5 rtcp-received=5
-  feature:sip-registration tier:member: NOT_OK, entitled to WORKS(OSS), license GRANTED, behavior ERROR: Gateway e2e-sip-reg not accepted and programmed: timed out after 1m0s: Accepted Unknown: Pending: Waiting for controller
-  feature:sip-registration tier:enterprise: NOT_OK, entitled to WORKS(OSS), license GRANTED, behavior ERROR: cannot apply *v1.Service sip-echo: etcdserver: request timed out
-  feature:sip-registration tier:debug-member: NOT_OK, entitled to WORKS(OSS), license -, behavior MISSING
-  feature:sip-registration tier:debug-enterprise: NOT_OK, entitled to WORKS(OSS), license -, behavior MISSING
+FAIL: 8 cells are NOT_OK
+  feature:sip-inbound tier:member: NOT_OK, entitled to WORKS(OSS), license GRANTED, behavior ERROR: Gateway e2e-sip got no LoadBalancer address: timed out after 3m0s: no LoadBalancer address on Service e2e/e2e-sip
+  feature:sip-inbound tier:enterprise: NOT_OK, entitled to WORKS(OSS), license GRANTED, behavior ERROR: Gateway e2e-sip got no LoadBalancer address: timed out after 3m0s: no LoadBalancer address on Service e2e/e2e-sip
+  feature:sip-inbound tier:debug-member: NOT_OK, entitled to WORKS(OSS), license GRANTED, behavior ERROR: Gateway e2e-sip got no LoadBalancer address: timed out after 3m0s: no LoadBalancer address on Service e2e/e2e-sip
+  feature:sip-inbound tier:debug-enterprise: NOT_OK, entitled to WORKS(OSS), license GRANTED, behavior ERROR: Gateway e2e-sip got no LoadBalancer address: timed out after 3m0s: no LoadBalancer address on Service e2e/e2e-sip
+  feature:sip-registration tier:free: NOT_OK, entitled to WORKS(OSS), license FREE, behavior ERROR: the call to sip:+3612345678@172.18.0.1 lost media: sent=250 received=218 lost=0 rtcp-sent=5 rtcp-received=5
+  feature:sip-registration tier:member: NOT_OK, entitled to WORKS(OSS), license GRANTED, behavior ERROR: the call to sip:+3612345678@172.18.0.1 lost media: sent=250 received=218 lost=0 rtcp-sent=5 rtcp-received=5
+  feature:sip-registration tier:enterprise: NOT_OK, entitled to WORKS(OSS), license GRANTED, behavior ERROR: the call to sip:+3612345678@172.18.0.1 lost media: sent=250 received=167 lost=0 rtcp-sent=5 rtcp-received=4
+  feature:sip-registration tier:debug-member: NOT_OK, entitled to WORKS(OSS), license GRANTED, behavior ERROR: the call to sip:+3612345678@172.18.0.1 lost media: sent=250 received=177 lost=0 rtcp-sent=5 rtcp-received=4
 
 Legend:
   A cell reads verdict/license/behavior.
