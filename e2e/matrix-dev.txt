@@ -22,10 +22,10 @@ FAIL: 8 cells are NOT_OK
   feature:sip-inbound tier:enterprise: NOT_OK, entitled to WORKS(OSS), license GRANTED, behavior ERROR: Gateway e2e-sip got no LoadBalancer address: timed out after 3m0s: no LoadBalancer address on Service e2e/e2e-sip
   feature:sip-inbound tier:debug-member: NOT_OK, entitled to WORKS(OSS), license GRANTED, behavior ERROR: Gateway e2e-sip got no LoadBalancer address: timed out after 3m0s: no LoadBalancer address on Service e2e/e2e-sip
   feature:sip-inbound tier:debug-enterprise: NOT_OK, entitled to WORKS(OSS), license GRANTED, behavior ERROR: Gateway e2e-sip got no LoadBalancer address: timed out after 3m0s: no LoadBalancer address on Service e2e/e2e-sip
-  feature:sip-registration tier:free: NOT_OK, entitled to WORKS(OSS), license FREE, behavior ERROR: the call to sip:+3612345678@172.18.0.1 lost media: sent=250 received=218 lost=0 rtcp-sent=5 rtcp-received=5
-  feature:sip-registration tier:member: NOT_OK, entitled to WORKS(OSS), license GRANTED, behavior ERROR: the call to sip:+3612345678@172.18.0.1 lost media: sent=250 received=218 lost=0 rtcp-sent=5 rtcp-received=5
-  feature:sip-registration tier:enterprise: NOT_OK, entitled to WORKS(OSS), license GRANTED, behavior ERROR: the call to sip:+3612345678@172.18.0.1 lost media: sent=250 received=167 lost=0 rtcp-sent=5 rtcp-received=4
-  feature:sip-registration tier:debug-member: NOT_OK, entitled to WORKS(OSS), license GRANTED, behavior ERROR: the call to sip:+3612345678@172.18.0.1 lost media: sent=250 received=177 lost=0 rtcp-sent=5 rtcp-received=4
+  feature:sip-registration tier:free: NOT_OK, entitled to WORKS(OSS), license FREE, behavior ERROR: the call to sip:+3612345678@172.18.0.1 lost media: sent=250 received=189 lost=0 rtcp-sent=5 rtcp-received=4
+  feature:sip-registration tier:member: NOT_OK, entitled to WORKS(OSS), license GRANTED, behavior ERROR: the call to sip:+3612345678@172.18.0.1 lost media: sent=250 received=174 lost=0 rtcp-sent=5 rtcp-received=4
+  feature:sip-registration tier:enterprise: NOT_OK, entitled to WORKS(OSS), license GRANTED, behavior ERROR: the call to sip:+3612345678@172.18.0.1 lost media: sent=250 received=220 lost=0 rtcp-sent=5 rtcp-received=5
+  feature:sip-registration tier:debug-member: NOT_OK, entitled to WORKS(OSS), license GRANTED, behavior ERROR: the call to sip:+3612345678@172.18.0.1 lost media: sent=250 received=181 lost=0 rtcp-sent=5 rtcp-received=4
 
 Legend:
   A cell reads verdict/license/behavior.
