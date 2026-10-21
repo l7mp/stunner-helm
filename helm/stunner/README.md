@@ -145,7 +145,7 @@ The leader election Lease is named `stunner-gateway-operator.l7mp.io`; `stunnerc
 
 ### Dataplane
 
-Default dataplane configuration for the operator to use. See more [here](https://github.com/l7mp/stunner/blob/main/docs/REFERENCE.md#dataplane).
+Default dataplane configuration for the operator to use. See more [here](https://github.com/l7mp/stunner/blob/main/docs/GATEWAYCLASS.md#dataplane).
 
 | Name                                                                  | Description                                                                                                                                          | Value                     |
 | --------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------- | ------------------------- |
