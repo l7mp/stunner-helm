@@ -19,10 +19,12 @@ feature-haoperator             OK/FREE/WORKS(OSS)   OK/GRANTED/WORKS(PREM)  OK/G
 limit-turn-offload             OK/FREE/WORKS(PREM)  OK/GRANTED/WORKS(PREM)  OK/GRANTED/WORKS(PREM)  OK/GRANTED/WORKS(PREM)  OK/GRANTED/WORKS(PREM)
 limit-udp-offload              OK/FREE/WORKS(PREM)  OK/GRANTED/WORKS(PREM)  OK/GRANTED/WORKS(PREM)  OK/GRANTED/WORKS(PREM)  OK/GRANTED/WORKS(PREM)
 limit-srt-offload              OK/FREE/WORKS(PREM)  OK/GRANTED/WORKS(PREM)  OK/GRANTED/WORKS(PREM)  OK/GRANTED/WORKS(PREM)  OK/GRANTED/WORKS(PREM)
-limit-sip-offload              OK/FREE/WORKS(PREM)  OK/GRANTED/WORKS(PREM)  OK/GRANTED/WORKS(PREM)  OK/GRANTED/WORKS(PREM)  NOT_OK/GRANTED/ERROR  
+limit-sip-offload              OK/FREE/WORKS(PREM)  OK/GRANTED/WORKS(PREM)  NOT_OK/GRANTED/ERROR    NOT_OK/GRANTED/ERROR    NOT_OK/GRANTED/ERROR  
 
-FAIL: 1 cells are NOT_OK
-  feature:limit-sip-offload tier:debug-enterprise: NOT_OK, entitled to WORKS(PREM), license GRANTED, behavior ERROR: 4 of 4 Gateways served; 95 of 101 calls admitted, 101 expected (no limit)
+FAIL: 3 cells are NOT_OK
+  feature:limit-sip-offload tier:enterprise: NOT_OK, entitled to WORKS(PREM), license GRANTED, behavior ERROR: 4 of 4 Gateways served; 95 of 101 calls admitted, 101 expected (no limit)
+  feature:limit-sip-offload tier:debug-member: NOT_OK, entitled to WORKS(PREM), license GRANTED, behavior ERROR: 3 of 4 Gateways served; 95 of 101 calls admitted, 100 expected (limit 100)
+  feature:limit-sip-offload tier:debug-enterprise: NOT_OK, entitled to WORKS(PREM), license GRANTED, behavior ERROR: 4 of 4 Gateways served; 94 of 101 calls admitted, 101 expected (no limit)
 
 Legend:
   A cell reads verdict/license/behavior.
