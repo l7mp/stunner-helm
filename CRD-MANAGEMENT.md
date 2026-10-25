@@ -100,7 +100,7 @@ helm install stunner stunner/stunner \
 Install Gateway API CRDs manually, then install the operator without them:
 
 ```console
-kubectl apply -f https://github.com/kubernetes-sigs/gateway-api/releases/download/v1.6.1/experimental-install.yaml
+kubectl apply -f https://github.com/kubernetes-sigs/gateway-api/releases/download/v1.6.2/experimental-install.yaml
 
 helm install stunner stunner/stunner \
     --create-namespace --namespace=stunner-system \
