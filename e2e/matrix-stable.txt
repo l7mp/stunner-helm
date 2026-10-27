@@ -1,28 +1,31 @@
-feature   free              member            enterprise        debug-member      debug-enterprise
-license   NOT_OK/-/MISSING  NOT_OK/-/MISSING  NOT_OK/-/MISSING  NOT_OK/-/MISSING  NOT_OK/-/MISSING
-zero      NOT_OK/-/MISSING  NOT_OK/-/MISSING  NOT_OK/-/MISSING  NOT_OK/-/MISSING  NOT_OK/-/MISSING
-zero-tcp  NOT_OK/-/MISSING  NOT_OK/-/MISSING  NOT_OK/-/MISSING  NOT_OK/-/MISSING  NOT_OK/-/MISSING
+feature                        free                 member                  enterprise              debug-member            debug-enterprise      
+base-license                   OK/FREE/WORKS(OSS)   OK/GRANTED/WORKS(OSS)   OK/GRANTED/WORKS(OSS)   OK/GRANTED/WORKS(OSS)   OK/GRANTED/WORKS(OSS) 
+base-turn-udp                  OK/FREE/WORKS(OSS)   OK/GRANTED/WORKS(OSS)   OK/GRANTED/WORKS(OSS)   OK/GRANTED/WORKS(OSS)   OK/GRANTED/WORKS(OSS) 
+base-turn-tcp                  OK/FREE/WORKS(OSS)   OK/GRANTED/WORKS(OSS)   OK/GRANTED/WORKS(OSS)   OK/GRANTED/WORKS(OSS)   OK/GRANTED/WORKS(OSS) 
+base-turn-tls                  OK/FREE/WORKS(OSS)   OK/GRANTED/WORKS(OSS)   OK/GRANTED/WORKS(OSS)   OK/GRANTED/WORKS(OSS)   OK/GRANTED/WORKS(OSS) 
+base-l4-udp                    OK/FREE/WORKS(OSS)   OK/GRANTED/WORKS(OSS)   OK/GRANTED/WORKS(OSS)   OK/GRANTED/WORKS(OSS)   OK/GRANTED/WORKS(OSS) 
+base-auth                      OK/FREE/WORKS(OSS)   OK/GRANTED/WORKS(OSS)   OK/GRANTED/WORKS(OSS)   OK/GRANTED/WORKS(OSS)   OK/GRANTED/WORKS(OSS) 
+base-roundtrip                 OK/FREE/WORKS(OSS)   OK/GRANTED/WORKS(OSS)   OK/GRANTED/WORKS(OSS)   OK/GRANTED/WORKS(OSS)   OK/GRANTED/WORKS(OSS) 
+base-tcproute                  OK/FREE/WORKS(OSS)   OK/GRANTED/WORKS(OSS)   OK/GRANTED/WORKS(OSS)   OK/GRANTED/WORKS(OSS)   OK/GRANTED/WORKS(OSS) 
+base-icetest                   OK/FREE/WORKS(OSS)   OK/GRANTED/WORKS(OSS)   OK/GRANTED/WORKS(OSS)   OK/GRANTED/WORKS(OSS)   OK/GRANTED/WORKS(OSS) 
+base-sip-inbound               OK/FREE/WORKS(OSS)   OK/GRANTED/WORKS(OSS)   OK/GRANTED/WORKS(OSS)   OK/GRANTED/WORKS(OSS)   OK/GRANTED/WORKS(OSS) 
+base-sip-registration          OK/FREE/WORKS(OSS)   OK/GRANTED/WORKS(OSS)   OK/GRANTED/WORKS(OSS)   OK/GRANTED/WORKS(OSS)   OK/GRANTED/WORKS(OSS) 
+base-srt                       OK/FREE/WORKS(OSS)   OK/GRANTED/WORKS(OSS)   OK/GRANTED/WORKS(OSS)   OK/GRANTED/WORKS(OSS)   OK/GRANTED/WORKS(OSS) 
+feature-userquota              OK/FREE/WORKS(OSS)   OK/GRANTED/WORKS(PREM)  OK/GRANTED/WORKS(PREM)  OK/GRANTED/WORKS(PREM)  OK/GRANTED/WORKS(PREM)
+feature-daemonset              OK/FREE/WORKS(OSS)   OK/GRANTED/WORKS(PREM)  OK/GRANTED/WORKS(PREM)  OK/GRANTED/WORKS(PREM)  OK/GRANTED/WORKS(PREM)
+feature-relayaddressdiscovery  OK/FREE/WORKS(OSS)   OK/GRANTED/WORKS(PREM)  OK/GRANTED/WORKS(PREM)  OK/GRANTED/WORKS(PREM)  OK/GRANTED/WORKS(PREM)
+feature-dualstack              OK/FREE/WORKS(OSS)   OK/GRANTED/WORKS(PREM)  OK/GRANTED/WORKS(PREM)  OK/GRANTED/WORKS(PREM)  OK/GRANTED/WORKS(PREM)
+feature-haoperator             OK/FREE/WORKS(OSS)   OK/GRANTED/WORKS(PREM)  OK/GRANTED/WORKS(PREM)  OK/GRANTED/WORKS(PREM)  OK/GRANTED/WORKS(PREM)
+limit-turn-offload             OK/FREE/WORKS(PREM)  OK/GRANTED/WORKS(PREM)  OK/GRANTED/WORKS(PREM)  OK/GRANTED/WORKS(PREM)  OK/GRANTED/WORKS(PREM)
+limit-udp-offload              OK/FREE/WORKS(PREM)  OK/GRANTED/WORKS(PREM)  OK/GRANTED/WORKS(PREM)  OK/GRANTED/WORKS(PREM)  OK/GRANTED/WORKS(PREM)
+limit-srt-offload              OK/FREE/WORKS(PREM)  OK/GRANTED/WORKS(PREM)  OK/GRANTED/WORKS(PREM)  OK/GRANTED/WORKS(PREM)  OK/GRANTED/WORKS(PREM)
+limit-sip-offload              OK/FREE/WORKS(PREM)  OK/GRANTED/WORKS(PREM)  OK/GRANTED/WORKS(PREM)  OK/GRANTED/WORKS(PREM)  OK/GRANTED/WORKS(PREM)
 
-FAIL: 15 cells are NOT_OK
-  feature:license tier:free: NOT_OK, entitled to WORKS(OSS), license -, behavior MISSING
-  feature:license tier:member: NOT_OK, entitled to WORKS(OSS), license -, behavior MISSING
-  feature:license tier:enterprise: NOT_OK, entitled to WORKS(OSS), license -, behavior MISSING
-  feature:license tier:debug-member: NOT_OK, entitled to WORKS(OSS), license -, behavior MISSING
-  feature:license tier:debug-enterprise: NOT_OK, entitled to WORKS(OSS), license -, behavior MISSING
-  feature:zero tier:free: NOT_OK, entitled to WORKS(OSS), license -, behavior MISSING
-  feature:zero tier:member: NOT_OK, entitled to WORKS(OSS), license -, behavior MISSING
-  feature:zero tier:enterprise: NOT_OK, entitled to WORKS(OSS), license -, behavior MISSING
-  feature:zero tier:debug-member: NOT_OK, entitled to WORKS(OSS), license -, behavior MISSING
-  feature:zero tier:debug-enterprise: NOT_OK, entitled to WORKS(OSS), license -, behavior MISSING
-  feature:zero-tcp tier:free: NOT_OK, entitled to WORKS(OSS), license -, behavior MISSING
-  feature:zero-tcp tier:member: NOT_OK, entitled to WORKS(OSS), license -, behavior MISSING
-  feature:zero-tcp tier:enterprise: NOT_OK, entitled to WORKS(OSS), license -, behavior MISSING
-  feature:zero-tcp tier:debug-member: NOT_OK, entitled to WORKS(OSS), license -, behavior MISSING
-  feature:zero-tcp tier:debug-enterprise: NOT_OK, entitled to WORKS(OSS), license -, behavior MISSING
+PASS: every cell is OK
 
 Legend:
   A cell reads verdict/license/behavior.
-  Verdict: OK when the behavior is the one the tier is entitled to (WORKS(PREM) for a feature the tier includes, WORKS(OSS) for one it does not), NOT_OK otherwise. The run passes only when every cell is OK.
-  License, what the operator's license status said: GRANTED lists the feature; DENIED was validated and does not list it; INVALID means the key was rejected or the license server unreachable; FREE means no key was given.
-  Behavior, what the spec saw: WORKS(PREM) is the licensed behavior; WORKS(OSS) the documented open-source behavior without the license; ERROR means the spec could not classify it (an error, a timeout, or neither behavior), the detail says what was seen; MISSING means the spec did not run or left no result.
-  Entitlements come from the feature catalog of the STUNner release under test: the member and enterprise tiers and their debug twins get their catalog features, free gets none; the license and the plain relay rows have no premium behavior, WORKS(OSS) is their OK.
+  Verdict: OK when the behavior is the one the tier is entitled to (WORKS(PREM) for a feature the tier includes and for a limit, WORKS(OSS) for a feature it does not include and for a base row), NOT_OK otherwise. The run passes only when every cell is OK.
+  License, what the operator's license status (stunnerctl license) said: GRANTED lists the feature; DENIED was validated and does not list it; INVALID means the key was rejected, the license server unreachable, or the status unreadable (stunnerctl license failed); FREE means no key was given.
+  Behavior, what the spec saw: WORKS(PREM) is the licensed behavior, for a limit row the limit holding both ways (what it admits works, one more is refused); WORKS(OSS) the documented open-source behavior without the license; ERROR means the spec could not classify it (an error, a timeout, or neither behavior), the detail says what was seen; MISSING means the spec did not run or left no result.
+  The rows come in three kinds, named by their prefix: base- rows have no premium behavior, WORKS(OSS) is their OK, and base-license also checks the served features against the catalog; feature- rows follow the feature catalog of the STUNner release under test, the member and enterprise tiers and their debug twins get their catalog features (the retired KernelOffload is granted by no tier: the offload, like the SIP and SRT gateways, is a limit); limit- rows check the usage limits of the tier the dataplane reports, every tier is held to its own.
