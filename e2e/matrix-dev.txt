@@ -1,102 +1,27 @@
-feature                free              member            enterprise        debug-member      debug-enterprise
-base-license           NOT_OK/-/MISSING  NOT_OK/-/MISSING  NOT_OK/-/MISSING  NOT_OK/-/MISSING  NOT_OK/-/MISSING
-base-turn-udp          NOT_OK/-/MISSING  NOT_OK/-/MISSING  NOT_OK/-/MISSING  NOT_OK/-/MISSING  NOT_OK/-/MISSING
-base-turn-tcp          NOT_OK/-/MISSING  NOT_OK/-/MISSING  NOT_OK/-/MISSING  NOT_OK/-/MISSING  NOT_OK/-/MISSING
-base-turn-tls          NOT_OK/-/MISSING  NOT_OK/-/MISSING  NOT_OK/-/MISSING  NOT_OK/-/MISSING  NOT_OK/-/MISSING
-base-l4-udp            NOT_OK/-/MISSING  NOT_OK/-/MISSING  NOT_OK/-/MISSING  NOT_OK/-/MISSING  NOT_OK/-/MISSING
-base-auth              NOT_OK/-/MISSING  NOT_OK/-/MISSING  NOT_OK/-/MISSING  NOT_OK/-/MISSING  NOT_OK/-/MISSING
-base-roundtrip         NOT_OK/-/MISSING  NOT_OK/-/MISSING  NOT_OK/-/MISSING  NOT_OK/-/MISSING  NOT_OK/-/MISSING
-base-tcproute          NOT_OK/-/MISSING  NOT_OK/-/MISSING  NOT_OK/-/MISSING  NOT_OK/-/MISSING  NOT_OK/-/MISSING
-base-icetest           NOT_OK/-/MISSING  NOT_OK/-/MISSING  NOT_OK/-/MISSING  NOT_OK/-/MISSING  NOT_OK/-/MISSING
-base-sip-inbound       NOT_OK/-/MISSING  NOT_OK/-/MISSING  NOT_OK/-/MISSING  NOT_OK/-/MISSING  NOT_OK/-/MISSING
-base-sip-registration  NOT_OK/-/MISSING  NOT_OK/-/MISSING  NOT_OK/-/MISSING  NOT_OK/-/MISSING  NOT_OK/-/MISSING
-base-srt               NOT_OK/-/MISSING  NOT_OK/-/MISSING  NOT_OK/-/MISSING  NOT_OK/-/MISSING  NOT_OK/-/MISSING
-limit-turn-offload     NOT_OK/-/MISSING  NOT_OK/-/MISSING  NOT_OK/-/MISSING  NOT_OK/-/MISSING  NOT_OK/-/MISSING
-limit-udp-offload      NOT_OK/-/MISSING  NOT_OK/-/MISSING  NOT_OK/-/MISSING  NOT_OK/-/MISSING  NOT_OK/-/MISSING
-limit-srt-offload      NOT_OK/-/MISSING  NOT_OK/-/MISSING  NOT_OK/-/MISSING  NOT_OK/-/MISSING  NOT_OK/-/MISSING
-limit-sip-offload      NOT_OK/-/MISSING  NOT_OK/-/MISSING  NOT_OK/-/MISSING  NOT_OK/-/MISSING  NOT_OK/-/MISSING
+feature                        free                 member                  enterprise              debug-member            debug-enterprise      
+base-license                   OK/FREE/WORKS(OSS)   OK/GRANTED/WORKS(OSS)   OK/GRANTED/WORKS(OSS)   OK/GRANTED/WORKS(OSS)   OK/GRANTED/WORKS(OSS) 
+base-turn-udp                  OK/FREE/WORKS(OSS)   OK/GRANTED/WORKS(OSS)   OK/GRANTED/WORKS(OSS)   OK/GRANTED/WORKS(OSS)   OK/GRANTED/WORKS(OSS) 
+base-turn-tcp                  OK/FREE/WORKS(OSS)   OK/GRANTED/WORKS(OSS)   OK/GRANTED/WORKS(OSS)   OK/GRANTED/WORKS(OSS)   OK/GRANTED/WORKS(OSS) 
+base-turn-tls                  OK/FREE/WORKS(OSS)   OK/GRANTED/WORKS(OSS)   OK/GRANTED/WORKS(OSS)   OK/GRANTED/WORKS(OSS)   OK/GRANTED/WORKS(OSS) 
+base-l4-udp                    OK/FREE/WORKS(OSS)   OK/GRANTED/WORKS(OSS)   OK/GRANTED/WORKS(OSS)   OK/GRANTED/WORKS(OSS)   OK/GRANTED/WORKS(OSS) 
+base-auth                      OK/FREE/WORKS(OSS)   OK/GRANTED/WORKS(OSS)   OK/GRANTED/WORKS(OSS)   OK/GRANTED/WORKS(OSS)   OK/GRANTED/WORKS(OSS) 
+base-roundtrip                 OK/FREE/WORKS(OSS)   OK/GRANTED/WORKS(OSS)   OK/GRANTED/WORKS(OSS)   OK/GRANTED/WORKS(OSS)   OK/GRANTED/WORKS(OSS) 
+base-tcproute                  OK/FREE/WORKS(OSS)   OK/GRANTED/WORKS(OSS)   OK/GRANTED/WORKS(OSS)   OK/GRANTED/WORKS(OSS)   OK/GRANTED/WORKS(OSS) 
+base-icetest                   OK/FREE/WORKS(OSS)   OK/GRANTED/WORKS(OSS)   OK/GRANTED/WORKS(OSS)   OK/GRANTED/WORKS(OSS)   OK/GRANTED/WORKS(OSS) 
+base-sip-inbound               OK/FREE/WORKS(OSS)   OK/GRANTED/WORKS(OSS)   OK/GRANTED/WORKS(OSS)   OK/GRANTED/WORKS(OSS)   OK/GRANTED/WORKS(OSS) 
+base-sip-registration          OK/FREE/WORKS(OSS)   OK/GRANTED/WORKS(OSS)   OK/GRANTED/WORKS(OSS)   OK/GRANTED/WORKS(OSS)   OK/GRANTED/WORKS(OSS) 
+base-srt                       OK/FREE/WORKS(OSS)   OK/GRANTED/WORKS(OSS)   OK/GRANTED/WORKS(OSS)   OK/GRANTED/WORKS(OSS)   OK/GRANTED/WORKS(OSS) 
+feature-userquota              OK/FREE/WORKS(OSS)   OK/GRANTED/WORKS(PREM)  OK/GRANTED/WORKS(PREM)  OK/GRANTED/WORKS(PREM)  OK/GRANTED/WORKS(PREM)
+feature-daemonset              OK/FREE/WORKS(OSS)   OK/GRANTED/WORKS(PREM)  OK/GRANTED/WORKS(PREM)  OK/GRANTED/WORKS(PREM)  OK/GRANTED/WORKS(PREM)
+feature-relayaddressdiscovery  OK/FREE/WORKS(OSS)   OK/GRANTED/WORKS(PREM)  OK/GRANTED/WORKS(PREM)  OK/GRANTED/WORKS(PREM)  OK/GRANTED/WORKS(PREM)
+feature-dualstack              OK/FREE/WORKS(OSS)   OK/GRANTED/WORKS(PREM)  OK/GRANTED/WORKS(PREM)  OK/GRANTED/WORKS(PREM)  OK/GRANTED/WORKS(PREM)
+feature-haoperator             OK/FREE/WORKS(OSS)   OK/GRANTED/WORKS(PREM)  OK/GRANTED/WORKS(PREM)  OK/GRANTED/WORKS(PREM)  OK/GRANTED/WORKS(PREM)
+limit-turn-offload             OK/FREE/WORKS(PREM)  OK/GRANTED/WORKS(PREM)  OK/GRANTED/WORKS(PREM)  OK/GRANTED/WORKS(PREM)  OK/GRANTED/WORKS(PREM)
+limit-udp-offload              OK/FREE/WORKS(PREM)  OK/GRANTED/WORKS(PREM)  OK/GRANTED/WORKS(PREM)  OK/GRANTED/WORKS(PREM)  OK/GRANTED/WORKS(PREM)
+limit-srt-offload              OK/FREE/WORKS(PREM)  OK/GRANTED/WORKS(PREM)  OK/GRANTED/WORKS(PREM)  OK/GRANTED/WORKS(PREM)  OK/GRANTED/WORKS(PREM)
+limit-sip-offload              OK/FREE/WORKS(PREM)  OK/GRANTED/WORKS(PREM)  OK/GRANTED/WORKS(PREM)  OK/GRANTED/WORKS(PREM)  OK/GRANTED/WORKS(PREM)
 
-FAIL: 80 cells are NOT_OK
-  feature:base-license tier:free: NOT_OK, entitled to WORKS(OSS), license -, behavior MISSING
-  feature:base-license tier:member: NOT_OK, entitled to WORKS(OSS), license -, behavior MISSING
-  feature:base-license tier:enterprise: NOT_OK, entitled to WORKS(OSS), license -, behavior MISSING
-  feature:base-license tier:debug-member: NOT_OK, entitled to WORKS(OSS), license -, behavior MISSING
-  feature:base-license tier:debug-enterprise: NOT_OK, entitled to WORKS(OSS), license -, behavior MISSING
-  feature:base-turn-udp tier:free: NOT_OK, entitled to WORKS(OSS), license -, behavior MISSING
-  feature:base-turn-udp tier:member: NOT_OK, entitled to WORKS(OSS), license -, behavior MISSING
-  feature:base-turn-udp tier:enterprise: NOT_OK, entitled to WORKS(OSS), license -, behavior MISSING
-  feature:base-turn-udp tier:debug-member: NOT_OK, entitled to WORKS(OSS), license -, behavior MISSING
-  feature:base-turn-udp tier:debug-enterprise: NOT_OK, entitled to WORKS(OSS), license -, behavior MISSING
-  feature:base-turn-tcp tier:free: NOT_OK, entitled to WORKS(OSS), license -, behavior MISSING
-  feature:base-turn-tcp tier:member: NOT_OK, entitled to WORKS(OSS), license -, behavior MISSING
-  feature:base-turn-tcp tier:enterprise: NOT_OK, entitled to WORKS(OSS), license -, behavior MISSING
-  feature:base-turn-tcp tier:debug-member: NOT_OK, entitled to WORKS(OSS), license -, behavior MISSING
-  feature:base-turn-tcp tier:debug-enterprise: NOT_OK, entitled to WORKS(OSS), license -, behavior MISSING
-  feature:base-turn-tls tier:free: NOT_OK, entitled to WORKS(OSS), license -, behavior MISSING
-  feature:base-turn-tls tier:member: NOT_OK, entitled to WORKS(OSS), license -, behavior MISSING
-  feature:base-turn-tls tier:enterprise: NOT_OK, entitled to WORKS(OSS), license -, behavior MISSING
-  feature:base-turn-tls tier:debug-member: NOT_OK, entitled to WORKS(OSS), license -, behavior MISSING
-  feature:base-turn-tls tier:debug-enterprise: NOT_OK, entitled to WORKS(OSS), license -, behavior MISSING
-  feature:base-l4-udp tier:free: NOT_OK, entitled to WORKS(OSS), license -, behavior MISSING
-  feature:base-l4-udp tier:member: NOT_OK, entitled to WORKS(OSS), license -, behavior MISSING
-  feature:base-l4-udp tier:enterprise: NOT_OK, entitled to WORKS(OSS), license -, behavior MISSING
-  feature:base-l4-udp tier:debug-member: NOT_OK, entitled to WORKS(OSS), license -, behavior MISSING
-  feature:base-l4-udp tier:debug-enterprise: NOT_OK, entitled to WORKS(OSS), license -, behavior MISSING
-  feature:base-auth tier:free: NOT_OK, entitled to WORKS(OSS), license -, behavior MISSING
-  feature:base-auth tier:member: NOT_OK, entitled to WORKS(OSS), license -, behavior MISSING
-  feature:base-auth tier:enterprise: NOT_OK, entitled to WORKS(OSS), license -, behavior MISSING
-  feature:base-auth tier:debug-member: NOT_OK, entitled to WORKS(OSS), license -, behavior MISSING
-  feature:base-auth tier:debug-enterprise: NOT_OK, entitled to WORKS(OSS), license -, behavior MISSING
-  feature:base-roundtrip tier:free: NOT_OK, entitled to WORKS(OSS), license -, behavior MISSING
-  feature:base-roundtrip tier:member: NOT_OK, entitled to WORKS(OSS), license -, behavior MISSING
-  feature:base-roundtrip tier:enterprise: NOT_OK, entitled to WORKS(OSS), license -, behavior MISSING
-  feature:base-roundtrip tier:debug-member: NOT_OK, entitled to WORKS(OSS), license -, behavior MISSING
-  feature:base-roundtrip tier:debug-enterprise: NOT_OK, entitled to WORKS(OSS), license -, behavior MISSING
-  feature:base-tcproute tier:free: NOT_OK, entitled to WORKS(OSS), license -, behavior MISSING
-  feature:base-tcproute tier:member: NOT_OK, entitled to WORKS(OSS), license -, behavior MISSING
-  feature:base-tcproute tier:enterprise: NOT_OK, entitled to WORKS(OSS), license -, behavior MISSING
-  feature:base-tcproute tier:debug-member: NOT_OK, entitled to WORKS(OSS), license -, behavior MISSING
-  feature:base-tcproute tier:debug-enterprise: NOT_OK, entitled to WORKS(OSS), license -, behavior MISSING
-  feature:base-icetest tier:free: NOT_OK, entitled to WORKS(OSS), license -, behavior MISSING
-  feature:base-icetest tier:member: NOT_OK, entitled to WORKS(OSS), license -, behavior MISSING
-  feature:base-icetest tier:enterprise: NOT_OK, entitled to WORKS(OSS), license -, behavior MISSING
-  feature:base-icetest tier:debug-member: NOT_OK, entitled to WORKS(OSS), license -, behavior MISSING
-  feature:base-icetest tier:debug-enterprise: NOT_OK, entitled to WORKS(OSS), license -, behavior MISSING
-  feature:base-sip-inbound tier:free: NOT_OK, entitled to WORKS(OSS), license -, behavior MISSING
-  feature:base-sip-inbound tier:member: NOT_OK, entitled to WORKS(OSS), license -, behavior MISSING
-  feature:base-sip-inbound tier:enterprise: NOT_OK, entitled to WORKS(OSS), license -, behavior MISSING
-  feature:base-sip-inbound tier:debug-member: NOT_OK, entitled to WORKS(OSS), license -, behavior MISSING
-  feature:base-sip-inbound tier:debug-enterprise: NOT_OK, entitled to WORKS(OSS), license -, behavior MISSING
-  feature:base-sip-registration tier:free: NOT_OK, entitled to WORKS(OSS), license -, behavior MISSING
-  feature:base-sip-registration tier:member: NOT_OK, entitled to WORKS(OSS), license -, behavior MISSING
-  feature:base-sip-registration tier:enterprise: NOT_OK, entitled to WORKS(OSS), license -, behavior MISSING
-  feature:base-sip-registration tier:debug-member: NOT_OK, entitled to WORKS(OSS), license -, behavior MISSING
-  feature:base-sip-registration tier:debug-enterprise: NOT_OK, entitled to WORKS(OSS), license -, behavior MISSING
-  feature:base-srt tier:free: NOT_OK, entitled to WORKS(OSS), license -, behavior MISSING
-  feature:base-srt tier:member: NOT_OK, entitled to WORKS(OSS), license -, behavior MISSING
-  feature:base-srt tier:enterprise: NOT_OK, entitled to WORKS(OSS), license -, behavior MISSING
-  feature:base-srt tier:debug-member: NOT_OK, entitled to WORKS(OSS), license -, behavior MISSING
-  feature:base-srt tier:debug-enterprise: NOT_OK, entitled to WORKS(OSS), license -, behavior MISSING
-  feature:limit-turn-offload tier:free: NOT_OK, entitled to WORKS(PREM), license -, behavior MISSING
-  feature:limit-turn-offload tier:member: NOT_OK, entitled to WORKS(PREM), license -, behavior MISSING
-  feature:limit-turn-offload tier:enterprise: NOT_OK, entitled to WORKS(PREM), license -, behavior MISSING
-  feature:limit-turn-offload tier:debug-member: NOT_OK, entitled to WORKS(PREM), license -, behavior MISSING
-  feature:limit-turn-offload tier:debug-enterprise: NOT_OK, entitled to WORKS(PREM), license -, behavior MISSING
-  feature:limit-udp-offload tier:free: NOT_OK, entitled to WORKS(PREM), license -, behavior MISSING
-  feature:limit-udp-offload tier:member: NOT_OK, entitled to WORKS(PREM), license -, behavior MISSING
-  feature:limit-udp-offload tier:enterprise: NOT_OK, entitled to WORKS(PREM), license -, behavior MISSING
-  feature:limit-udp-offload tier:debug-member: NOT_OK, entitled to WORKS(PREM), license -, behavior MISSING
-  feature:limit-udp-offload tier:debug-enterprise: NOT_OK, entitled to WORKS(PREM), license -, behavior MISSING
-  feature:limit-srt-offload tier:free: NOT_OK, entitled to WORKS(PREM), license -, behavior MISSING
-  feature:limit-srt-offload tier:member: NOT_OK, entitled to WORKS(PREM), license -, behavior MISSING
-  feature:limit-srt-offload tier:enterprise: NOT_OK, entitled to WORKS(PREM), license -, behavior MISSING
-  feature:limit-srt-offload tier:debug-member: NOT_OK, entitled to WORKS(PREM), license -, behavior MISSING
-  feature:limit-srt-offload tier:debug-enterprise: NOT_OK, entitled to WORKS(PREM), license -, behavior MISSING
-  feature:limit-sip-offload tier:free: NOT_OK, entitled to WORKS(PREM), license -, behavior MISSING
-  feature:limit-sip-offload tier:member: NOT_OK, entitled to WORKS(PREM), license -, behavior MISSING
-  feature:limit-sip-offload tier:enterprise: NOT_OK, entitled to WORKS(PREM), license -, behavior MISSING
-  feature:limit-sip-offload tier:debug-member: NOT_OK, entitled to WORKS(PREM), license -, behavior MISSING
-  feature:limit-sip-offload tier:debug-enterprise: NOT_OK, entitled to WORKS(PREM), license -, behavior MISSING
+PASS: every cell is OK
 
 Legend:
   A cell reads verdict/license/behavior.
